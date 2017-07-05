@@ -32,8 +32,8 @@ class FamiliaEmigraInline(admin.TabularInline):
 class AfiliadoAdmin(admin.ModelAdmin):
     inlines = [EscolaridadInline,ProfesionInline,PersonasDependenInline,
                 DatosFamiliaresInline,FamiliaEmigraInline]
-    search_fields = ['nombre',]
-    list_filter = ['municipio','comunidad','sexo']
+    search_fields = ['nombre','municipio','comunidad']
+    list_filter = ['sexo',]
     list_display = ['nombre','cedula','municipio','comunidad']
 
 admin.site.register(Afiliado,AfiliadoAdmin)
@@ -89,15 +89,49 @@ class VendeProduccionInline(admin.TabularInline):
     max_num = 1
     can_delete = False
 
+class ManoObraInline(admin.TabularInline):
+    model = ManoObra
+    max_num = 1
+    can_delete = False
+
+class TablaEmpleoInline(admin.TabularInline):
+    model = TablaEmpleo
+    extra = 1
+
+class InfraestructuraInline(admin.TabularInline):
+    model = Infraestructura
+    extra = 1
+
+class CotizacionInline(admin.TabularInline):
+    model = Cotizacion
+    max_num = 1
+    can_delete = False
+
+class RespuestaSiCotizaInline(admin.TabularInline):
+    model = RespuestaSiCotiza
+    max_num = 1
+    can_delete = False
+
+class RespuestaSiCotizaInline(admin.TabularInline):
+    model = RespuestaSiCotiza
+    max_num = 1
+    can_delete = False
+
+class CreditoInline(admin.TabularInline):
+    model = Credito
+    max_num = 1
+    can_delete = False
+
+class CotizacionOrganizacionInline(admin.TabularInline):
+    model = CotizacionOrganizacion
+    max_num = 1
+    can_delete = False
+
 class EncuestaAdmin(admin.ModelAdmin):
     inlines = [AreasFincaInline,OtrasTierrasInline,OrigenPropiedadInline,FormaTenenciaInline,
-                DocumentoPropiedadInline,SistemaAguaInline,InventarioAnimalesInline,ProduccionHuevosLecheInline,
-                AgriculturaInline,VendeProduccionInline]
+                DocumentoPropiedadInline,SistemaAguaInline,InventarioAnimalesInline,
+                ProduccionHuevosLecheInline,AgriculturaInline,VendeProduccionInline,ManoObraInline,
+                TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
+                CreditoInline,CotizacionOrganizacionInline]
 
 admin.site.register(Encuesta,EncuestaAdmin)
-admin.site.register(Areas)
-admin.site.register(Origen)
-admin.site.register(Documento)
-admin.site.register(Sistema)
-admin.site.register(Animales)
-admin.site.register(Cultivo)

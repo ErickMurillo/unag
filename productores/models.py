@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from lugar.models import *
+from configuracion.models import *
 from smart_selects.db_fields import ChainedForeignKey
 from multiselectfield import MultiSelectField
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -31,9 +32,16 @@ class Afiliado(models.Model):
     tipo_celular = models.CharField(max_length=20,choices=CELULAR_CHOICES)
     acceso_internet = models.CharField(max_length=2,choices=SI_NO_CHOICES)
     estado_civil = models.CharField(max_length=20,choices=ESTADO_CIVIL_CHOICES)
+    edad = models.IntegerField(editable=False)
 
     class Meta:
         verbose_name_plural = 'I. Datos generales del/la afiliado/a'
+
+    def save(self, *args, **kwargs):
+        #calcular edad a partir de fecha nacimiento
+        today = date.today()
+        self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
+        super(Afiliado, self).save(*args, **kwargs)
 
 ESCOLARIDAD_CHOICES = (('Alfabetizado','Alfabetizado'), ('Lee y Escribe','Lee y Escribe'), ('Primaria','Primaria'),
                         ('Secundaria','Secundaria'), ('Universitario','Universitario'))
@@ -68,17 +76,26 @@ class DatosFamiliares(models.Model):
     afiliado = models.ForeignKey(Afiliado)
     nombres = models.CharField(max_length=300)
     sexo = models.CharField(max_length=20,choices=SEXO_CHOICES)
-    edad =  models.IntegerField()
+    fecha_nacimiento =  models.DateField()
     escolaridad = models.CharField(max_length=300,verbose_name='Escolaridad (Último año de escolaridad)')
     parentesco = models.CharField(max_length=200)
+    edad = models.IntegerField(editable=False)
 
     class Meta:
         verbose_name_plural = 'Datos Familiares'
 
+    def save(self, *args, **kwargs):
+        #calcular edad a partir de fecha nacimiento
+        today = date.today()
+        self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
+        super(DatosFamiliares, self).save(*args, **kwargs)
+
 EMIGRAN_CHOICES = (('Local','Local'),('Nacional','Nacional'),('Centroamérica','Centroamérica'), 
                     ('Internacional','Internacional'))
 
-TIEMPO_CHOICES = (('',''),('',''))
+TIEMPO_CHOICES = (('< 1 mes','< 1 mes'),('1-3 meses','1-3 meses'),('4-6 meses','4-6 meses'),
+                    ('7-12 meses','7-12 meses'),('> 12 meses','> 12 meses'))
+
 MESES_CHOICES = (('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abril','Abril'),
                 ('Mayo','Mayo'),('Junio','Junio'),('Julio','Julio'),('Agosto','Agosto'),
                 ('Septiembre','Septiembre'),('Octubre','Octubre'),('Noviembre','Noviembre'),
@@ -110,16 +127,6 @@ class Encuesta(models.Model):
     class Meta:
         verbose_name_plural = 'II. Encuestas'
 
-class Areas(models.Model):
-    nombre = models.CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name = 'Área'
-        verbose_name_plural = 'Áreas'
-
 class AreasFinca(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     areas = models.ForeignKey(Areas)
@@ -136,15 +143,6 @@ class OtrasTierras(models.Model):
     class Meta:
         verbose_name_plural = 'Otras tierras que trabaja (Mzs)'
 
-class Origen(models.Model):
-    nombre = models.CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name_plural = 'Origen de la Propiedad'
-
 class OrigenPropiedad(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     opcion = models.ForeignKey(Origen)
@@ -159,30 +157,12 @@ class FormaTenencia(models.Model):
     class Meta:
         verbose_name_plural = 'Forma de Tenencia'
 
-class Documento(models.Model):
-    nombre = models.CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name_plural = 'Documento de propiedad'
-
 class DocumentoPropiedad(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     documento = models.ForeignKey(Documento)
 
     class Meta:
         verbose_name_plural = 'Documento de propiedad que posee'
-
-class Sistema(models.Model):
-    nombre = models.CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name_plural = 'Sistema de Agua'
 
 class SistemaAgua(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -197,15 +177,6 @@ class EnergiaElectrica(models.Model):
 
     class Meta:
         verbose_name_plural = '¿Tiene acceso a Energía Eléctrica?'
-
-class Animales(models.Model):
-    nombre = models.CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name_plural = 'Animales'
 
 class InventarioAnimales(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -231,15 +202,6 @@ class ProduccionHuevosLeche(models.Model):
 
     class Meta:
         verbose_name_plural = 'Producción de huevos y leche'
-
-class Cultivo(models.Model):
-    nombre = models.CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name_plural = 'Cultivos'
 
 CULTIVO_CHOICES = (('Cultivo de primera','Cultivo de primera'),('Cultivo de postrera','Cultivo de postrera'),
                     ('Cultivo de apante','Cultivo de apante'),('Cultivos permanentes (Frutales, Cítricos, …)','Cultivos permanentes (Frutales, Cítricos, …)'),
@@ -273,3 +235,84 @@ class VendeProduccion(models.Model):
         verbose_name_plural = '¿A quién vende su producción?'
 
 
+class ManoObra(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    mano_obra = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+
+    class Meta:
+        verbose_name_plural = '¿Contrata mano de obra?'
+
+class TablaEmpleo(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    rubro = models.ForeignKey(Cultivo)
+    temporal_hombres = models.IntegerField(validators = [MinValueValidator(0)])
+    temporal_mujeres = models.IntegerField(validators = [MinValueValidator(0)])
+    permanente_hombres = models.IntegerField(validators = [MinValueValidator(0)])
+    permanente_mujeres = models.IntegerField(validators = [MinValueValidator(0)])
+    familiar_hombres = models.IntegerField(validators = [MinValueValidator(0)])
+    familiar_mujeres = models.IntegerField(validators = [MinValueValidator(0)])
+
+    class Meta:
+        verbose_name_plural = 'Empleo'
+
+class Infraestructura(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    tipo = models.ForeignKey(Infraestructuras)
+    possee = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+
+class Cotizacion(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+
+    class Meta:
+        verbose_name_plural = '¿Cotiza?'
+
+DESDE_CUANDO_CHOICES = (('Menor 1 año','Menor 1 año'),('Mas de 1 año','Mas de 1 año'))
+
+FRECUENCIA_CHOICES = (('Mensual','Mensual'),('Trimestral','Trimestral'),
+                        ('Semestral','Semestral'),('Anual','Anual'))
+
+class RespuestaSiCotiza(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    donde_cotiza = models.ForeignKey(DondeCotiza)
+    desde_cuando = models.CharField(max_length=25,choices=DESDE_CUANDO_CHOICES)
+    cuanto_cotiza = models.FloatField(validators = [MinValueValidator(0.0)])
+    frecuencia = models.CharField(max_length=25,choices=FRECUENCIA_CHOICES)
+
+    class Meta:
+        verbose_name_plural = 'Si la respuesta es SI'
+
+class MiembroCooperativa(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    cooperativa = models.ForeignKey(Cooperativa,null=True,blank=True)
+
+    class Meta:
+        verbose_name_plural = '¿Es miembro de Cooperativa?'
+
+class BeneficiadoProyecto(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    proyectos = models.ManyToManyField(Proyecto)
+
+    class Meta:
+        verbose_name_plural = '¿Es beneficiado por otros proyectos o programa del gobierno?'
+
+class Credito(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    proyectos = models.ForeignKey(RecibeCredito,blank=True,null=True)
+    formas_recibe_credito = models.ManyToManyField(FormasCredito,blank=True)
+
+    class Meta:
+        verbose_name_plural = '¿Recibe crédito?'
+
+class CotizacionOrganizacion(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    problemas_productor = models.ManyToManyField(ProblemasProductor,verbose_name='Problemas más sentidos como productor',blank=True)
+    acciones_cambio_climatico = models.ManyToManyField(CambioClimatico,verbose_name='Acciones que realiza para enfrentar el cambio climático',blank=True)
+    afiliacion_unag = models.ManyToManyField(AfiliacionUnag,verbose_name='Motivos de Afiliación a la UNAG',blank=True)
+    comentarios = models.TextField(null=True,blank=True)
+
+    class Meta:
+        verbose_name='Cotización y Organización'

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'productores',
     'lugar',
+    'configuracion',
     'smart_selects',
 ]
 
