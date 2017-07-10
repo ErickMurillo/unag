@@ -293,7 +293,7 @@ class MiembroCooperativa(models.Model):
 class BeneficiadoProyecto(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
-    proyectos = models.ManyToManyField(Proyecto)
+    proyectos = models.ManyToManyField(Proyecto,blank=True)
 
     class Meta:
         verbose_name_plural = '¿Es beneficiado por otros proyectos o programa del gobierno?'

@@ -117,6 +117,16 @@ class RespuestaSiCotizaInline(admin.TabularInline):
     max_num = 1
     can_delete = False
 
+class MiembroCooperativaInline(admin.TabularInline):
+    model = MiembroCooperativa
+    max_num = 1
+    can_delete = False
+
+class BeneficiadoProyectoInline(admin.TabularInline):
+    model = BeneficiadoProyecto
+    max_num = 1
+    can_delete = False
+
 class CreditoInline(admin.TabularInline):
     model = Credito
     max_num = 1
@@ -132,6 +142,12 @@ class EncuestaAdmin(admin.ModelAdmin):
                 DocumentoPropiedadInline,SistemaAguaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,VendeProduccionInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
-                CreditoInline,CotizacionOrganizacionInline]
+                BeneficiadoProyectoInline,MiembroCooperativaInline,CreditoInline,CotizacionOrganizacionInline]
+
+    class Media:
+        css = {
+            'all': ('css/admin.css',)
+        }
+        js = ('js/admin.js',)
 
 admin.site.register(Encuesta,EncuestaAdmin)
