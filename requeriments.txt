@@ -2,4 +2,7 @@ Django==1.11.3
 django-flat-responsive==1.4.1
 django-multiselectfield==0.1.7
 django-smart-selects==1.5.2
+olefile==0.44
+Pillow==4.2.1
 pytz==2017.2
+sorl-thumbnail==12.3

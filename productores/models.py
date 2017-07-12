@@ -7,6 +7,7 @@ from configuracion.models import *
 from smart_selects.db_fields import ChainedForeignKey
 from multiselectfield import MultiSelectField
 from django.core.validators import MaxValueValidator, MinValueValidator
+from sorl.thumbnail import ImageField
 
 # Create your models here.
 SEXO_CHOICES = (('Femenino','Femenino'), ('Masculino','Masculino'))
@@ -26,13 +27,11 @@ class Afiliado(models.Model):
     cedula = models.CharField(max_length=20,verbose_name='Cédula',null=True,blank=True,unique=True)
     sexo = models.CharField(max_length=20,choices=SEXO_CHOICES)
     fecha_nacimiento = models.DateField()
-    lugar_nacimiento = models.ForeignKey(Departamento)
-    anio_ingreso = models.IntegerField()
+    lugar_nacimiento = models.CharField(max_length=250)
+    foto = ImageField(upload_to='productores/',blank=True, null=True)
+    anio_ingreso = models.IntegerField(verbose_name='Año ingreso')
     numero_celular = models.CharField(max_length=20)
     tipo_celular = models.CharField(max_length=20,choices=CELULAR_CHOICES)
-    acceso_internet = models.CharField(max_length=2,choices=SI_NO_CHOICES)
-    estado_civil = models.CharField(max_length=20,choices=ESTADO_CIVIL_CHOICES)
-    edad = models.IntegerField(editable=False)
 
     class Meta:
         verbose_name_plural = 'I. Datos generales del/la afiliado/a'
@@ -43,11 +42,35 @@ class Afiliado(models.Model):
         self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
         super(Afiliado, self).save(*args, **kwargs)
 
+class Encuesta(models.Model):
+    afiliado = models.ForeignKey(Afiliado)
+    fecha_encuesta = models.DateField()
+    anio = models.IntegerField(editable=False)
+
+    def __unicode__(self):
+        return self.afiliado.nombre
+
+    def save(self, *args, **kwargs):
+        self.anio = self.fecha_encuesta.year
+        super(Encuesta, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'II. Encuestas'
+
+class DatosGenerales(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    acceso_internet = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    estado_civil = models.CharField(max_length=20,choices=ESTADO_CIVIL_CHOICES)
+    edad = models.IntegerField(editable=False)
+
+    class Meta:
+        verbose_name_plural = 'Datos generales'
+
 ESCOLARIDAD_CHOICES = (('Alfabetizado','Alfabetizado'), ('Lee y Escribe','Lee y Escribe'), ('Primaria','Primaria'),
                         ('Secundaria','Secundaria'), ('Universitario','Universitario'))
 
 class Escolaridad(models.Model):
-    afiliado = models.ForeignKey(Afiliado)
+    encuesta = models.ForeignKey(Encuesta)
     escolaridad = models.CharField(max_length=20,choices=ESCOLARIDAD_CHOICES)
     respuesta = models.CharField(max_length=20,choices=SI_NO_CHOICES)
 
@@ -55,7 +78,7 @@ class Escolaridad(models.Model):
         verbose_name = 'Escolaridad'
 
 class Profesion(models.Model):
-    afiliado = models.ForeignKey(Afiliado)
+    encuesta = models.ForeignKey(Encuesta)
     profecion = models.CharField(max_length=200)
 
     class Meta:
@@ -65,7 +88,7 @@ PERSONAS_CHOICES = (('Adultos: Hombres','Adultos: Hombres'),('Adultos: Mujeres',
                     ('Niñas menores de 12 años','Niñas menores de 12 años'),('Niños menores de 12 años','Niños menores de 12 años'))
 
 class PersonasDependen(models.Model):
-    afiliado = models.ForeignKey(Afiliado)
+    encuesta = models.ForeignKey(Encuesta)
     opcion = models.CharField(max_length=25,choices=PERSONAS_CHOICES)
     cantidad = models.IntegerField()
 
@@ -73,7 +96,7 @@ class PersonasDependen(models.Model):
         verbose_name = 'Personas que dependen del afiliado'
 
 class DatosFamiliares(models.Model):
-    afiliado = models.ForeignKey(Afiliado)
+    encuesta = models.ForeignKey(Encuesta)
     nombres = models.CharField(max_length=300)
     sexo = models.CharField(max_length=20,choices=SEXO_CHOICES)
     fecha_nacimiento =  models.DateField()
@@ -102,7 +125,7 @@ MESES_CHOICES = (('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abr
                 ('Diciembre','Diciembre'))
 
 class FamiliaEmigra(models.Model):
-    afiliado = models.ForeignKey(Afiliado)
+    encuesta = models.ForeignKey(Encuesta)
     hombres = models.IntegerField()
     mujeres = models.IntegerField()
     donde_emigran = models.CharField(max_length=25,choices=EMIGRAN_CHOICES)
@@ -111,21 +134,6 @@ class FamiliaEmigra(models.Model):
 
     class Meta:
         verbose_name_plural = 'Cuántos miembros de la familia emigran'
-
-class Encuesta(models.Model):
-    afiliado = models.ForeignKey(Afiliado)
-    fecha_encuesta = models.DateField()
-    anio = models.IntegerField(editable=False)
-
-    def __unicode__(self):
-        return self.afiliado.nombre
-
-    def save(self, *args, **kwargs):
-        self.anio = self.fecha_encuesta.year
-        super(Encuesta, self).save(*args, **kwargs)
-
-    class Meta:
-        verbose_name_plural = 'II. Encuestas'
 
 class AreasFinca(models.Model):
     encuesta = models.ForeignKey(Encuesta)

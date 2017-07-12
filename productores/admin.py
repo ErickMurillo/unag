@@ -5,6 +5,18 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
+class AfiliadoAdmin(admin.ModelAdmin):
+    search_fields = ['nombre','municipio','comunidad']
+    list_filter = ['sexo',]
+    list_display = ['nombre','cedula','municipio','comunidad']
+
+admin.site.register(Afiliado,AfiliadoAdmin)
+
+class DatosGeneralesInline(admin.TabularInline):
+    model = DatosGenerales
+    max_num = 1
+    can_delete = False
+
 class EscolaridadInline(admin.TabularInline):
     model = Escolaridad
     extra = 1
@@ -28,15 +40,6 @@ class FamiliaEmigraInline(admin.TabularInline):
     model = FamiliaEmigra
     max_num = 1
     can_delete = False
-
-class AfiliadoAdmin(admin.ModelAdmin):
-    inlines = [EscolaridadInline,ProfesionInline,PersonasDependenInline,
-                DatosFamiliaresInline,FamiliaEmigraInline]
-    search_fields = ['nombre','municipio','comunidad']
-    list_filter = ['sexo',]
-    list_display = ['nombre','cedula','municipio','comunidad']
-
-admin.site.register(Afiliado,AfiliadoAdmin)
 
 class AreasFincaInline(admin.TabularInline):
     model = AreasFinca
@@ -138,7 +141,9 @@ class CotizacionOrganizacionInline(admin.TabularInline):
     can_delete = False
 
 class EncuestaAdmin(admin.ModelAdmin):
-    inlines = [AreasFincaInline,OtrasTierrasInline,OrigenPropiedadInline,FormaTenenciaInline,
+    inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,PersonasDependenInline,
+                DatosFamiliaresInline,FamiliaEmigraInline,AreasFincaInline,
+                OtrasTierrasInline,OrigenPropiedadInline,FormaTenenciaInline,
                 DocumentoPropiedadInline,SistemaAguaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,VendeProduccionInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,

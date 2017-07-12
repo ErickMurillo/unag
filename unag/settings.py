@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'lugar',
     'configuracion',
     'smart_selects',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
