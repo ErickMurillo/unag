@@ -8,6 +8,7 @@ from smart_selects.db_fields import ChainedForeignKey
 from multiselectfield import MultiSelectField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from sorl.thumbnail import ImageField
+import datetime
 
 # Create your models here.
 SEXO_CHOICES = (('Femenino','Femenino'), ('Masculino','Masculino'))
@@ -32,13 +33,17 @@ class Afiliado(models.Model):
     anio_ingreso = models.IntegerField(verbose_name='Año ingreso')
     numero_celular = models.CharField(max_length=20)
     tipo_celular = models.CharField(max_length=20,choices=CELULAR_CHOICES)
+    edad = models.IntegerField(editable=False)
 
     class Meta:
         verbose_name_plural = 'I. Datos generales del/la afiliado/a'
 
+    def __unicode__(self):
+        return self.nombre
+
     def save(self, *args, **kwargs):
         #calcular edad a partir de fecha nacimiento
-        today = date.today()
+        today = datetime.date.today()
         self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
         super(Afiliado, self).save(*args, **kwargs)
 

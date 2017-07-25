@@ -28,25 +28,27 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="../../static_media/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="../../static_media/css/components.css" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="../../static_media/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/css/components.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="/static/css/plugins.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="../../static_media/layouts/layout3/css/layout.css" rel="stylesheet" type="text/css" />
-        <link href="../../static_media/layouts/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
-        <link href="../../static_media/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/layouts/layout3/css/layout.css" rel="stylesheet" type="text/css" />
+        <link href="/static/layouts/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="/static/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <!-- multiselect -->
+        <link href="/static/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> 
     </head>
@@ -81,7 +83,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!-- BEGIN PAGE BREADCRUMBS -->
                                     <ul class="page-breadcrumb breadcrumb">
                                         <li>
-                                            <a href="index.html">Home</a>
+                                            <a href="/">Home</a>
                                             <i class="fa fa-circle"></i>
                                         </li>
                                         <li>
@@ -93,9 +95,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="page-content-inner">
                                         <div class="mt-content-body">
                                             <div class="row justify-content-md-center">
-                                                
+                                                {% if centinela == 0 %}
                                                 <div class="col-md-8 col-md-offset-2">
-                                                   
                                                     <div class="portlet box blue ">
                                                         <div class="portlet-title">
                                                             <div class="caption">
@@ -112,13 +113,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             <div class="form-group">
                                                                                 <label class="col-md-4 control-label">Año</label>
                                                                                 <div class="col-md-8">
-                                                                                    <select class="form-control">
-                                                                                        <option>2017</option>
-                                                                                        <option>Option 2</option>
-                                                                                        <option>Option 3</option>
-                                                                                        <option>Option 4</option>
-                                                                                        <option>Option 5</option>
-                                                                                    </select>
+                                                                                    {{form.anio}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -142,13 +137,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             <div class="form-group">
                                                                                 <label class="col-md-4 control-label">Municipio</label>
                                                                                 <div class="col-md-8">
-                                                                                    <select class="form-control">
-                                                                                        <option>Managua</option>
-                                                                                        <option>Option 2</option>
-                                                                                        <option>Option 3</option>
-                                                                                        <option>Option 4</option>
-                                                                                        <option>Option 5</option>
-                                                                                    </select>
+                                                                                    {{form.municipio}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -156,13 +145,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             <div class="form-group">
                                                                                 <label class="col-md-4 control-label">Comunidad</label>
                                                                                 <div class="col-md-8">
-                                                                                    <select class="form-control">
-                                                                                        <option>Managua</option>
-                                                                                        <option>Option 2</option>
-                                                                                        <option>Option 3</option>
-                                                                                        <option>Option 4</option>
-                                                                                        <option>Option 5</option>
-                                                                                    </select>
+                                                                                    {{form.comunidad}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -172,7 +155,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             <div class="form-group">
                                                                                 <label class="col-md-2 control-label">Sexo</label>
                                                                                 <div class="col-md-10">
-                                                                                    <div class="mt-radio-inline">
+                                                                                {{form.sexo}}
+                                                                                    <!--<div class="mt-radio-inline">
                                                                                         <label class="mt-radio">
                                                                                             <input type="radio" name="optionsRadios" id="optionsRadios25" value="option1" checked> Ambos
                                                                                             <span></span>
@@ -185,10 +169,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                             <input type="radio" name="optionsRadios" id="optionsRadios27" value="option3" disabled> Mujer
                                                                                             <span></span>
                                                                                         </label>
-                                                                                    </div>
+                                                                                    </div>-->
                                                                                 </div>
                                                                             </div>
                                                                        </div> 
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label class="col-md-2 control-label">Rango edad</label>
+                                                                                <div class="col-md-10">
+                                                                                    Inicio {{form.edad_inicio}}  Fin {{form.edad_fin}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                     
                                                                 </div>
@@ -199,9 +193,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </form>
                                                         </div>
                                                     </div>
-                                                  
-
-                                                </div>
+                                                 </div>
+                                                 {% else %}
+                                                                                       
                                                 <div class="col-md-10 col-md-offset-1">
                                                     <!-- BEGIN SAMPLE FORM PORTLET-->
                                                     <div class="portlet box blue ">
@@ -244,14 +238,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         </ul>                                                                   
                                                                         <div class=" row">
 
-                                                                            
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
+                                                                    
                                                                             </div>
                                                                     
                                                                     
@@ -263,6 +250,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <!-- END SAMPLE FORM PORTLET-->
 
                                                 </div>
+                                                {% endif %}
                                             </div>
                                             
                                         </div>
@@ -286,45 +274,131 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/ie8.fix.min.js"></script> 
 <![endif]-->
     <!-- BEGIN CORE PLUGINS -->
-        <script src="../../static_media/plugins/jquery.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/js.cookie.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <script src="../../static_media/plugins/moment.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/morris/morris.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/morris/raphael-min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-        <script src="../../static_media/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+        <script src="/static/plugins/moment.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/morris/morris.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/morris/raphael-min.js" type="text/javascript"></script>
+        <script src="/static/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+        <script src="/static/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+        <script src="/static/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+        <script src="/static/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+        <script src="/static/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+        <script src="/static/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+        <script src="/static/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
-        <script src="../../static_media/scripts/app.min.js" type="text/javascript"></script>
+        <script src="/static/scripts/app.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="../../static_media/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+        <script src="/static/pages/scripts/dashboard.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <script src="../../static_media/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
-        <script src="../../static_media/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
-        <script src="../../static_media/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
-        <script src="../../static_media/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <script src="/static/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="/static/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="/static/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="/static/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+        <!-- js multiselect -->
+        <script src="/static/js/bootstrap-multiselect.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').addClass('form-control');
+
+            $("#id_municipio").addClass("form-control").multiselect({
+              buttonWidth: '100%',
+              includeSelectAllOption: true,
+              selectAllText: "Seleccionar todos",
+              buttonText: function(options, select) {
+                if (options.length === 0) {
+                  return "Sin selección ...";
+                }
+                else if (options.length > 3) {
+                  return "Varias opciones seleccionadas!";
+                }
+                else {
+                  var labels = [];
+                  options.each(function() {
+                    if ($(this).attr('label') !== undefined) {
+                      labels.push($(this).attr('label'));
+                    }
+                    else {
+                      labels.push($(this).html());
+                    }
+                  });
+                  return labels.join(', ') + '';
+                }
+              }
+            });
+
+            $("#id_comunidad").addClass("form-control").multiselect({
+              buttonWidth: '100%',
+              includeSelectAllOption: true,
+              selectAllText: "Seleccionar todos",
+              buttonText: function(options, select) {
+                if (options.length === 0) {
+                  return "Sin selección ...";
+                }
+                else if (options.length > 3) {
+                  return "Varias opciones seleccionadas!";
+                }
+                else {
+                  var labels = [];
+                  options.each(function() {
+                    if ($(this).attr('label') !== undefined) {
+                      labels.push($(this).attr('label'));
+                    }
+                    else {
+                      labels.push($(this).html());
+                    }
+                  });
+                  return labels.join(', ') + '';
+                }
+              }
+            });
+
+            var foo = [];
+            $(document).on('change','#id_municipio',function(){
+              $('#id_municipio :selected').each(function(i, selected){
+                foo[i] = $(selected).val();
+                $('#id_comunidad').multiselect('rebuild');
+              });
+              $.getJSON('/ajax/comunidades/?ids='+foo.join(","), function(data){
+                $('#id_comunidad').html('');
+                $('#id_comunidad').multiselect('enable');
+                $("#id_comunidad").multiselect('refresh');
+                var comunidad = $('#id_comunidad');
+                if(data){
+                  $.each(data, function(i, item){
+
+                    $.each(item, function(j, item2){
+                      var group = $('<optgroup></optgroup>').attr('label', j);
+                      $.each(item2, function(k, item3){
+                        group.append($('<option></option>').val(item3.id).html(item3.nombre));
+                      });
+                      group.appendTo(comunidad);
+                      $('#id_comunidad').multiselect('rebuild');
+                    });
+                  });
+                }
+              });
+            });
+        });
+        </script>
     <!-- END THEME LAYOUT SCRIPTS -->
     </body>
 

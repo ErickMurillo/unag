@@ -17,8 +17,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from productores.views import *
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^chaining/', include('smart_selects.urls')),
+    url(r'^login/$', auth_views.login, {'template_name': 'frontend/login.html'}),
+    url(r'^logout/$', auth_views.logout,{'next_page': '/'}),
+    url(r'^$', index, name='index'),
+    url(r'^consulta/$', consulta, name='consulta'),
+    url(r'^ajax/comunidades/$', get_comunies, name='get-comunies'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
