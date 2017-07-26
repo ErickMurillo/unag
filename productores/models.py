@@ -80,14 +80,14 @@ class Escolaridad(models.Model):
     respuesta = models.CharField(max_length=20,choices=SI_NO_CHOICES)
 
     class Meta:
-        verbose_name = 'Escolaridad'
+        verbose_name_plural = 'Escolaridad afiliado'
 
 class Profesion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     profecion = models.CharField(max_length=200)
 
     class Meta:
-        verbose_name = 'Profesión'
+        verbose_name_plural = 'Profesión'
 
 PERSONAS_CHOICES = (('Adultos: Hombres','Adultos: Hombres'),('Adultos: Mujeres','Adultos: Mujeres'),
                     ('Niñas menores de 12 años','Niñas menores de 12 años'),('Niños menores de 12 años','Niños menores de 12 años'))
@@ -98,7 +98,7 @@ class PersonasDependen(models.Model):
     cantidad = models.IntegerField()
 
     class Meta:
-        verbose_name = 'Personas que dependen del afiliado'
+        verbose_name_plural = 'Personas que dependen del afiliado'
 
 class DatosFamiliares(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -114,7 +114,7 @@ class DatosFamiliares(models.Model):
 
     def save(self, *args, **kwargs):
         #calcular edad a partir de fecha nacimiento
-        today = date.today()
+        today = datetime.date.today()
         self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
         super(DatosFamiliares, self).save(*args, **kwargs)
 

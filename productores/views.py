@@ -32,7 +32,7 @@ def _queryset_filtrado(request):
         params['afiliado__sexo'] = request.session['sexo']
 
     if request.session['edad_inicio'] and request.session['edad_fin']:
-        params['edad__range'] = (request.session['edad_inicio'],request.session['edad_fin'])
+        params['afiliado__edad__range'] = (request.session['edad_inicio'],request.session['edad_fin'])
 
 	unvalid_keys = []
 	for key in params:
@@ -51,7 +51,6 @@ def consulta(request,template="frontend/consulta.html"):
         form = EncuestaForm(request.POST)
         if form.is_valid():
             request.session['anio'] = form.cleaned_data['anio']
-            request.session['pais'] = form.cleaned_data['pais']
             # request.session['departamento'] = form.cleaned_data['departamento']
             request.session['municipio'] = form.cleaned_data['municipio']
             request.session['comunidad'] = form.cleaned_data['comunidad']
@@ -62,14 +61,14 @@ def consulta(request,template="frontend/consulta.html"):
             mensaje = "Todas las variables estan correctamente :)"
             request.session['activo'] = True
             centinela = 1
+        else:
+            centinela = 0
 
     else:
-    	centinela = 0
         form = EncuestaForm()
         mensaje = "Existen alguno errores"
         try:
             del request.session['anio']
-            del request.session['pais']
             # del request.session['departamento']
             del request.session['municipio']
             del request.session['communidad']
@@ -80,6 +79,32 @@ def consulta(request,template="frontend/consulta.html"):
             pass
 
     return render(request, template, locals())
+
+def datos_generales(request,template='frontend/datos_generales.html'):
+	filtro = _queryset_filtrado(request)
+
+	personas = filtro.count()
+
+	escolaridad_mujer = {}
+	total_mujeres = filtro.filter(afiliado__sexo = 'Femenino').count()
+	for obj in ESCOLARIDAD_CHOICES:
+		conteo = filtro.filter(escolaridad__escolaridad = obj[0],afiliado__sexo = 'Femenino').count()
+		escolaridad_mujer[obj[0]] = conteo,saca_porcentajes(conteo,total_mujeres)
+
+	escolaridad_hombre = {}
+	total_hombres = filtro.filter(afiliado__sexo = 'Masculino').count()
+	for obj in ESCOLARIDAD_CHOICES:
+		conteo = filtro.filter(escolaridad__escolaridad = obj[0],afiliado__sexo = 'Masculino').count()
+		escolaridad_hombre[obj[0]] = conteo,saca_porcentajes(conteo,total_hombres)
+	print escolaridad_hombre
+
+	#miembros que dependen del jefe
+	personas_dependen = {}
+	for obj in PERSONAS_CHOICES:
+		conteo = filtro.filter(personasdependen__opcion = obj[0]).count()
+		personas_dependen[obj[0]] = conteo
+		
+	return render(request, template, locals())
 
 #ajax
 def get_comunies(request):
@@ -105,3 +130,16 @@ def get_comunies(request):
     resultado.append(dicc)
 
     return HttpResponse(simplejson.dumps(resultado), content_type = 'application/json')
+
+def saca_porcentajes(dato, total, formato=True):
+	if dato != None:
+		try:
+			porcentaje = (dato/float(total)) * 100 if total != None or total != 0 else 0
+		except:
+			return 0
+		if formato:
+			return porcentaje
+		else:
+			return '%.2f' % porcentaje
+	else:
+		return 0

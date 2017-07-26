@@ -19,8 +19,8 @@ class DatosGeneralesInline(admin.TabularInline):
 
 class EscolaridadInline(admin.TabularInline):
     model = Escolaridad
-    extra = 1
-    max_num = 5
+    can_delete = False
+    max_num = 1
 
 class ProfesionInline(admin.TabularInline):
     model = Profesion

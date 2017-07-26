@@ -1,0 +1,284 @@
+{% extends "frontend/indicador_template.html" %}
+
+{% block content %}
+<!-- BEGIN CONTENT BODY -->
+<!-- BEGIN PAGE HEAD-->
+<div class="page-head">
+	<div class="container">
+		<!-- BEGIN PAGE TITLE -->
+		<div class="page-title">
+			<h1>Datos Generales
+				<!-- <small>dashboard & statistics</small> -->
+			</h1>
+		</div>
+		<!-- END PAGE TITLE -->
+		<!-- BEGIN PAGE TOOLBAR -->
+		<div class="page-toolbar">
+			<!-- BEGIN THEME PANEL -->
+			<div class="btn-group btn-theme-panel">
+				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-filter"></i>
+				</a>
+				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-bars"></i>
+				</a>
+				<div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<h3>Indicadores</h3>
+							<div class="row">
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<ul class="theme-colors">
+										<li class="theme-color">Indicador 1</li>
+										<li class="theme-color">Indicador 2</li>
+										<li class="theme-color">Indicador 3</li>
+										<li class="theme-color">Indicador 4</li>
+										<li class="theme-color">Indicador 5</li>
+
+									</ul>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<ul class="theme-colors">
+										<li class="theme-color">Indicador 1</li>
+										<li class="theme-color">Indicador 2</li>
+										<li class="theme-color">Indicador 3</li>
+										<li class="theme-color">Indicador 4</li>
+										<li class="theme-color">Indicador 5</li>
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END THEME PANEL -->
+		</div>
+		<!-- END PAGE TOOLBAR -->
+	</div>
+</div>
+<!-- END PAGE HEAD-->
+<!-- BEGIN PAGE CONTENT BODY -->
+<div class="page-content">
+	<div class="container">
+		<!-- BEGIN PAGE BREADCRUMBS -->
+		<ul class="page-breadcrumb breadcrumb">
+			<li>
+				<a href="/">Inicio</a>
+				<i class="fa fa-circle"></i>
+			</li>
+			<li>
+				<span>Datos Generales</span>
+			</li>
+		</ul>
+		<!-- END PAGE BREADCRUMBS -->
+		<!-- BEGIN PAGE CONTENT INNER -->
+		<div class="page-content-inner">
+			<div class="mt-content-body">
+				<div class="row">
+
+					<div class="col-md-12 col-sm-12">
+						<div class="portlet light ">
+							<div class="portlet-title tabbable-line">
+								<div class="caption">
+									<i class="icon-globe font-dark hide"></i>
+									<span class="caption-subject font-green-steel bold uppercase">Escolaridad de afiliados</span>
+									<span class="caption-helper">{{personas}} Personas</span>
+								</div>
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a href="#tab_1_1" aria-controls="tab_1_1" role="tab" data-toggle="tab"> Hombres </a>
+									</li>
+									<li>
+										<a href="#tab_1_2" aria-controls="tab_1_2" role="tab" data-toggle="tab"> Mujeres </a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="portlet-body tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="tab_1_1">
+                                    <div class="grafico-ind" id="escolaridad-hombre" width='100%'></div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="tab_1_2">
+                                    <div class="grafico-ind" id="escolaridad-mujer" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Miembros que dependen del afiliado</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="dependen" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- END PAGE CONTENT INNER -->
+    </div>
+</div>
+<!-- END PAGE CONTENT BODY -->
+<!-- END CONTENT BODY -->
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    $(function () {
+        $('#escolaridad-mujer').highcharts({
+           chart: {
+              type: 'column'
+          },
+          title: {
+              text: ''
+          },
+          yAxis: {
+              title: {
+                 text: 'Valores'
+             }
+         },
+         credits: {
+          enabled: false
+      },
+      yAxis: {
+          min: 0,
+          title: {
+             text: 'Porcentajes (%)'
+         }
+     },
+     tooltip: {
+      formatter: function() {
+         return ''+
+         this.series.name +': '+ this.y +'%';
+     }
+ },
+ series: [
+ {% for k,v in escolaridad_mujer.items %}
+ {
+  name: '{{k}} ({{v.0}})',
+  data: [{{v.1}}],
+  dataLabels: {
+     enabled: true,
+     rotation: 0,
+     color: '#632D00',
+     align: 'center',
+     x: -3,
+     y: 0,
+     formatter: function() {
+        return this.y + '%';
+    },
+    style: {
+        font: 'normal 13px Verdana, sans-serif'
+    }
+}
+},
+{% endfor %}
+]
+});
+
+        $('#escolaridad-hombre').highcharts({
+          chart: {
+             type: 'column'
+         },
+         title: {
+             text: ''
+         },
+         yAxis: {
+             title: {
+                text: 'Valores'
+            }
+        },
+        credits: {
+         enabled: false
+     },
+     yAxis: {
+         min: 0,
+         title: {
+            text: 'Porcentajes (%)'
+        }
+    },
+    tooltip: {
+     formatter: function() {
+        return ''+
+        this.series.name +': '+ this.y +'%';
+    }
+},
+series: [
+{% for k,v in escolaridad_hombre.items %}
+{
+ name: '{{k}} ({{v.0}})',
+ data: [{{v.1}}],
+ dataLabels: {
+    enabled: true,
+    rotation: 0,
+    color: '#632D00',
+    align: 'center',
+    x: -3,
+    y: 0,
+    formatter: function() {
+       return this.y + '%';
+   },
+   style: {
+       font: 'normal 13px Verdana, sans-serif'
+   }
+}
+},
+{% endfor %}
+
+]
+});
+
+
+    });
+    Highcharts.chart('dependen', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Porcentajes',
+            colorByPoint: true,
+            data: [
+            {% for k,v in personas_dependen.items %}
+            {
+                name: '{{k}}',
+                y: {{v}}
+            },
+            {% endfor %}]
+        }]
+    });
+</script>
+{% endblock extra_js %}

@@ -28,5 +28,7 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^consulta/$', consulta, name='consulta'),
     url(r'^ajax/comunidades/$', get_comunies, name='get-comunies'),
+    url(r'^datos-generales/$', datos_generales, name='datos-generales'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

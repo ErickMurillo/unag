@@ -83,7 +83,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!-- BEGIN PAGE BREADCRUMBS -->
                                     <ul class="page-breadcrumb breadcrumb">
                                         <li>
-                                            <a href="/">Home</a>
+                                            <a href="/">Inicio</a>
                                             <i class="fa fa-circle"></i>
                                         </li>
                                         <li>
@@ -95,7 +95,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="page-content-inner">
                                         <div class="mt-content-body">
                                             <div class="row justify-content-md-center">
-                                                {% if centinela == 0 %}
                                                 <div class="col-md-8 col-md-offset-2">
                                                     <div class="portlet box blue ">
                                                         <div class="portlet-title">
@@ -106,7 +105,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             
                                                         </div>
                                                         <div class="portlet-body form">
-                                                            <form class="form-horizontal" role="form">
+                                                            <form class="form-horizontal" action="." method="post" role="form">{% csrf_token %}
                                                                 <div class="form-body">
                                                                     <div class="row">
                                                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -188,13 +187,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </div>
                                                                 <div class="form-actions right1">
                                                                     <button type="button" class="btn default">Cancelar</button>
-                                                                    <button type="submit" class="btn green">Consultar</button>
+                                                                    <input type="submit" name="consulta" value="Consultar" class="btn green">
                                                                 </div>
                                                             </form>
                                                         </div>
                                                     </div>
                                                  </div>
-                                                 {% else %}
+                                                 {% if centinela == 1 %}
                                                                                        
                                                 <div class="col-md-10 col-md-offset-1">
                                                     <!-- BEGIN SAMPLE FORM PORTLET-->
@@ -211,7 +210,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <div class="form-body">
                                                                         <ul class="indicadores row">
                                                                             <li class="col-md-3">
-                                                                                <button type="button" class="btn green-meadow">Datos Generales</button>
+                                                                                <a href="/datos-generales/" class="btn green-meadow">Datos Generales</a>
                                                                             </li>
                                                                             <li class="col-md-3">
                                                                                 <button type="button" class="btn green-meadow">Datos Familiares</button>

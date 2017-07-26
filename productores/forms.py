@@ -22,6 +22,6 @@ class EncuestaForm(forms.Form):
         # self.fields['departamento'] = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all(),required=False,label='Departamentos')
         self.fields['municipio'] = forms.ModelMultipleChoiceField(queryset=municipios(),required=False,label='Municipios')
         self.fields['comunidad'] = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(),required=False,label='Comunidades')
-        self.fields['sexo'] = forms.ChoiceField(choices=SEXO_CHOICES,required=True,label='Sexo',widget=forms.RadioSelect)
+        self.fields['sexo'] = forms.ChoiceField(choices=SEXO_CHOICES,required=False,label='Sexo',widget=forms.RadioSelect)
         self.fields['edad_inicio'] = forms.IntegerField(required=False,label='Edad inicio')
         self.fields['edad_fin'] = forms.IntegerField(required=False,label='Edad fin')
