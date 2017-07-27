@@ -6,10 +6,16 @@ from django.contrib.auth.decorators import login_required
 from productores.forms import *
 from django.http import HttpResponse
 import json as simplejson
+from django.db.models import Avg, Sum, F
+import collections
 
 # Create your views here.
 @login_required
 def index(request,template='frontend/index.html'):
+	#afiliados
+	total = Afiliado.objects.all().distinct().count()
+	mujeres = Afiliado.objects.filter(sexo = 'Femenino').distinct().count()
+	hombres = Afiliado.objects.filter(sexo = 'Masculino').distinct().count()
 
 	return render(request, template, locals())
 
@@ -89,21 +95,42 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 	total_mujeres = filtro.filter(afiliado__sexo = 'Femenino').count()
 	for obj in ESCOLARIDAD_CHOICES:
 		conteo = filtro.filter(escolaridad__escolaridad = obj[0],afiliado__sexo = 'Femenino').count()
-		escolaridad_mujer[obj[0]] = conteo,saca_porcentajes(conteo,total_mujeres)
+		escolaridad_mujer[obj[0]] = conteo
 
 	escolaridad_hombre = {}
 	total_hombres = filtro.filter(afiliado__sexo = 'Masculino').count()
 	for obj in ESCOLARIDAD_CHOICES:
 		conteo = filtro.filter(escolaridad__escolaridad = obj[0],afiliado__sexo = 'Masculino').count()
-		escolaridad_hombre[obj[0]] = conteo,saca_porcentajes(conteo,total_hombres)
-	print escolaridad_hombre
+		escolaridad_hombre[obj[0]] = conteo
 
 	#miembros que dependen del jefe
 	personas_dependen = {}
 	for obj in PERSONAS_CHOICES:
-		conteo = filtro.filter(personasdependen__opcion = obj[0]).count()
-		personas_dependen[obj[0]] = conteo
-		
+		avg = filtro.filter(personasdependen__opcion = obj[0]).aggregate(avg = Avg('personasdependen__cantidad'))['avg']
+		personas_dependen[obj[0]] = avg
+
+	#hombre y mujeres emigran
+	emigran_h = filtro.aggregate(total = Sum('familiaemigra__hombres'))['total']
+	emigran_m = filtro.aggregate(total = Sum('familiaemigra__mujeres'))['total']
+
+	#destino migrantes
+	migran = {}
+	for obj in EMIGRAN_CHOICES:
+		conteo = filtro.filter(familiaemigra__donde_emigran = obj[0]).count()
+		migran[obj[0]] = conteo
+
+	#periodo de tiepo que migran
+	periodo = {}
+	for obj in TIEMPO_CHOICES:
+		conteo = filtro.filter(familiaemigra__tiempo = obj[0]).count()
+		periodo[obj[0]] = conteo
+
+	#meses que migran
+	meses = collections.OrderedDict()
+	for obj in MESES_CHOICES:
+		conteo = filtro.filter(familiaemigra__meses__contains = obj[0]).count()
+		meses[obj[0]] = conteo
+
 	return render(request, template, locals())
 
 #ajax
