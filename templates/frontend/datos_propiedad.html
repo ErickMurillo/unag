@@ -1,0 +1,175 @@
+{% extends "frontend/indicador_template.html" %}
+
+{% block content %}
+<!-- BEGIN CONTENT BODY -->
+<!-- BEGIN PAGE HEAD-->
+<div class="page-head">
+	<div class="container">
+		<!-- BEGIN PAGE TITLE -->
+		<div class="page-title">
+			<h1>Datos de la Propiedad
+				<!-- <small>dashboard & statistics</small> -->
+			</h1>
+		</div>
+		<!-- END PAGE TITLE -->
+		<!-- BEGIN PAGE TOOLBAR -->
+		<div class="page-toolbar">
+			<!-- BEGIN THEME PANEL -->
+			<div class="btn-group btn-theme-panel">
+				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-filter"></i>
+				</a>
+				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-bars"></i>
+				</a>
+				{% include "frontend/indicadores.html" %}
+			</div>
+			<!-- END THEME PANEL -->
+		</div>
+		<!-- END PAGE TOOLBAR -->
+	</div>
+</div>
+<!-- END PAGE HEAD-->
+<!-- BEGIN PAGE CONTENT BODY -->
+<div class="page-content">
+	<div class="container">
+		<!-- BEGIN PAGE BREADCRUMBS -->
+		<ul class="page-breadcrumb breadcrumb">
+			<li>
+				<a href="/">Inicio</a>
+				<i class="fa fa-circle"></i>
+			</li>
+            <li>
+                <a href="/consulta/">Consulta</a>
+                <i class="fa fa-circle"></i>
+            </li>
+			<li>
+				<span>Datos de la Propiedad</span>
+			</li>
+		</ul>
+		<!-- END PAGE BREADCRUMBS -->
+		<!-- BEGIN PAGE CONTENT INNER -->
+		<div class="page-content-inner">
+			<div class="mt-content-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Área de la finca (Mz)</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="areas_finca" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Destino de migrantes</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="destino-migracion" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Periodo de migración</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="periodo-migracion" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Meses de migración</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="meses" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT INNER -->
+    </div>
+</div>
+<!-- END PAGE CONTENT BODY -->
+<!-- END CONTENT BODY -->
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+Highcharts.chart('areas_finca', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in areas_finca.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}} mz)',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+</script>
+{% endblock extra_js %}

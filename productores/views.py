@@ -109,6 +109,23 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 		avg = filtro.filter(personasdependen__opcion = obj[0]).aggregate(avg = Avg('personasdependen__cantidad'))['avg']
 		personas_dependen[obj[0]] = avg
 
+	#acceso internet
+	internet = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(datosgenerales__acceso_internet = obj[0]).count()
+		internet[obj[0]] = conteo
+
+	#estado civil
+	estado_civil = {}
+	for obj in ESTADO_CIVIL_CHOICES:
+		conteo = filtro.filter(datosgenerales__estado_civil = obj[0]).count()
+		estado_civil[obj[0]] = conteo
+
+	return render(request, template, locals())
+
+def datos_familiares(request,template='frontend/datos_familiares.html'):
+	filtro = _queryset_filtrado(request)
+
 	#hombre y mujeres emigran
 	emigran_h = filtro.aggregate(total = Sum('familiaemigra__hombres'))['total']
 	emigran_m = filtro.aggregate(total = Sum('familiaemigra__mujeres'))['total']
@@ -130,6 +147,24 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 	for obj in MESES_CHOICES:
 		conteo = filtro.filter(familiaemigra__meses__contains = obj[0]).count()
 		meses[obj[0]] = conteo
+
+	return render(request, template, locals())
+
+def datos_propiedad(request,template='frontend/datos_propiedad.html'):
+	filtro = _queryset_filtrado(request)
+
+	#areas
+	areas_finca = {}
+	list_areas = ['Pasto','Agrícola','Forestal','Café','Caña']
+	for obj in Areas.objects.all():
+		if obj.nombre in list_areas:
+			areas = filtro.filter(areasfinca__areas = obj.id).aggregate(suma = Sum('areasfinca__mz'))['suma']
+			areas_finca[obj] = areas
+	try:
+		otras_areas = filtro.aggregate(suma = Sum('areasfinca__mz'))['suma'].exclude(areasfinca__areas__in = list_areas)
+		areas_finca['Otros'] = otras_areas
+	except:
+		areas_finca['Otros'] = 0
 
 	return render(request, template, locals())
 

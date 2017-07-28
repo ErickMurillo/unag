@@ -66,7 +66,7 @@ class DatosGenerales(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     acceso_internet = models.CharField(max_length=2,choices=SI_NO_CHOICES)
     estado_civil = models.CharField(max_length=20,choices=ESTADO_CIVIL_CHOICES)
-    edad = models.IntegerField(editable=False)
+    # edad = models.IntegerField(editable=False)
 
     class Meta:
         verbose_name_plural = 'Datos generales'
