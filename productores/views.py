@@ -166,6 +166,65 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	except:
 		areas_finca['Otros'] = 0
 
+	#otras areas
+	otras_areas_finca = {}
+	list_areas = ['Pasto','Agrícola','Forestal','Café','Caña']
+	for obj in Areas.objects.all():
+		if obj.nombre in list_areas:
+			areas = filtro.filter(otrastierras__areas = obj.id).aggregate(suma = Sum('otrastierras__mz'))['suma']
+			otras_areas_finca[obj] = areas
+	try:
+		otras_areas = filtro.aggregate(suma = Sum('otrastierras__mz'))['suma'].exclude(otrastierras__areas__in = list_areas)
+		otras_areas_finca['Otros'] = otras_areas
+	except:
+		otras_areas_finca['Otros'] = 0
+
+	#origen propiedad
+	propiedad = {}
+	list_origen = ['Comprada','Herencia','Reforma Agraria','Alquilada']
+	for obj in Origen.objects.all():
+		if obj.nombre in list_origen:
+			conteo = filtro.filter(origenpropiedad__opcion = obj.id).count()
+			propiedad[obj] = conteo
+	try:
+		otros_origen = filtro.count().exclude(origenpropiedad__opcion__in = list_origen)
+		propiedad['Otros'] = otros_origen
+	except:
+		propiedad['Otros'] = 0
+
+	#tenencia 
+	tenencia = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(formatenencia__legalizada = obj[0]).count()
+		tenencia[obj[0]] = conteo
+
+	#documento propiedad
+	doc_propiedad = {}
+	list_doc = ['Constancia de asignación','Titulo supletorio','Titulo de Reforma agraria','Escritura pública']
+	for obj in Documento.objects.all():
+		if obj.nombre in list_doc:
+			conteo = filtro.filter(documentopropiedad__documento = obj.id).count()
+			doc_propiedad[obj] = conteo
+	try:
+		otros_doc = filtro.count().exclude(documentopropiedad__documento__in = list_doc)
+		doc_propiedad['Otros'] = otros_doc
+	except:
+		doc_propiedad['Otros'] = 0
+
+	#acceso agua
+	encuestados = filtro.count()
+	acceso_agua = {}
+	list_agua = ['Ojo de Agua','Pozo','Quebrada','Agua potable/Acueducto','Río']
+	for obj in Sistema.objects.all():
+		if obj.nombre in list_agua:
+			conteo = filtro.filter(sistemaagua__sistema = obj.id).count()
+			acceso_agua[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+	try:
+		otros_agua = filtro.count().exclude(sistemaagua__sistema__in = list_agua)
+		acceso_agua['Otros'] = otros_agua,saca_porcentajes(otros_agua,encuestados,False)
+	except:
+		acceso_agua['Otros'] = 0
+
 	return render(request, template, locals())
 
 #ajax
