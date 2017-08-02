@@ -269,6 +269,9 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 
 	return render(request, template, locals())
 
+def datos_produccion(request,template='frontend/datos_produccion.html'):
+	return render(request, template, locals())
+
 #ajax
 def get_comunies(request):
     ids = request.GET.get('ids', '')
