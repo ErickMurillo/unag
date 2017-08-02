@@ -156,6 +156,104 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Acceso a Energía Eléctrica</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="energia" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Contratan mano de obra</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="mano_obra" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Empleo</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Rubro</th>
+                                                <th>Temporal Hombres</th>
+                                                <th>Temporal Mujeres</th>
+                                                <th>Permanente Hombres</th>
+                                                <th>Permanente Hombres</th>
+                                                <th>Familiar Hombres</th>
+                                                <th>Familiar Hombres</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in list_contratacion %}
+                                            <tr>                                                    
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1}}</td>
+                                                <td>{{obj.2}}</td>
+                                                <td>{{obj.3}}</td>
+                                                <td>{{obj.4}}</td>
+                                                <td>{{obj.5}}</td>
+                                                <td>{{obj.6}}</td>
+                                            </tr>          
+                                        {% endfor %}                
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Infraestructura</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="infra" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- END PAGE CONTENT INNER -->
@@ -415,6 +513,126 @@ Highcharts.chart('agua', {
         ]
     }],
 
+});
+
+Highcharts.chart('energia', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in energia.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('mano_obra', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in mano_obra.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('infra', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in infra.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
 });
 </script>
 {% endblock extra_js %}

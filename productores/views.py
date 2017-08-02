@@ -225,6 +225,48 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	except:
 		acceso_agua['Otros'] = 0
 
+	#energia 
+	energia = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(energiaelectrica__respuesta = obj[0]).count()
+		energia[obj[0]] = conteo
+
+	#contrata mano obra
+	mano_obra = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(manoobra__mano_obra = obj[0]).count()
+		mano_obra[obj[0]] = conteo
+
+	#contratacion
+	list_contratacion = []
+	rubro = filtro.values_list('tablaempleo__rubro__nombre',flat=True).distinct()
+	for obj in rubro:
+		cont = filtro.filter(tablaempleo__rubro__nombre = obj).aggregate(
+				temporal_hombres = Sum('tablaempleo__temporal_hombres'),
+				temporal_mujeres = Sum('tablaempleo__temporal_mujeres'),
+				permanente_hombres = Sum('tablaempleo__permanente_hombres'),
+				permanente_mujeres = Sum('tablaempleo__permanente_mujeres'),
+				familiar_hombres = Sum('tablaempleo__familiar_hombres'),
+				familiar_mujeres = Sum('tablaempleo__familiar_mujeres'))
+
+		list_contratacion.append((obj,cont['temporal_hombres'],cont['temporal_mujeres'],
+									cont['permanente_hombres'],cont['permanente_mujeres'],
+									cont['familiar_hombres'],cont['familiar_mujeres']))
+
+	#infraestructura
+	infra = {}
+	list_infra = ['Troja','Gallinero','Corral','Chiquero','Edificio de café','Horno','Letrina',
+					'Pilas para agua']
+	for obj in Infraestructuras.objects.all():
+		if obj.nombre in list_infra:
+			conteo = filtro.filter(infraestructura__tipo = obj.id,infraestructura__possee = 'Si').count()
+			infra[obj] = conteo
+	try:
+		otros_infra = filtro.count().exclude(infraestructura__tipo__in = list_infra,infraestructura__possee = 'Si')
+		infra['Otros'] = otros_infra
+	except:
+		infra['Otros'] = 0
+
 	return render(request, template, locals())
 
 #ajax

@@ -144,7 +144,7 @@ class EncuestaAdmin(admin.ModelAdmin):
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,PersonasDependenInline,
                 DatosFamiliaresInline,FamiliaEmigraInline,AreasFincaInline,
                 OtrasTierrasInline,OrigenPropiedadInline,FormaTenenciaInline,
-                DocumentoPropiedadInline,SistemaAguaInline,InventarioAnimalesInline,
+                DocumentoPropiedadInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,VendeProduccionInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
                 BeneficiadoProyectoInline,MiembroCooperativaInline,CreditoInline,CotizacionOrganizacionInline]
