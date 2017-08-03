@@ -57,13 +57,31 @@
                             <div class="portlet-title tabbable-line">
                                 <div class="caption">
                                     <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Área de la finca (Mz)</span>
+                                    <span class="caption-subject font-green-steel bold uppercase">Inventario de animales</span>
                                 </div>
                             </div>
 
                             <div class="portlet-body">
                                 <div class="map">
-                                    <div class="grafico-ind" id="areas_finca" width='100%'></div>
+                                   <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Animales</th>
+                                                <th>Cantidad</th>
+                                                <th>Cuanto venden</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in animales %}
+                                            <tr>                                                    
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1|default:"0"}}</td>
+                                                <td>{{obj.2|default:"0"}}</td>
+                                            </tr>          
+                                        {% endfor %}                
+                                            
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -74,13 +92,180 @@
                             <div class="portlet-title tabbable-line">
                                 <div class="caption">
                                     <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Otras tierras que cultivan (Mz)</span>
+                                    <span class="caption-subject font-green-steel bold uppercase">Producción de huevos y leche</span>
                                 </div>
                             </div>
 
                             <div class="portlet-body">
                                 <div class="map">
-                                    <div class="grafico-ind" id="otras_areas_finca" width='100%'></div>
+                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                            	<th rowspan="5"></th>
+                                            </tr>
+                                            <tr>
+                                            	<th>Cantidad</th>
+                                                <th>Cuanto venden</th>
+                                                <th>A quien vende</th>
+                                            </tr>
+                                            <tr></tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                        {% for k,v in produccion.items %}
+                                             <tr>
+                                                <td rowspan="5">{{k}}</td>
+                                                {% for x in v %}
+                                                <tr>
+                                                	<td>{{x.1|default:"0"}}</td>
+                                                	<td>{{x.2|default:"0"}}</td>
+                                                	<td>{{x.0}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                             </tr>
+                                        {% endfor %}
+                                        </tr>                 
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Cultivos</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                  <!-- Nav tabs -->
+								  <ul class="nav nav-tabs" role="tablist">
+								    <li role="presentation" class="active"><a href="#primera" aria-controls="primera" role="tab" data-toggle="tab">Primera</a></li>
+								    <li role="presentation"><a href="#postrera" aria-controls="postrera" role="tab" data-toggle="tab">Postrera</a></li>
+								    <li role="presentation"><a href="#apante" aria-controls="apante" role="tab" data-toggle="tab">Apante</a></li>
+								    <li role="presentation"><a href="#permanentes" aria-controls="permanentes" role="tab" data-toggle="tab">Permanentes</a></li>
+								    <li role="presentation"><a href="#otros" aria-controls="otros" role="tab" data-toggle="tab">Otros</a></li>
+								  </ul>
+
+								  <!-- Tab panes -->
+								  <div class="tab-content">
+								    <div role="tabpanel" class="tab-pane active" id="primera">
+								    	<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Cultivo</th>
+                                                <th>Área sembrada(Mz)</th>
+                                                <th>Producción Total qq</th>
+                                                <th>Semilla qq</th>
+                                                <th>Consumo humano qq</th>
+                                                <th>Consumo animal qq</th>
+                                                <th>Venta qq</th>
+                                                <th>Costo promedio de producción (Inversión) C$/Mz</th>
+                                                <th>Ingresos promedios de la producción C$/Mz</th>
+                                                <th>Ganancia o Perdida promedio C$/Mz</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in primera %}
+                                            <tr>                                                    
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1|default:"0"}}</td>
+                                                <td>{{obj.2|default:"0"}}</td>
+                                                <td>{{obj.3|default:"0"}}</td>
+                                                <td>{{obj.4|default:"0"}}</td>
+                                                <td>{{obj.5|default:"0"}}</td>
+                                                <td>{{obj.6|default:"0"}}</td>
+                                                <td>{{obj.7|default:"0"}}</td>
+                                                <td>{{obj.8|default:"0"}}</td>
+                                                <td>{{obj.9|default:"0"}}</td>
+                                            </tr>          
+                                        {% endfor %}                
+                                            
+                                        </tbody>
+                                    </table>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="postrera">
+								    	<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Cultivo</th>
+                                                <th>Área sembrada(Mz)</th>
+                                                <th>Producción Total qq</th>
+                                                <th>Semilla qq</th>
+                                                <th>Consumo humano qq</th>
+                                                <th>Consumo animal qq</th>
+                                                <th>Venta qq</th>
+                                                <th>Costo promedio de producción (Inversión) C$/Mz</th>
+                                                <th>Ingresos promedios de la producción C$/Mz</th>
+                                                <th>Ganancia o Perdida promedio C$/Mz</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in postrera %}
+                                            <tr>                                                    
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1|default:"0"}}</td>
+                                                <td>{{obj.2|default:"0"}}</td>
+                                                <td>{{obj.3|default:"0"}}</td>
+                                                <td>{{obj.4|default:"0"}}</td>
+                                                <td>{{obj.5|default:"0"}}</td>
+                                                <td>{{obj.6|default:"0"}}</td>
+                                                <td>{{obj.7|default:"0"}}</td>
+                                                <td>{{obj.8|default:"0"}}</td>
+                                                <td>{{obj.9|default:"0"}}</td>
+                                            </tr>          
+                                        {% endfor %}                
+                                            
+                                        </tbody>
+                                    </table>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="apante">
+								    	<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Cultivo</th>
+                                                <th>Área sembrada(Mz)</th>
+                                                <th>Producción Total qq</th>
+                                                <th>Semilla qq</th>
+                                                <th>Consumo humano qq</th>
+                                                <th>Consumo animal qq</th>
+                                                <th>Venta qq</th>
+                                                <th>Costo promedio de producción (Inversión) C$/Mz</th>
+                                                <th>Ingresos promedios de la producción C$/Mz</th>
+                                                <th>Ganancia o Perdida promedio C$/Mz</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in apante %}
+                                            <tr>                                                    
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1|default:"0"}}</td>
+                                                <td>{{obj.2|default:"0"}}</td>
+                                                <td>{{obj.3|default:"0"}}</td>
+                                                <td>{{obj.4|default:"0"}}</td>
+                                                <td>{{obj.5|default:"0"}}</td>
+                                                <td>{{obj.6|default:"0"}}</td>
+                                                <td>{{obj.7|default:"0"}}</td>
+                                                <td>{{obj.8|default:"0"}}</td>
+                                                <td>{{obj.9|default:"0"}}</td>
+                                            </tr>          
+                                        {% endfor %}                
+                                            
+                                        </tbody>
+                                    </table>
+								    </div>
+								    <div role="tabpanel" class="tab-pane" id="permanentes">...</div>
+								    <div role="tabpanel" class="tab-pane" id="otros">...</div>
+								  </div>
+                                   
                                 </div>
                             </div>
                         </div>

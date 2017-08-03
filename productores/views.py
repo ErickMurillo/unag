@@ -270,6 +270,90 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	return render(request, template, locals())
 
 def datos_produccion(request,template='frontend/datos_produccion.html'):
+	filtro = _queryset_filtrado(request)
+
+	#inventario animales
+	animales = []
+	for animal in Animales.objects.all():
+		conteos = filtro.filter(inventarioanimales__animal = animal).aggregate(
+								cantidad = Sum('inventarioanimales__cantidad'),
+								cuanto_vende = Sum('inventarioanimales__cuanto_vende'))
+
+		animales.append((animal,conteos['cantidad'],conteos['cuanto_vende']))
+	
+	#produccion leche y huevos
+	produccion = {}
+	for obj in PRODUCCION_CHOICES:
+		list_prod = []
+		for x in QUIEN_VENDE_CHOICES:
+			conteos = filtro.filter(produccionhuevosleche__tipo_produccion = obj[0],produccionhuevosleche__quien_vende = x[0]).aggregate(
+									cantidad = Sum('produccionhuevosleche__cantidad'),
+									cuanto_vende = Sum('produccionhuevosleche__cuanto_vende'))
+
+			list_prod.append((x[0],conteos['cantidad'],conteos['cuanto_vende']))
+		produccion[obj[0]] = list_prod
+
+	#agricultura
+	#primera
+	primera = []
+	cultivos_primera = filtro.filter(agricultura__tipo = 'Cultivo de primera').values_list('agricultura__rubro',flat=True)
+	for obj in Cultivo.objects.filter(id__in = cultivos_primera):
+		cultivo = filtro.filter(agricultura__rubro = obj).aggregate(
+					area_sembrada = Sum('agricultura__area_sembrada'),
+					produccion_total = Sum('agricultura__produccion_total'),
+					semillas = Sum('agricultura__semillas'),
+					consumo_humano = Sum('agricultura__consumo_humano'),
+					consumo_animal = Sum('agricultura__consumo_animal'),
+					venta = Sum('agricultura__venta'),
+					costo_produccion = Avg('agricultura__costo_produccion'),
+					ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+					ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+		primera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+						cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+						cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+						cultivo['ganancia_perdida']))
+
+	#postrera
+	postrera = []
+	cultivos_postrera = filtro.filter(agricultura__tipo = 'Cultivo de postrera').values_list('agricultura__rubro',flat=True)
+	for obj in Cultivo.objects.filter(id__in = cultivos_postrera):
+		cultivo = filtro.filter(agricultura__rubro = obj).aggregate(
+					area_sembrada = Sum('agricultura__area_sembrada'),
+					produccion_total = Sum('agricultura__produccion_total'),
+					semillas = Sum('agricultura__semillas'),
+					consumo_humano = Sum('agricultura__consumo_humano'),
+					consumo_animal = Sum('agricultura__consumo_animal'),
+					venta = Sum('agricultura__venta'),
+					costo_produccion = Avg('agricultura__costo_produccion'),
+					ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+					ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+		postrera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+						cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+						cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+						cultivo['ganancia_perdida']))
+
+	#apante
+	apante = []
+	cultivos_apante = filtro.filter(agricultura__tipo = 'Cultivo de apante').values_list('agricultura__rubro',flat=True)
+	for obj in Cultivo.objects.filter(id__in = cultivos_apante):
+		cultivo = filtro.filter(agricultura__rubro = obj).aggregate(
+					area_sembrada = Sum('agricultura__area_sembrada'),
+					produccion_total = Sum('agricultura__produccion_total'),
+					semillas = Sum('agricultura__semillas'),
+					consumo_humano = Sum('agricultura__consumo_humano'),
+					consumo_animal = Sum('agricultura__consumo_animal'),
+					venta = Sum('agricultura__venta'),
+					costo_produccion = Avg('agricultura__costo_produccion'),
+					ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+					ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+		apante.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+						cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+						cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+						cultivo['ganancia_perdida']))
+
 	return render(request, template, locals())
 
 #ajax

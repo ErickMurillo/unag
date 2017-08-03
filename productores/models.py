@@ -237,12 +237,12 @@ class Agricultura(models.Model):
     class Meta:
         verbose_name_plural = 'Agricultura'
 
-PRODUCCION_CHOICES = (('Intermediario','Intermediario'),('Al estado','Al estado'),
+PRODUCCION_CHOICES2 = (('Intermediario','Intermediario'),('Al estado','Al estado'),
                         ('Consumidor/Mercado local','Consumidor/Mercado local'))
 
 class VendeProduccion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    respuesta = MultiSelectField(choices=PRODUCCION_CHOICES)
+    respuesta = MultiSelectField(choices=PRODUCCION_CHOICES2)
 
     class Meta:
         verbose_name_plural = '¿A quién vende su producción?'

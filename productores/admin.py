@@ -81,7 +81,7 @@ class InventarioAnimalesInline(admin.TabularInline):
 class ProduccionHuevosLecheInline(admin.TabularInline):
     model = ProduccionHuevosLeche
     extra = 1
-    max_num = 2
+    max_num = 8
 
 class AgriculturaInline(admin.TabularInline):
     model = Agricultura
