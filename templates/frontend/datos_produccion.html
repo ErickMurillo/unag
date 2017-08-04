@@ -135,6 +135,25 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">A quién vende la producción</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="quien_vende" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="portlet light ">
                             <div class="portlet-title tabbable-line">
@@ -262,8 +281,76 @@
                                         </tbody>
                                     </table>
 								    </div>
-								    <div role="tabpanel" class="tab-pane" id="permanentes">...</div>
-								    <div role="tabpanel" class="tab-pane" id="otros">...</div>
+								    <div role="tabpanel" class="tab-pane" id="permanentes">
+                                        <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Cultivo</th>
+                                                <th>Área sembrada(Mz)</th>
+                                                <th>Producción Total qq</th>
+                                                <th>Semilla qq</th>
+                                                <th>Consumo humano qq</th>
+                                                <th>Consumo animal qq</th>
+                                                <th>Venta qq</th>
+                                                <th>Costo promedio de producción (Inversión) C$/Mz</th>
+                                                <th>Ingresos promedios de la producción C$/Mz</th>
+                                                <th>Ganancia o Perdida promedio C$/Mz</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in permanentes %}
+                                            <tr>                                                    
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1|default:"0"}}</td>
+                                                <td>{{obj.2|default:"0"}}</td>
+                                                <td>{{obj.3|default:"0"}}</td>
+                                                <td>{{obj.4|default:"0"}}</td>
+                                                <td>{{obj.5|default:"0"}}</td>
+                                                <td>{{obj.6|default:"0"}}</td>
+                                                <td>{{obj.7|default:"0"}}</td>
+                                                <td>{{obj.8|default:"0"}}</td>
+                                                <td>{{obj.9|default:"0"}}</td>
+                                            </tr>          
+                                        {% endfor %}                
+                                            
+                                        </tbody>
+                                    </table>                        
+                                    </div>
+								    <div role="tabpanel" class="tab-pane" id="otros">
+                                        <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Cultivo</th>
+                                                <th>Área sembrada(Mz)</th>
+                                                <th>Producción Total qq</th>
+                                                <th>Semilla qq</th>
+                                                <th>Consumo humano qq</th>
+                                                <th>Consumo animal qq</th>
+                                                <th>Venta qq</th>
+                                                <th>Costo promedio de producción (Inversión) C$/Mz</th>
+                                                <th>Ingresos promedios de la producción C$/Mz</th>
+                                                <th>Ganancia o Perdida promedio C$/Mz</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in otros %}
+                                            <tr>                                                    
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1|default:"0"}}</td>
+                                                <td>{{obj.2|default:"0"}}</td>
+                                                <td>{{obj.3|default:"0"}}</td>
+                                                <td>{{obj.4|default:"0"}}</td>
+                                                <td>{{obj.5|default:"0"}}</td>
+                                                <td>{{obj.6|default:"0"}}</td>
+                                                <td>{{obj.7|default:"0"}}</td>
+                                                <td>{{obj.8|default:"0"}}</td>
+                                                <td>{{obj.9|default:"0"}}</td>
+                                            </tr>          
+                                        {% endfor %}                
+                                            
+                                        </tbody>
+                                    </table>                            
+                                    </div>
 								  </div>
                                    
                                 </div>
@@ -279,3 +366,57 @@
 <!-- END PAGE CONTENT BODY -->
 <!-- END CONTENT BODY -->
 {% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+Highcharts.chart('quien_vende', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in quien_vende.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+</script>
+{% endblock extra_js %}

@@ -271,6 +271,7 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 
 def datos_produccion(request,template='frontend/datos_produccion.html'):
 	filtro = _queryset_filtrado(request)
+	encuestados = filtro.count()
 
 	#inventario animales
 	animales = []
@@ -292,6 +293,12 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 			list_prod.append((x[0],conteos['cantidad'],conteos['cuanto_vende']))
 		produccion[obj[0]] = list_prod
+
+	#quien vende prod
+	quien_vende = {}
+	for obj in PRODUCCION_CHOICES2:
+		conteo = filtro.filter(vendeproduccion__respuesta__contains = obj[0]).count()
+		quien_vende[obj[0]] = conteo,saca_porcentajes(conteo,encuestados,False)
 
 	#agricultura
 	#primera
@@ -354,6 +361,51 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 						cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 						cultivo['ganancia_perdida']))
 
+	#permanentes
+	permanentes = []
+	cultivos_permanentes = filtro.filter(agricultura__tipo = 'Cultivos permanentes (Frutales, Cítricos, …)').values_list('agricultura__rubro',flat=True)
+	for obj in Cultivo.objects.filter(id__in = cultivos_permanentes):
+		cultivo = filtro.filter(agricultura__rubro = obj).aggregate(
+					area_sembrada = Sum('agricultura__area_sembrada'),
+					produccion_total = Sum('agricultura__produccion_total'),
+					semillas = Sum('agricultura__semillas'),
+					consumo_humano = Sum('agricultura__consumo_humano'),
+					consumo_animal = Sum('agricultura__consumo_animal'),
+					venta = Sum('agricultura__venta'),
+					costo_produccion = Avg('agricultura__costo_produccion'),
+					ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+					ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+		permanentes.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+						cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+						cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+						cultivo['ganancia_perdida']))
+
+	#otros
+	otros = []
+	cultivos_otros = filtro.filter(agricultura__tipo = 'Otros').values_list('agricultura__rubro',flat=True)
+	for obj in Cultivo.objects.filter(id__in = cultivos_otros):
+		cultivo = filtro.filter(agricultura__rubro = obj).aggregate(
+					area_sembrada = Sum('agricultura__area_sembrada'),
+					produccion_total = Sum('agricultura__produccion_total'),
+					semillas = Sum('agricultura__semillas'),
+					consumo_humano = Sum('agricultura__consumo_humano'),
+					consumo_animal = Sum('agricultura__consumo_animal'),
+					venta = Sum('agricultura__venta'),
+					costo_produccion = Avg('agricultura__costo_produccion'),
+					ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+					ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+		otros.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+						cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+						cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+						cultivo['ganancia_perdida']))
+
+	return render(request, template, locals())
+
+def organizacion(request,template='frontend/organizacion.html'):
+	filtro = _queryset_filtrado(request)
+	
 	return render(request, template, locals())
 
 #ajax

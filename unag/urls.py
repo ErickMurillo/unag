@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^datos-familiares/$', datos_familiares, name='datos-familiares'),
     url(r'^datos-propiedad/$', datos_propiedad, name='datos-propiedad'),
     url(r'^datos-produccion/$', datos_produccion, name='datos-produccion'),
+    url(r'^organizacion/$', organizacion, name='organizacion'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
