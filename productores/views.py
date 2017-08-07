@@ -7,7 +7,7 @@ from productores.forms import *
 from django.http import HttpResponse
 import json as simplejson
 from django.db.models import Avg, Sum, F
-import collections
+import collections 
 
 # Create your views here.
 @login_required
@@ -405,7 +405,57 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 def organizacion(request,template='frontend/organizacion.html'):
 	filtro = _queryset_filtrado(request)
-	
+	encuestados = filtro.count()
+
+	#cotiza
+	cotiza = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(cotizacion__respuesta = obj[0]).count()
+		cotiza[obj[0]] = conteo
+
+	#donde cotiza
+	donde_cotiza = {}
+	for obj in DondeCotiza.objects.all():
+		conteo = filtro.filter(respuestasicotiza__donde_cotiza = obj).count()
+		donde_cotiza[obj] = conteo
+
+	#desde cuando
+	desde_cuando = {}
+	for obj in DESDE_CUANDO_CHOICES:
+		conteo = filtro.filter(respuestasicotiza__desde_cuando = obj[0]).count()
+		desde_cuando[obj[0]] = conteo
+
+	#cuanto cotiza
+	lista = filtro.filter(cotizacion__respuesta = 'Si').values_list('respuestasicotiza__cuanto_cotiza',flat=True)
+	minimo = min(lista)
+	maximo = max(lista)
+
+	cuanto_cotiza = crear_rangos(request, lista, minimo, maximo, step=50)
+
+	#frecuencia cotiza
+	frecuencia_cotiza = {}
+	for obj in FRECUENCIA_CHOICES:
+		conteo = filtro.filter(respuestasicotiza__frecuencia = obj[0]).count()
+		frecuencia_cotiza[obj[0]] = conteo
+
+	#miembro cooperativa
+	cooperativa = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(miembrocooperativa__respuesta = obj[0]).count()
+		cooperativa[obj[0]] = conteo
+
+	#cooperativas
+	list_cooperativas = {}
+	for obj in Cooperativa.objects.all():
+		conteo = filtro.filter(miembrocooperativa__cooperativa = obj).count()
+		list_cooperativas[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+
+	#beneficiados proyectos
+	beneficiados = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(beneficiadoproyecto__respuesta = obj[0]).count()
+		beneficiados[obj[0]] = conteo
+
 	return render(request, template, locals())
 
 #ajax
@@ -445,3 +495,14 @@ def saca_porcentajes(dato, total, formato=True):
 			return '%.2f' % porcentaje
 	else:
 		return 0
+
+def crear_rangos(request, lista, start=0, stop=0, step=0):
+    dict_algo = collections.OrderedDict()
+    rangos = []
+    contador = 0
+    rangos = [(n, n+int(step)-1) for n in range(int(start), int(stop), int(step))]
+
+    for desde, hasta in rangos:
+        dict_algo['%s a %s' % (desde,hasta)] = len([x for x in lista if desde <= x <= hasta])
+
+    return dict_algo

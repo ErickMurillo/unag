@@ -39,7 +39,7 @@
 	    }
       });
 
-    valor2 = $('.field-respuesta select').val();
+    valor2 = $('#id_cotizacion_set-0-respuesta').val();
     if (valor2 == 'Si') {
       $('#respuestasicotiza_set-group').show();
     } else if (valor2 == 'No') {
@@ -48,9 +48,9 @@
       $('#respuestasicotiza_set-group').hide();
     }
 
-    $('.field-respuesta select').change(function(){
+    $('#id_cotizacion_set-0-respuesta').change(function(){
 
-      valor2 = $('.field-respuesta select').val();
+      valor2 = $('#id_cotizacion_set-0-respuesta').val();
       if (valor2 == 'Si') {
 	      $('#respuestasicotiza_set-group').show();
 	    } else {
@@ -65,13 +65,13 @@
       $('#beneficiadoproyecto_set-0 .field-proyectos').hide();
     }
 
-     $('.field-respuesta #id_beneficiadoproyecto_set-0-respuesta').change(function(){
+     $('#id_beneficiadoproyecto_set-0-respuesta').change(function(){
 
-      valor3 = $('.field-respuesta #id_beneficiadoproyecto_set-0-respuesta').val();
+      valor3 = $('#id_beneficiadoproyecto_set-0-respuesta').val();
       if (valor3 == 'Si') {
-	      $('#beneficiadoproyecto_set-0.field-proyectos').show();
+	      $('#beneficiadoproyecto_set-0 .field-proyectos').show();
 	     } else {
-	      $('#beneficiadoproyecto_set-0.field-proyectos').hide();
+	      $('#beneficiadoproyecto_set-0 .field-proyectos').hide();
 	    }
       });
 
@@ -94,10 +94,10 @@
 
      valor5 = $('#id_credito_set-0-respuesta').val();
     if (valor5 == 'Si') {
-      $('#credito_set-group .field-proyectos').show();
+      $('#credito_set-group #id_credito_set-0-proyectos').show();
       $('#credito_set-group .field-formas_recibe_credito').show();
      } else {
-      $('#credito_set-group .field-proyectos').hide();
+      $('#credito_set-group #id_credito_set-0-proyectos').hide();
       $('#credito_set-group .field-formas_recibe_credito').hide();
     }
 
@@ -105,10 +105,10 @@
 
       valor5 = $('.field-respuesta #id_credito_set-0-respuesta').val();
       if (valor5 == 'Si') {
-	      $('#credito_set-group .field-proyectos').show();
+	      $('#credito_set-group #id_credito_set-0-proyectos').show();
 	      $('#credito_set-group .field-formas_recibe_credito').show();
 	     } else {
-	      $('#credito_set-group .field-proyectos').hide();
+	      $('#credito_set-group #id_credito_set-0-proyectos').hide();
 	      $('#credito_set-group .field-formas_recibe_credito').hide();
 	    }
       });

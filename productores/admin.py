@@ -147,7 +147,7 @@ class EncuestaAdmin(admin.ModelAdmin):
                 DocumentoPropiedadInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,VendeProduccionInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
-                BeneficiadoProyectoInline,MiembroCooperativaInline,CreditoInline,CotizacionOrganizacionInline]
+                MiembroCooperativaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]
 
     class Media:
         css = {
