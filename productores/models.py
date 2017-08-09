@@ -314,7 +314,7 @@ class BeneficiadoProyecto(models.Model):
 class Credito(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
-    proyectos = models.ForeignKey(RecibeCredito,blank=True,null=True)
+    proyectos = models.ForeignKey(RecibeCredito,blank=True,null=True,verbose_name='De quien recibe el credito')
     formas_recibe_credito = models.ManyToManyField(FormasCredito,blank=True)
 
     class Meta:

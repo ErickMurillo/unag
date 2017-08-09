@@ -160,23 +160,6 @@
                             <div class="portlet-title tabbable-line">
                                 <div class="caption">
                                     <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Beneficiados por otros proyectos o programas del gobierno</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="beneficiado" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
                                     <span class="caption-subject font-green-steel bold uppercase">Cooperativas a las que pertenecen los afiliados</span>
                                 </div>
                             </div>
@@ -188,8 +171,165 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Beneficiados por otros proyectos o programas del gobierno</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="beneficiado" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Otros proyectos o programas de Gobierno</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="otros_proyectos" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">¿Ha recibido algún Crédito?</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="credito" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">¿Quién brinda el Crédito?</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Fuentes de credito</th>
+                                                <th>Cantidad</th>
+                                                <th>%</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for obj in brinda_credito %}
+                                            <tr>
+                                                <td>{{obj.0}}</td>
+                                                <td>{{obj.1}}</td>
+                                                <td>{{obj.2}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Tipo de Crédito obtenido</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="tipo_credito" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Problemas más sentidos como productor</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="problemas_productor" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Acciones que realiza para enfrentar el cambio climático</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="acciones" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-globe font-dark hide"></i>
+                                    <span class="caption-subject font-green-steel bold uppercase">Motivos</span>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="map">
+                                    <div class="grafico-ind" id="motivos" width='100%'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- END PAGE CONTENT INNER -->
@@ -522,15 +662,295 @@ Highcharts.chart('list_cooperativas', {
 
     tooltip: {
         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
     },
 
     series: [{
-        name: 'Brands',
+        name: 'Cooperativa',
         colorByPoint: true,
         data: [
 
         {% for k,v in list_cooperativas.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('otros_proyectos', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Proyectos',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in proyectos.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('credito', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in credito.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('tipo_credito', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in tipo_credito.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('problemas_productor', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Problemas',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in problemas.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('acciones', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Acciones',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in acciones.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('motivos', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Motivos',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in motivos.items %}
             {
             name: '{{k}} ({{v.0|default:"0"}})',
             y: {{v.1|default:"0"}},

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from productores.forms import *
 from django.http import HttpResponse
 import json as simplejson
-from django.db.models import Avg, Sum, F
+from django.db.models import Avg, Sum, F, Count
 import collections 
 
 # Create your views here.
@@ -455,6 +455,48 @@ def organizacion(request,template='frontend/organizacion.html'):
 	for obj in SI_NO_CHOICES:
 		conteo = filtro.filter(beneficiadoproyecto__respuesta = obj[0]).count()
 		beneficiados[obj[0]] = conteo
+
+	proyectos = {}
+	for obj in Proyecto.objects.all():
+		conteo = filtro.filter(beneficiadoproyecto__respuesta = 'Si', beneficiadoproyecto__proyectos = obj).count()
+		proyectos[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+
+	#credito
+	credito = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(credito__respuesta = obj[0]).count()
+		credito[obj[0]] = conteo
+
+	#quien brinda credito
+	brinda_credito = []
+	for obj in RecibeCredito.objects.all():
+		conteo = filtro.filter(credito__respuesta = 'Si', credito__proyectos = obj).count()
+		brinda_credito.append((obj,conteo,saca_porcentajes(conteo,encuestados,False)))
+
+	#credito recibido
+	tipo_credito = {}
+	for obj in FormasCredito.objects.all():
+		conteo = filtro.filter(credito__respuesta = 'Si',credito__formas_recibe_credito = obj).count()
+		tipo_credito[obj] = conteo
+
+	#problemas productor
+	problemas = {}
+	for obj in ProblemasProductor.objects.all():
+		conteo = filtro.filter(cotizacionorganizacion__problemas_productor = obj).count()
+		problemas[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+
+	#acciones
+	acciones = {}
+	for obj in CambioClimatico.objects.all():
+		conteo = filtro.filter(cotizacionorganizacion__acciones_cambio_climatico = obj).count()
+		acciones[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+
+	#motivos
+	motivos = {}
+	for obj in AfiliacionUnag.objects.all():
+		conteo = filtro.filter(cotizacionorganizacion__afiliacion_unag = obj).count()
+		motivos[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+
 
 	return render(request, template, locals())
 
