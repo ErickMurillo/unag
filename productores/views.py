@@ -19,6 +19,11 @@ def index(request,template='frontend/index.html'):
 
 	return render(request, template, locals())
 
+@login_required
+def list_afiliados(request,template='frontend/list_afiliados.html'):
+
+	return render(request, template, locals())
+
 def _queryset_filtrado(request):
     params = {}
 
