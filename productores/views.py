@@ -20,7 +20,15 @@ def index(request,template='frontend/index.html'):
 	return render(request, template, locals())
 
 @login_required
-def list_afiliados(request,template='frontend/list_afiliados.html'):
+def afiliados(request,template='frontend/afiliados.html'):
+	afiliados = Afiliado.objects.all()
+
+	if request.GET.get('afiliado'):
+		filtro = request.GET.get('afiliado')
+		afiliado = Afiliado.objects.get(id = filtro)
+		consulta = 1
+	else:
+		consulta = 0
 
 	return render(request, template, locals())
 

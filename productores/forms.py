@@ -25,3 +25,8 @@ class EncuestaForm(forms.Form):
         self.fields['sexo'] = forms.ChoiceField(choices=SEXO_CHOICES,required=False,label='Sexo',widget=forms.RadioSelect)
         self.fields['edad_inicio'] = forms.IntegerField(required=False,label='Edad inicio')
         self.fields['edad_fin'] = forms.IntegerField(required=False,label='Edad fin')
+
+class AfiliadoForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(AfiliadoForm, self).__init__(*args, **kwargs)
+        self.fields['afiliado'] = forms.ModelChoiceField(queryset=Afiliado.objects.all(),required=False,label='Municipios')

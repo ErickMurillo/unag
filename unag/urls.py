@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'frontend/login.html'}),
     url(r'^logout/$', auth_views.logout,{'next_page': '/'}),
     url(r'^$', index, name='index'),
-    url(r'^lista-afiliados/$', list_afiliados, name='list-afiliados'),
+    url(r'^afiliados/$', afiliados, name='afiliados'),
     url(r'^consulta/$', consulta, name='consulta'),
     url(r'^ajax/comunidades/$', get_comunies, name='get-comunies'),
     url(r'^datos-generales/$', datos_generales, name='datos-generales'),
@@ -34,6 +34,5 @@ urlpatterns = [
     url(r'^datos-propiedad/$', datos_propiedad, name='datos-propiedad'),
     url(r'^datos-produccion/$', datos_produccion, name='datos-produccion'),
     url(r'^organizacion/$', organizacion, name='organizacion'),
-
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
