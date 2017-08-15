@@ -11,8 +11,8 @@
         <title>UNAG</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content="Preview page of Metronic Admin Theme #3 for dashboard & statistics" name="description" />
-        <meta content="" name="author" />
+        <meta content="Sistema web de afiliados de UNAG" name="description" />
+        <meta content="SIMAS" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
         <link href="/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -63,129 +63,34 @@
                                 <!-- BEGIN TOP NAVIGATION MENU -->
                                 <div class="top-menu">
                                     <ul class="nav navbar-nav pull-right">
-                                        <!-- BEGIN NOTIFICATION DROPDOWN -->
-                                        <!-- DOC: Apply "dropdown-hoverable" class after "dropdown" and remove data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to enable hover dropdown mode -->
-                                        <!-- DOC: Remove "dropdown-hoverable" and add data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to the below A element with dropdown-toggle class -->
-                                        <!-- <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
-                                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                <i class="icon-list"> Indicadores</i>
-                                                <!-- <span class="badge badge-default">7</span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="external">
-                                                    <h3>You have
-                                                        <strong>12 pending</strong> tasks</h3>
-                                                    <a href="app_todo.html">view all</a>
-                                                </li>
-                                                <li>
-                                                    <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">just now</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-success">
-                                                                        <i class="fa fa-plus"></i>
-                                                                    </span> New user registered. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">3 mins</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-danger">
-                                                                        <i class="fa fa-bolt"></i>
-                                                                    </span> Server #12 overloaded. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">10 mins</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-warning">
-                                                                        <i class="fa fa-bell-o"></i>
-                                                                    </span> Server #2 not responding. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">14 hrs</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-info">
-                                                                        <i class="fa fa-bullhorn"></i>
-                                                                    </span> Application error. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">2 days</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-danger">
-                                                                        <i class="fa fa-bolt"></i>
-                                                                    </span> Database overloaded 68%. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">3 days</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-danger">
-                                                                        <i class="fa fa-bolt"></i>
-                                                                    </span> A user IP blocked. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">4 days</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-warning">
-                                                                        <i class="fa fa-bell-o"></i>
-                                                                    </span> Storage Server #4 not responding dfdfdfd. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">5 days</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-info">
-                                                                        <i class="fa fa-bullhorn"></i>
-                                                                    </span> System Error. </span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <span class="time">9 days</span>
-                                                                <span class="details">
-                                                                    <span class="label label-sm label-icon label-danger">
-                                                                        <i class="fa fa-bolt"></i>
-                                                                    </span> Storage server failed. </span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li> -->
-                                        <!-- END NOTIFICATION DROPDOWN -->
 
-                                        <!-- <li class="droddown dropdown-separator">
-                                            <span class="separator"></span>
-                                        </li> -->
                                         <!-- BEGIN USER LOGIN DROPDOWN -->
                                         <li class="dropdown dropdown-user dropdown-dark">
-                                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <a  class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                             
-                                                <span class="username"> {{ user.username }} </span>
+                                                <span class="username">{{ user.username }}</span>
                                             </a>
-                                            <ul class="dropdown-menu dropdown-menu-default">
-                                                <li>
-                                                    <a href="/admin">
-                                                        <i class="icon-user"></i> Administración </a>
-                                                </li>
-                                                <li>
-                                                    <a href="/logout">
-                                                        <i class="icon-calendar"></i> Cerrar sesión </a>
-                                                </li>
-
-                                            </ul>
+                                            
+                                        </li>
+                                        <li class="droddown dropdown-separator">
+                                            <span class="separator"></span>
+                                        </li>
+                                        <li class="dropdown dropdown-user dropdown-dark">
+                                            <a href="/admin" class="dropdown-toggle">
+                                            
+                                                <span class="username">Administración</span> <i class="fa fa-database"></i>
+                                            </a>
+                                            
+                                        </li>
+                                        <li class="droddown dropdown-separator">
+                                            <span class="separator"></span>
+                                        </li>
+                                        <li class="dropdown dropdown-user dropdown-dark">
+                                            <a href="/admin/logout/" class="dropdown-toggle">
+                                            
+                                                <span class="username">Cerrar sesión </span><i class="icon-logout"></i>
+                                            </a>
+                                            
                                         </li>
                                         <!-- END USER LOGIN DROPDOWN -->
 
@@ -204,15 +109,15 @@
                                 <!-- BEGIN MEGA MENU -->
                                 <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
                                 <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
-                                <div class="hor-menu  ">
+                                <div class="hor-menu">
                                     <ul class="nav navbar-nav">
-                                        <li aria-haspopup="true" class="">
-                                            <a href="">Inicio</a>
+                                        <li class="inicio active" >
+                                            <a href="/">Inicio</a>
                                         </li>
-                                        <li aria-haspopup="true" class="">
+                                        <li class="afiliado" >
                                             <a href="/afiliados/">Afiliados y Afiliadas</a>
                                         </li>
-                                        <li aria-haspopup="true" class="">
+                                        <li  class="consulta">
                                             <a href="/consulta">Consultar</a>
                                         </li>
                                     </ul>
@@ -234,16 +139,27 @@
                     <!-- BEGIN INNER FOOTER -->
                     <div class="page-footer">
                         <div class="container">
-                            <div class="pull-left foot-left">
-                                2016 &copy; Metronic Theme By
-                                <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
-                                <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="pull-left foot-left">
+                                        2016 &copy; Metronic Theme By
+                                        <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                                        <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                   
+                                        
+                                        <a href="">
+                                            <img class="interteam-logo" src="/static/nuevo/INTERTEAM.jpg"  alt="">  
+                                        </a>
+                                   
+                                </div>
                             </div>
-                            <div class="pull-right">
-                                Con el Apoyo de<a href="">
-                                <img class="interteam-logo" src="/static/nuevo/interteam.png"  alt="">  
-                                </a>
-                            </div>
+                            
+                            
+                                
+                            
                         
                             
                         </div>
