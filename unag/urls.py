@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'frontend/login.html'}),
     url(r'^logout/$', auth_views.logout,{'next_page': '/'}),
     url(r'^$', index, name='index'),
+    url(r'^mapa-index/$', obtener_lista, name='obtener-lista'),
     url(r'^afiliados/$', afiliados, name='afiliados'),
     url(r'^consulta/$', consulta, name='consulta'),
     url(r'^ajax/comunidades/$', get_comunies, name='get-comunies'),

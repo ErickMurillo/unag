@@ -569,3 +569,16 @@ def crear_rangos(request, lista, start=0, stop=0, step=0):
         dict_algo['%s a %s' % (desde,hasta)] = len([x for x in lista if desde <= x <= hasta])
 
     return dict_algo
+
+def obtener_lista(request):
+	if request.is_ajax():
+		lista = []
+		for objeto in Afiliado.objects.all():
+			dicc = dict(nombre=objeto.municipio.nombre, id=objeto.id,
+						lon=float(objeto.municipio.longitud),
+						lat=float(objeto.municipio.latitud)
+						)
+			lista.append(dicc)
+
+		serializado = simplejson.dumps(lista)
+		return HttpResponse(serializado, content_type = 'application/json')
