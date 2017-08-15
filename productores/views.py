@@ -24,8 +24,16 @@ def afiliados(request,template='frontend/afiliados.html'):
 	afiliados = Afiliado.objects.all()
 
 	if request.GET.get('afiliado'):
-		filtro = request.GET.get('afiliado')
-		afiliado = Afiliado.objects.get(id = filtro)
+		id = request.GET.get('afiliado')
+		afiliado = Afiliado.objects.get(id = id)
+		escolaridad = Escolaridad.objects.filter(encuesta__afiliado = id,respuesta = 'Si').values_list('escolaridad',flat=True).last()
+
+		# dependen
+		hombres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Hombres').values_list('cantidad',flat=True).last()
+		mujeres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Mujeres').values_list('cantidad',flat=True).last()
+		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años').values_list('cantidad',flat=True).last()
+		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años').values_list('cantidad',flat=True).last()
+		
 		consulta = 1
 	else:
 		consulta = 0
