@@ -82,8 +82,11 @@ Page Header
     .page-header .page-header-top .page-logo {
       float: left;
       display: block;
-      width: 400px;
+      
       height: 75px; }
+      .page-logo h3{
+        font-size: 16px;
+      }
       .page-header .page-header-top .page-logo .logo-default {
         margin: 5px 0 0 0; }
         
@@ -1700,7 +1703,7 @@ Page Loading
     margin-top: 10px;
 }
 .interteam-logo{
-  width: 32%;
+
 }
 .foot-left{
     padding-top: 16px;
