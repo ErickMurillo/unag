@@ -9,6 +9,7 @@ from multiselectfield import MultiSelectField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from sorl.thumbnail import ImageField
 import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 SEXO_CHOICES = (('Femenino','Femenino'), ('Masculino','Masculino'))
@@ -51,6 +52,7 @@ class Encuesta(models.Model):
     afiliado = models.ForeignKey(Afiliado)
     fecha_encuesta = models.DateField()
     anio = models.IntegerField(editable=False)
+    usuario = models.ForeignKey(User)
 
     def __unicode__(self):
         return self.afiliado.nombre
@@ -238,7 +240,8 @@ class Agricultura(models.Model):
         verbose_name_plural = 'Agricultura'
 
 PRODUCCION_CHOICES2 = (('Intermediario','Intermediario'),('Al estado','Al estado'),
-                        ('Consumidor/Mercado local','Consumidor/Mercado local'))
+                        ('Consumidor / Mercado local','Consumidor / Mercado local'),
+                        ('Mercado nacional','Mercado nacional'),('Exportación','Exportación'))
 
 class VendeProduccion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
