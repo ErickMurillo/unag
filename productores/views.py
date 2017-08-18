@@ -583,7 +583,8 @@ def get_comunies(request):
         for id in lista:
             try:
                 munici = Municipio.objects.get(id = id)
-                comunidades = Comunidad.objects.filter(municipio__id = munici.id).order_by('nombre')
+                encuesta = Afiliado.objects.filter(municipio = munici.id).values_list('comunidad__id',flat=True).distinct()
+                comunidades = Comunidad.objects.filter(municipio__id = munici.id,id__in = encuesta).order_by('nombre')
                 lista1 = []
                 for comunidad in comunidades:
                     comu = {}
