@@ -86,6 +86,19 @@ def afiliados(request,template='frontend/afiliados.html'):
 		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años').values_list('cantidad',flat=True).last()
 		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años').values_list('cantidad',flat=True).last()
 		
+		anios_encuesta = Encuesta.objects.filter(afiliado = afiliado.id).values_list('anio',flat=True)
+		
+		years = collections.OrderedDict()
+		for anio in anios_encuesta:
+			areas = {}
+			for obj in Areas.objects.all():
+				areas_finca = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,areasfinca__areas = obj).values_list(
+						'areasfinca__mz',flat=True)
+				areas[obj] = areas_finca
+			years[anio] = areas
+		print years
+
+
 		consulta = 1
 	else:
 		consulta = 0
