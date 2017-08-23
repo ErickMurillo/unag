@@ -175,6 +175,69 @@
                                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                                 {% for key in years.keys %}
                                                                   <li class="nav-item">
+                                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}-generales" role="tab">{{key}}</a>
+                                                                  </li>
+                                                                {% endfor %}
+                                                                  
+                                                                </ul>
+
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content">
+                                                                {% for key,value in years.items  %}
+                                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-generales" role="tabpanel">
+                                                                    Acceso internet: {{value.0.0.0|default:"---"}} <br>
+                                                                    Estado civil: {{value.0.0.1|default:"---"}}
+                                                                    <br>
+                                                                    Escolaridad: {{value.0.0.2|default:"---"}}
+                                                                    <br>
+                                                                    Profesión: {{value.0.0.3|default:"---"}}
+                                                                    <br>
+                                                                    <table>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Nombre</th>
+                                                                                <th>Sexo</th>
+                                                                                <th>Edad</th>
+                                                                                <th>Escolaridad</th>
+                                                                                <th>Parentesco</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {% for x in value.1 %}
+                                                                            <tr>
+                                                                                <td>{{x.0}}</td>
+                                                                                <td>{{x.1}}</td>
+                                                                                <td>{{x.2}}</td>
+                                                                                <td>{{x.3}}</td>
+                                                                                <td>{{x.4}}</td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                            
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                    <br>
+                                                                    <h1>MIEMBROS DE LA FAMILIA EMIGRAN</h1>
+                                                                    <br>
+                                                                    Hombres: {{value.2.0.0|default:"---"}}
+                                                                    Mujeres: {{value.2.0.1|default:"---"}}
+                                                                    Donde: {{value.2.0.2|default:"---"}}
+                                                                    Tiempo: {{value.2.0.3|default:"---"}}
+                                                                    Meses: {{value.2.0.4|default:"---"}}
+                                                                    </div>
+
+                                                                    
+                                                                {% endfor %}
+                                                                </div>
+                                                            
+                                                            <!-- END PERSONAL INFO TAB -->
+
+                                                        </div>
+                                                        <div class="tab-pane" id="tab_1_2">
+                                                            
+                                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                {% for key in years.keys %}
+                                                                  <li class="nav-item">
                                                                     <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
                                                                   </li>
                                                                 {% endfor %}
@@ -185,11 +248,13 @@
                                                                 <div class="tab-content">
                                                                 {% for key in years.keys  %}
                                                                     <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
-                                                                        <div class="portlet box blue ">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="portlet box blue ">
                                                                             <div class="portlet-title">
                                                                                 <div class="caption">
 
-                                                                                    <span class="caption-subject bold uppercase">Área de la finca (Mz) {{key}}</span>
+                                                                                    <span class="caption-subject bold uppercase">Área de la finca (Mz)</span>
 
                                                                                 </div>
                                                                             </div>
@@ -201,24 +266,13 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                {% endfor %}
-                                                                </div>
-                                                                <div class="row">                            
-
-                                                                    <div class="col-md-12 col-sm-12">
-                                                                        
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row">                            
-
-                                                                    <div class="col-md-12 col-sm-12">
-                                                                        <div class="portlet box blue ">
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="portlet box blue ">
                                                                             <div class="portlet-title">
                                                                                 <div class="caption">
 
-                                                                                    <span class="caption-subject bold uppercase">¿Cuál es el origen de la tierra?</span>
+                                                                                    <span class="caption-subject bold uppercase">Otras áreas de la finca (Mz)</span>
 
                                                                                 </div>
                                                                             </div>
@@ -226,19 +280,16 @@
                                                                             <div class="portlet-body">
 
                                                                                 <div class="map">
-                                                                                    <div class="grafico-ind" id="container-Verano3" width='100%'></div>
+                                                                                <div class="grafico-ind" id="otras{{key}}" width='100%'></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        </div>
                                                                     </div>
+                                                                        
+                                                                    </div>
+                                                                {% endfor %}
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="tab-pane" id="tab_1_2">
-                                                                hello!
-                                                            </div>
-                                                            <!-- END PERSONAL INFO TAB -->
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -285,8 +336,8 @@
 
 
 <script type="text/javascript">
-{% for key,value in years.items %}
     $(function () {
+        {% for key,value in years.items %}
         
         $('#area{{key}}').highcharts({
             chart: {
@@ -323,7 +374,7 @@
                         name: "",
                         colorByPoint: true,
                         data: [
-                        {% for k,v in value.items %}
+                        {% for k,v in value.3.items %}
                         {
                             name: "{{k}} ({{v.0|default:"0"}})",
                             y: {{v.0|default:"0"}}
@@ -334,9 +385,55 @@
                         ]
                     }]
                 });
+        $('#otras{{key}}').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                                //distance: -30,
+                                format: '{point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: "",
+                        colorByPoint: true,
+                        data: [
+                        {% for k,v in value.4.items %}
+                        {
+                            name: "{{k}} ({{v.0|default:"0"}})",
+                            y: {{v.0|default:"0"}}
+                        },
+                        {% endfor %}
 
+
+                        ]
+                    }]
+                });
+    {% endfor %}
     });
- {% endfor %}
+
 </script>
     <script type="text/javascript">
         $( ".hor-menu ul li" ).removeClass( "active" );

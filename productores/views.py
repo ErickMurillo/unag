@@ -90,14 +90,36 @@ def afiliados(request,template='frontend/afiliados.html'):
 		
 		years = collections.OrderedDict()
 		for anio in anios_encuesta:
+			#info general
+			info = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list(
+					'datosgenerales__acceso_internet',
+					'datosgenerales__estado_civil',
+					'escolaridad__escolaridad',
+					'profesion__profecion')
+
+			familiares = []
+			for x in DatosFamiliares.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id):
+				familiares.append((x.nombres,x.sexo,x.edad,x.escolaridad,x.parentesco))
+
+			emigran = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list(
+						'familiaemigra__hombres',
+						'familiaemigra__mujeres',
+						'familiaemigra__donde_emigran',
+						'familiaemigra__tiempo',
+						'familiaemigra__meses')
+
 			areas = {}
+			otras = {}
 			for obj in Areas.objects.all():
 				areas_finca = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,areasfinca__areas = obj).values_list(
 						'areasfinca__mz',flat=True)
 				areas[obj] = areas_finca
-			years[anio] = areas
-		print years
 
+				otras_areas = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,otrastierras__areas = obj).values_list(
+						'otrastierras__mz',flat=True)
+				otras[obj] = otras_areas
+
+			years[anio] = info,familiares,emigran,areas,otras
 
 		consulta = 1
 	else:
