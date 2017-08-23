@@ -136,6 +136,7 @@
                                     </div>
                                     <!-- END BEGIN PROFILE SIDEBAR -->
                                     <!-- BEGIN PROFILE CONTENT -->
+                                    {% if consulta == 1 %}
                                     <div class="profile-content">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -145,10 +146,10 @@
                                                         <ul class="nav nav-tabs">
 
                                                             <li>
-                                                                <a href="#tab_1_2" data-toggle="tab">Datos Familiares</a>
+                                                                <a href="#tab_1_1" data-toggle="tab">Datos Familiares</a>
                                                             </li>
                                                             <li>
-                                                                <a href="#tab_1_3" data-toggle="tab">Propiedad</a>
+                                                                <a href="#tab_1_2" data-toggle="tab">Propiedad</a>
                                                             </li>
                                                             <li>
                                                                 <a href="#tab_1_4" data-toggle="tab">Inventario</a>
@@ -171,14 +172,24 @@
                                                         <div class="tab-content">
                                                             <!-- PERSONAL INFO TAB -->
                                                             <div class="tab-pane active" id="tab_1_1">
-                                                                <div class="row">                            
+                                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                {% for key in years.keys %}
+                                                                  <li class="nav-item">
+                                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
+                                                                  </li>
+                                                                {% endfor %}
+                                                                  
+                                                                </ul>
 
-                                                                    <div class="col-md-12 col-sm-12">
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content">
+                                                                {% for key in years.keys  %}
+                                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
                                                                         <div class="portlet box blue ">
                                                                             <div class="portlet-title">
                                                                                 <div class="caption">
 
-                                                                                    <span class="caption-subject bold uppercase">Área de la finca (Mz)</span>
+                                                                                    <span class="caption-subject bold uppercase">Área de la finca (Mz) {{key}}</span>
 
                                                                                 </div>
                                                                             </div>
@@ -186,12 +197,20 @@
                                                                             <div class="portlet-body">
 
                                                                                 <div class="map">
-                                                                                <div class="grafico-ind" id="area" width='100%'></div>
+                                                                                <div class="grafico-ind" id="area{{key}}" width='100%'></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                {% endfor %}
                                                                 </div>
+                                                                <div class="row">                            
+
+                                                                    <div class="col-md-12 col-sm-12">
+                                                                        
+                                                                    </div>
+                                                                </div>
+
                                                                 <div class="row">                            
 
                                                                     <div class="col-md-12 col-sm-12">
@@ -214,6 +233,10 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="tab-pane" id="tab_1_2">
+                                                                hello!
+                                                            </div>
                                                             <!-- END PERSONAL INFO TAB -->
 
                                                         </div>
@@ -222,6 +245,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% endif %}
                                     <!-- END PROFILE CONTENT -->
                                 </div>
                             </div>
@@ -261,9 +285,10 @@
 
 
 <script type="text/javascript">
-
+{% for key,value in years.items %}
     $(function () {
-        $('#area').highcharts({
+        
+        $('#area{{key}}').highcharts({
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -298,27 +323,12 @@
                         name: "",
                         colorByPoint: true,
                         data: [
+                        {% for k,v in value.items %}
                         {
-                            name: "Agricola",
-                            y: 12
+                            name: "{{k}} ({{v.0|default:"0"}})",
+                            y: {{v.0|default:"0"}}
                         },
-
-                        {
-                            name: "Pasto",
-                            y: 4
-                        },
-                        {
-                            name: "Forestal",
-                            y: 5
-                        },
-                        {
-                            name: "Café",
-                            y: 8
-                        },
-                        {
-                            name: "Caña",
-                            y: 2
-                        },
+                        {% endfor %}
 
 
                         ]
@@ -326,67 +336,7 @@
                 });
 
     });
-    $(function () {
-        $('#container-Verano3').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: ''
-            },
-            credits: {
-                enabled: false
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                                //distance: -30,
-                                format: '{point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: "",
-                        colorByPoint: true,
-                        data: [
-                        {
-                            name: "Herencia",
-                            y: 12
-                        },
-
-                        {
-                            name: "Alquilada",
-                            y: 4
-                        },
-                        {
-                            name: "Reforma Agraria",
-                            y: 5
-                        },
-                        {
-                            name: "Comprada",
-                            y: 8
-                        },
-
-
-
-                        ]
-                    }]
-                });
-
-    });
+ {% endfor %}
 </script>
     <script type="text/javascript">
         $( ".hor-menu ul li" ).removeClass( "active" );

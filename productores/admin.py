@@ -141,6 +141,24 @@ class CotizacionOrganizacionInline(admin.TabularInline):
     can_delete = False
 
 class EncuestaAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        if request.user.is_superuser:
+            return Encuesta.objects.all()
+        return Encuesta.objects.filter(usuario=request.user)
+
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser:
+            obj.save()
+        else:
+            obj.usuario = request.user
+            obj.save()
+
+    def get_form(self, request, obj=None, **kwargs):
+        if not request.user.is_superuser:
+            self.exclude = ('usuario',)
+
+        return super(EncuestaAdmin, self).get_form(request, obj=None, **kwargs)
+
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,PersonasDependenInline,
                 DatosFamiliaresInline,FamiliaEmigraInline,AreasFincaInline,
                 OtrasTierrasInline,OrigenPropiedadInline,FormaTenenciaInline,

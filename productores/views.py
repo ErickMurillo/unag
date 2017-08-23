@@ -13,9 +13,61 @@ import collections
 @login_required
 def index(request,template='frontend/index.html'):
 	#afiliados
-	total = Afiliado.objects.all().distinct().count()
+	total_afiliados = Afiliado.objects.all().distinct().count()
 	mujeres = Afiliado.objects.filter(sexo = 'Femenino').distinct().count()
 	hombres = Afiliado.objects.filter(sexo = 'Masculino').distinct().count()
+
+	#anios encuesta
+	years = []
+	for en in Encuesta.objects.order_by('anio').values_list('anio', flat=True):
+		years.append(en)
+	anios = list(sorted(set(years)))
+
+	dic_anios = {}
+	for anio in anios:
+		#areas
+		dic_areas = {}
+		for obj in Areas.objects.all():
+			areas = AreasFinca.objects.filter(areas = obj,encuesta__anio = anio).aggregate(total = Sum('mz'))['total']
+			if areas == None:
+				areas = 0
+
+			otras_areas = OtrasTierras.objects.filter(areas = obj,encuesta__anio = anio).aggregate(total = Sum('mz'))['total']
+			if otras_areas == None:
+				otras_areas = 0
+
+			total = areas + otras_areas
+			dic_areas[obj] = total
+
+		#a quien vende prod
+		encuestados = Encuesta.objects.filter(anio = anio).distinct().count()
+		quien_vende = {}
+		for obj in PRODUCCION_CHOICES2:
+			conteo = VendeProduccion.objects.filter(respuesta = obj[0]).count()
+			if conteo == None:
+				conteo = 0
+
+			quien_vende[obj[0]] = conteo,saca_porcentajes(conteo,encuestados,False)
+
+		dic_anios[anio] = dic_areas,quien_vende
+
+	#miembros por dpsto y municipio
+	list_deptos = []
+	list_muni = []
+	for obj in Afiliado.objects.all():
+		list_deptos.append(obj.municipio.departamento)
+	deptos = list(sorted(set(list_deptos)))
+
+	dic_deptos = {}
+	for x in deptos:
+	 	afiliados = Afiliado.objects.filter(municipio__departamento__nombre = x)
+	 	municipios = afiliados.values_list('municipio__nombre',flat=True).distinct()
+	 	conteo = afiliados.count()
+	 	list_munis = []
+	 	for obj in municipios:
+	 		conteo_munis = afiliados.filter(municipio__nombre = obj).count()
+	 		list_munis.append((obj,conteo_munis)) 
+	 	dic_deptos[x] = conteo,list_munis
 
 	return render(request, template, locals())
 
@@ -34,6 +86,19 @@ def afiliados(request,template='frontend/afiliados.html'):
 		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años').values_list('cantidad',flat=True).last()
 		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años').values_list('cantidad',flat=True).last()
 		
+		anios_encuesta = Encuesta.objects.filter(afiliado = afiliado.id).values_list('anio',flat=True)
+		
+		years = collections.OrderedDict()
+		for anio in anios_encuesta:
+			areas = {}
+			for obj in Areas.objects.all():
+				areas_finca = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,areasfinca__areas = obj).values_list(
+						'areasfinca__mz',flat=True)
+				areas[obj] = areas_finca
+			years[anio] = areas
+		print years
+
+
 		consulta = 1
 	else:
 		consulta = 0
@@ -531,7 +596,8 @@ def get_comunies(request):
         for id in lista:
             try:
                 munici = Municipio.objects.get(id = id)
-                comunidades = Comunidad.objects.filter(municipio__id = munici.id).order_by('nombre')
+                encuesta = Afiliado.objects.filter(municipio = munici.id).values_list('comunidad__id',flat=True).distinct()
+                comunidades = Comunidad.objects.filter(municipio__id = munici.id,id__in = encuesta).order_by('nombre')
                 lista1 = []
                 for comunidad in comunidades:
                     comu = {}
