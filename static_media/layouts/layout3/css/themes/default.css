@@ -177,7 +177,11 @@ Page Header
       .page-header .page-header-menu .hor-menu .navbar-nav > li.active > a:hover, .page-header .page-header-menu .hor-menu .navbar-nav > li.current > a,
       .page-header .page-header-menu .hor-menu .navbar-nav > li.current > a:hover {
         color: #f1f1f1;
-        background: #2d8031; }
+        background: #2d8031;
+        font-weight: bold;}
+        .page-header .page-header-menu .hor-menu .navbar-nav > li > a{
+        color: #f1f1f1;
+        font-weight: bold;}
         .page-header .page-header-menu .hor-menu .navbar-nav > li.active > a > i,
         .page-header .page-header-menu .hor-menu .navbar-nav > li.active > a:hover > i, .page-header .page-header-menu .hor-menu .navbar-nav > li.current > a > i,
         .page-header .page-header-menu .hor-menu .navbar-nav > li.current > a:hover > i {
