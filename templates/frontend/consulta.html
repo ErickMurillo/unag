@@ -288,6 +288,8 @@ $(document).ready(function() {
       }
     });
 
+    $("#id_comunidad").multiselect('disable');
+
     var foo = [];
     $(document).on('change','#id_municipio',function(){
       $('#id_municipio :selected').each(function(i, selected){
