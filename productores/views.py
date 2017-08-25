@@ -119,7 +119,33 @@ def afiliados(request,template='frontend/afiliados.html'):
 						'otrastierras__mz',flat=True)
 				otras[obj] = otras_areas
 
-			years[anio] = info,familiares,emigran,areas,otras
+			origen_propiedad = OrigenPropiedad.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('opcion__nombre',flat=True)
+			legalizada = FormaTenencia.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('legalizada',flat=True)
+			documento = DocumentoPropiedad.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('documento__nombre',flat=True)
+			agua = SistemaAgua.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('sistema__nombre',flat=True)
+			energia = EnergiaElectrica.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('respuesta',flat=True)
+			mano_obra = ManoObra.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('mano_obra',flat=True)
+
+			tabla_empleo = []
+			empleo = TablaEmpleo.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id)
+			rubro = empleo.values_list('rubro__nombre',flat=True).distinct()
+			for obj in rubro:
+				cont = empleo.filter(rubro__nombre = obj).aggregate(
+						temporal_hombres = Sum('temporal_hombres'),
+						temporal_mujeres = Sum('temporal_mujeres'),
+						permanente_hombres = Sum('permanente_hombres'),
+						permanente_mujeres = Sum('permanente_mujeres'),
+						familiar_hombres = Sum('familiar_hombres'),
+						familiar_mujeres = Sum('familiar_mujeres'))
+
+				tabla_empleo.append((obj,cont['temporal_hombres'],cont['temporal_mujeres'],
+											cont['permanente_hombres'],cont['permanente_mujeres'],
+											cont['familiar_hombres'],cont['familiar_mujeres']))
+
+			infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id,possee = 'Si').values_list('tipo__nombre',flat=True)
+
+			years[anio] = (info,familiares,emigran,areas,otras,origen_propiedad,legalizada,documento,agua,energia,
+							mano_obra,tabla_empleo,infraestructura)
 
 		consulta = 1
 	else:

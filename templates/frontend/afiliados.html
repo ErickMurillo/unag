@@ -7,311 +7,409 @@
 
 {% block content %}
 <div class="page-wrapper-row full-height">
-    <div class="page-wrapper-middle">
-        <!-- BEGIN CONTAINER -->
-        <div class="page-container">
-            <!-- BEGIN CONTENT -->
-            <div class="page-content-wrapper">
-                <!-- BEGIN CONTENT BODY -->
-                <!-- BEGIN PAGE HEAD-->
+	<div class="page-wrapper-middle">
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<!-- BEGIN CONTENT BODY -->
+				<!-- BEGIN PAGE HEAD-->
 
-                <!-- BEGIN PAGE CONTENT BODY -->
-                <div class="page-content">
-                    <div class="container">
-                        <!-- BEGIN PAGE BREADCRUMBS -->
-                        <ul class="page-breadcrumb breadcrumb">
-                            <li>
-                                <a href="/">Inicio</a>
-                                <i class="fa fa-circle"></i>
-                            </li>
-                            <li>
-                                <a href="#">Perfil</a></i>
-                            </li>
-                        </ul>
-                        <!-- END PAGE BREADCRUMBS -->
-                        <!-- BEGIN PAGE CONTENT INNER -->
-                        <div class="page-content-inner">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- BEGIN PROFILE SIDEBAR -->
-                                    <div class="profile-sidebar">
+				<!-- BEGIN PAGE CONTENT BODY -->
+				<div class="page-content">
+					<div class="container">
+						<!-- BEGIN PAGE BREADCRUMBS -->
+						<ul class="page-breadcrumb breadcrumb">
+							<li>
+								<a href="/">Inicio</a>
+								<i class="fa fa-circle"></i>
+							</li>
+							<li>
+								<a href="#">Perfil</a></i>
+							</li>
+						</ul>
+						<!-- END PAGE BREADCRUMBS -->
+						<!-- BEGIN PAGE CONTENT INNER -->
+						<div class="page-content-inner">
+							<div class="row">
+								<div class="col-md-12">
+									<!-- BEGIN PROFILE SIDEBAR -->
+									<div class="profile-sidebar">
 
-                                        <!-- PORTLET MAIN -->
-                                        <div class="portlet light">
-                                            <div class="portlet-title">
-                                                <div class="caption font-red-sunglo">
-                                                    <i class="icon-user font-red-sunglo"></i>
-                                                    <span class="caption-subject bold uppercase"> Perfil afiliados</span>
-                                                </div>
+										<!-- PORTLET MAIN -->
+										<div class="portlet light">
+											<div class="portlet-title">
+												<div class="caption font-red-sunglo">
+													<i class="icon-user font-red-sunglo"></i>
+													<span class="caption-subject bold uppercase"> Perfil afiliados</span>
+												</div>
 
-                                            </div>
-                                            <div class="div">
-                                                <form role="form" action="." method='GET'>
-                                                    <div class="form-body">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-search font-purple"></i>
-                                                            </span>
-                                                            <!--<input type="text" class="form-control" placeholder="Buscar nombre">-->
-                                                            <select class="js-example-basic-multiple" name="afiliado">
-                                                                <option value=""></option>
-                                                                {% for obj in afiliados %}
-                                                                <option value="{{obj.id}}" >{{obj.nombre}}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                            <input type="submit" name="consulta" value="Consultar" class="btn green">
-                                                        </div>
-                                                    </div>
+											</div>
+											<div class="div">
+												<form role="form" action="." method='GET'>
+													<div class="form-body">
+														<div class="input-group">
+															<span class="input-group-addon">
+																<i class="fa fa-search font-purple"></i>
+															</span>
+															<!--<input type="text" class="form-control" placeholder="Buscar nombre">-->
+															<select class="js-example-basic-multiple" name="afiliado">
+																<option value=""></option>
+																{% for obj in afiliados %}
+																<option value="{{obj.id}}" >{{obj.nombre}}</option>
+																{% endfor %}
+															</select>
+															<input type="submit" name="consulta" value="Consultar" class="btn green">
+														</div>
+													</div>
 
-                                                </form>
-                                            </div>
-                                            {% if consulta == 1 %}
-                                            <!-- SIDEBAR USER TITLE -->
-                                            <div class="profile-usertitle">
-                                                <div class="profile-usertitle-name"> <i class="fa fa-male"> </i> {{afiliado.nombre}} </div>
-                                                <div class="profile-usertitle-job"> Productor </div>
-                                                <div>{{afiliado.municipio}}, {{afiliado.comunidad.nombre}}</div>
-                                            </div>
-                                            <!-- END SIDEBAR USER TITLE -->
-                                            <!-- SIDEBAR MENU -->
-                                            <div class="profile-usermenu">
-                                                <ul class="nav nav-pills nav-stacked">
-                                                    <li>
-                                                        <a > <i class="fa fa-legal"></i> Casado </a>
-                                                    </li>
-                                                    <li>
-                                                        <a><i class="fa fa fa-credit-card"></i> {{afiliado.cedula}}</a>
-                                                    </li>
-                                                    <li>
-                                                        <a>
-                                                            <i class="fa fa-birthday-cake"></i> {{afiliado.fecha_nacimiento}} ({{afiliado.edad}} años)
-                                                        </a>
-                                                    </li>
+												</form>
+											</div>
+											{% if consulta == 1 %}
+											<!-- SIDEBAR USER TITLE -->
+											<div class="profile-usertitle">
+												<div class="profile-usertitle-name"> <i class="fa fa-male"> </i> {{afiliado.nombre}} </div>
+												<div class="profile-usertitle-job"> Productor </div>
+												<div>{{afiliado.municipio}}, {{afiliado.comunidad.nombre}}</div>
+											</div>
+											<!-- END SIDEBAR USER TITLE -->
+											<!-- SIDEBAR MENU -->
+											<div class="profile-usermenu">
+												<ul class="nav nav-pills nav-stacked">
+													<li>
+														<a > <i class="fa fa-legal"></i> Casado </a>
+													</li>
+													<li>
+														<a><i class="fa fa fa-credit-card"></i> {{afiliado.cedula}}</a>
+													</li>
+													<li>
+														<a>
+															<i class="fa fa-birthday-cake"></i> {{afiliado.fecha_nacimiento}} ({{afiliado.edad}} años)
+														</a>
+													</li>
 
-                                                    <li>
-                                                        <a>
-                                                            <i class="fa fa-phone"></i> {{afiliado.numero_celular}}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a>
-                                                            <i class="fa fa-graduation-cap"></i> {{escolaridad}}
-                                                        </a>
-                                                    </li>
+													<li>
+														<a>
+															<i class="fa fa-phone"></i> {{afiliado.numero_celular}}
+														</a>
+													</li>
+													<li>
+														<a>
+															<i class="fa fa-graduation-cap"></i> {{escolaridad}}
+														</a>
+													</li>
 
-                                                </ul>
-                                            </div>
-                                            <!-- END MENU -->
-                                            <div class="portlet-title">
-                                                <div class="caption caption-subject font-red-sunglo">
+												</ul>
+											</div>
+											<!-- END MENU -->
+											<div class="portlet-title">
+												<div class="caption caption-subject font-red-sunglo">
 
-                                                    Personas que dependen del afiliado
-                                                </div>
+													Personas que dependen del afiliado
+												</div>
 
-                                            </div>
-                                            <!-- STAT -->
-                                            <div class="row list-separated profile-stat">
-                                                <div class="col-md-6 col-sm-4 col-xs-6">
-                                                    <div class="uppercase profile-stat-title"> {{hombres|default:"0"}} </div>
-                                                    <div class="uppercase profile-stat-text"> Hombres Adultos </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-4 col-xs-6">
-                                                    <div class="uppercase profile-stat-title"> {{mujeres|default:"0"}} </div>
-                                                    <div class="uppercase profile-stat-text"> Mujeres Adultas </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-4 col-xs-6">
-                                                    <div class="uppercase profile-stat-title"> {{ninos|default:"0"}} </div>
-                                                    <div class="uppercase profile-stat-text"> Niños menores de 12 años</div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-4 col-xs-6">
-                                                    <div class="uppercase profile-stat-title"> {{ninas|default:"0"}} </div>
-                                                    <div class="uppercase profile-stat-text"> Niñas menores de 12 años </div>
-                                                </div>
-                                            </div>
-                                            <!-- END STAT -->
-                                            {% endif %}
-                                        </div>
-                                        <!-- END PORTLET MAIN -->
+											</div>
+											<!-- STAT -->
+											<div class="row list-separated profile-stat">
+												<div class="col-md-6 col-sm-4 col-xs-6">
+													<div class="uppercase profile-stat-title"> {{hombres|default:"0"}} </div>
+													<div class="uppercase profile-stat-text"> Hombres Adultos </div>
+												</div>
+												<div class="col-md-6 col-sm-4 col-xs-6">
+													<div class="uppercase profile-stat-title"> {{mujeres|default:"0"}} </div>
+													<div class="uppercase profile-stat-text"> Mujeres Adultas </div>
+												</div>
+												<div class="col-md-6 col-sm-4 col-xs-6">
+													<div class="uppercase profile-stat-title"> {{ninos|default:"0"}} </div>
+													<div class="uppercase profile-stat-text"> Niños menores de 12 años</div>
+												</div>
+												<div class="col-md-6 col-sm-4 col-xs-6">
+													<div class="uppercase profile-stat-title"> {{ninas|default:"0"}} </div>
+													<div class="uppercase profile-stat-text"> Niñas menores de 12 años </div>
+												</div>
+											</div>
+											<!-- END STAT -->
+											{% endif %}
+										</div>
+										<!-- END PORTLET MAIN -->
 
-                                    </div>
-                                    <!-- END BEGIN PROFILE SIDEBAR -->
-                                    <!-- BEGIN PROFILE CONTENT -->
-                                    {% if consulta == 1 %}
-                                    <div class="profile-content">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="portlet light ">
-                                                    <div class="portlet-title tabbable-line">
+									</div>
+									<!-- END BEGIN PROFILE SIDEBAR -->
+									<!-- BEGIN PROFILE CONTENT -->
+									{% if consulta == 1 %}
+									<div class="profile-content">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="portlet light ">
+													<div class="portlet-title tabbable-line">
 
-                                                        <ul class="nav nav-tabs">
+														<ul class="nav nav-tabs">
 
-                                                            <li>
-                                                                <a href="#tab_1_1" data-toggle="tab">Datos Familiares</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#tab_1_2" data-toggle="tab">Propiedad</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#tab_1_4" data-toggle="tab">Inventario</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#tab_1_4" data-toggle="tab">Agricultura</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#tab_1_4" data-toggle="tab">Empleo</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#tab_1_4" data-toggle="tab">Infraestructura</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#tab_1_4" data-toggle="tab">Organización</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <div class="tab-content">
-                                                            <!-- PERSONAL INFO TAB -->
-                                                            <div class="tab-pane active" id="tab_1_1">
-                                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                                {% for key in years.keys %}
-                                                                  <li class="nav-item">
-                                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}-generales" role="tab">{{key}}</a>
-                                                                  </li>
-                                                                {% endfor %}
-                                                                  
-                                                                </ul>
+															<li>
+																<a href="#tab_1_1" data-toggle="tab">Datos Familiares</a>
+															</li>
+															<li>
+																<a href="#tab_1_2" data-toggle="tab">Propiedad</a>
+															</li>
+															<li>
+																<a href="#tab_1_3" data-toggle="tab">Producción</a>
+															</li>
+															<li>
+																<a href="#tab_1_4" data-toggle="tab">Organización</a>
+															</li>
+														</ul>
+													</div>
+													<div class="portlet-body">
+														<div class="tab-content">
+															<!-- PERSONAL INFO TAB -->
+															<div class="tab-pane active" id="tab_1_1">
+																<ul class="nav nav-tabs" id="myTab" role="tablist">
+																	{% for key in years.keys %}
+																	<li class="nav-item">
+																		<a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}-generales" role="tab">{{key}}</a>
+																	</li>
+																	{% endfor %}
 
-                                                                <!-- Tab panes -->
-                                                                <div class="tab-content">
-                                                                {% for key,value in years.items  %}
-                                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-generales" role="tabpanel">
-                                                                    Acceso internet: {{value.0.0.0|default:"---"}} <br>
-                                                                    Estado civil: {{value.0.0.1|default:"---"}}
-                                                                    <br>
-                                                                    Escolaridad: {{value.0.0.2|default:"---"}}
-                                                                    <br>
-                                                                    Profesión: {{value.0.0.3|default:"---"}}
-                                                                    <br>
-                                                                    <table>
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Nombre</th>
-                                                                                <th>Sexo</th>
-                                                                                <th>Edad</th>
-                                                                                <th>Escolaridad</th>
-                                                                                <th>Parentesco</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        {% for x in value.1 %}
-                                                                            <tr>
-                                                                                <td>{{x.0}}</td>
-                                                                                <td>{{x.1}}</td>
-                                                                                <td>{{x.2}}</td>
-                                                                                <td>{{x.3}}</td>
-                                                                                <td>{{x.4}}</td>
-                                                                            </tr>
-                                                                        {% endfor %}
-                                                                            
-                                                                        </tbody>
-                                                                    </table>
+																</ul>
 
-                                                                    <br>
-                                                                    <h1>MIEMBROS DE LA FAMILIA EMIGRAN</h1>
-                                                                    <br>
-                                                                    Hombres: {{value.2.0.0|default:"---"}}
-                                                                    Mujeres: {{value.2.0.1|default:"---"}}
-                                                                    Donde: {{value.2.0.2|default:"---"}}
-                                                                    Tiempo: {{value.2.0.3|default:"---"}}
-                                                                    Meses: {{value.2.0.4|default:"---"}}
-                                                                    </div>
+																<!-- Tab panes -->
+																<div class="tab-content">
+																	{% for key,value in years.items  %}
+																	<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-generales" role="tabpanel">
+																		Acceso internet: {{value.0.0.0|default:"---"}} <br>
+																		Estado civil: {{value.0.0.1|default:"---"}}
+																		<br>
+																		Escolaridad: {{value.0.0.2|default:"---"}}
+																		<br>
+																		Profesión: {{value.0.0.3|default:"---"}}
+																		<br>
+																		<table>
+																			<thead>
+																				<tr>
+																					<th>Nombre</th>
+																					<th>Sexo</th>
+																					<th>Edad</th>
+																					<th>Escolaridad</th>
+																					<th>Parentesco</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				{% for x in value.1 %}
+																				<tr>
+																					<td>{{x.0}}</td>
+																					<td>{{x.1}}</td>
+																					<td>{{x.2}}</td>
+																					<td>{{x.3}}</td>
+																					<td>{{x.4}}</td>
+																				</tr>
+																				{% endfor %}
 
-                                                                    
-                                                                {% endfor %}
-                                                                </div>
-                                                            
-                                                            <!-- END PERSONAL INFO TAB -->
+																			</tbody>
+																		</table>
 
-                                                        </div>
-                                                        <div class="tab-pane" id="tab_1_2">
-                                                            
-                                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                                {% for key in years.keys %}
-                                                                  <li class="nav-item">
-                                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
-                                                                  </li>
-                                                                {% endfor %}
-                                                                  
-                                                                </ul>
+																		<br>
+																		<h1>MIEMBROS DE LA FAMILIA EMIGRAN</h1>
+																		<br>
+																		Hombres: {{value.2.0.0|default:"---"}}
+																		Mujeres: {{value.2.0.1|default:"---"}}
+																		Donde: {{value.2.0.2|default:"---"}}
+																		Tiempo: {{value.2.0.3|default:"---"}}
+																		Meses: {{value.2.0.4|default:"---"}}
+																	</div>
 
-                                                                <!-- Tab panes -->
-                                                                <div class="tab-content">
-                                                                {% for key in years.keys  %}
-                                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <div class="portlet box blue ">
-                                                                            <div class="portlet-title">
-                                                                                <div class="caption">
+																	
+																	{% endfor %}
+																</div>
 
-                                                                                    <span class="caption-subject bold uppercase">Área de la finca (Mz)</span>
+																<!-- END PERSONAL INFO TAB -->
 
-                                                                                </div>
-                                                                            </div>
+															</div>
+															<div class="tab-pane" id="tab_1_2">
 
-                                                                            <div class="portlet-body">
+																<ul class="nav nav-tabs" id="myTab" role="tablist">
+																	{% for key in years.keys %}
+																	<li class="nav-item">
+																		<a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
+																	</li>
+																	{% endfor %}
 
-                                                                                <div class="map">
-                                                                                <div class="grafico-ind" id="area{{key}}" width='100%'></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="portlet box blue ">
-                                                                            <div class="portlet-title">
-                                                                                <div class="caption">
+																</ul>
 
-                                                                                    <span class="caption-subject bold uppercase">Otras áreas de la finca (Mz)</span>
+																<!-- Tab panes -->
+																<div class="tab-content">
+																	{% for key,value in years.items  %}
+																	<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
+																		<div class="row">
+																			<div class="col-sm-6">
+																				<div class="portlet box blue ">
+																					<div class="portlet-title">
+																						<div class="caption">
 
-                                                                                </div>
-                                                                            </div>
+																							<span class="caption-subject bold uppercase">Área de la finca (Mz)</span>
 
-                                                                            <div class="portlet-body">
+																						</div>
+																					</div>
 
-                                                                                <div class="map">
-                                                                                <div class="grafico-ind" id="otras{{key}}" width='100%'></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        </div>
-                                                                    </div>
-                                                                        
-                                                                    </div>
-                                                                {% endfor %}
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    <!-- END PROFILE CONTENT -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END PAGE CONTENT INNER -->
-                    </div>
-                </div>
-                <!-- END PAGE CONTENT BODY -->
-                <!-- END CONTENT BODY -->
-            </div>
-            <!-- END CONTENT -->
+																					<div class="portlet-body">
 
-        </div>
-        <!-- END CONTAINER -->
-    </div>
+																						<div class="map">
+																							<div class="grafico-ind" id="area{{key}}" width='100%'></div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="col-sm-6">
+																				<div class="portlet box blue ">
+																					<div class="portlet-title">
+																						<div class="caption">
+
+																							<span class="caption-subject bold uppercase">Otras áreas de la finca (Mz)</span>
+
+																						</div>
+																					</div>
+
+																					<div class="portlet-body">
+
+																						<div class="map">
+																							<div class="grafico-ind" id="otras{{key}}" width='100%'></div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="col-sm-6">
+																				Origen de la propiedad: {{value.5.0|default:"---"}}
+																				<br>
+																				Propiedad legalizada: {{value.6.0|default:"---"}}
+																				<br>
+																				{% if value.7 %}
+																				Documento: {{value.7.0|default:"---"}}
+																				<br>
+																				{% endif %}
+																				Sistema de agua utilizado para la finca y consumo: 
+																				{% if value.8 %}
+																					{% for x in value.8 %}
+																					{{x}},
+																				{% endfor %}
+																				{% else %}
+																				---
+																				{% endif %}
+																				<br>
+																				Acceso a energía eléctrica: {{value.9.0|default:"---"}}
+																				
+																			</div>
+																			<div class="col-sm-6">
+																				Contrata mano de obra: {{value.10.0|default:"---"}}
+																				<br>
+																				<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+										                                        <thead>
+										                                            <tr>
+										                                                <th>Rubro</th>
+										                                                <th>Temporal Hombres</th>
+										                                                <th>Temporal Mujeres</th>
+										                                                <th>Permanente Hombres</th>
+										                                                <th>Permanente Hombres</th>
+										                                                <th>Familiar Hombres</th>
+										                                                <th>Familiar Hombres</th>
+										                                            </tr>
+										                                        </thead>
+										                                        <tbody>
+										                                        {% for obj in value.11 %}
+										                                            <tr>                                                    
+										                                                <td>{{obj.0}}</td>
+										                                                <td>{{obj.1}}</td>
+										                                                <td>{{obj.2}}</td>
+										                                                <td>{{obj.3}}</td>
+										                                                <td>{{obj.4}}</td>
+										                                                <td>{{obj.5}}</td>
+										                                                <td>{{obj.6}}</td>
+										                                            </tr>          
+										                                        {% endfor %}                
+										                                            
+										                                        </tbody>
+										                                    </table>
+
+										                                    Infraestructura: 
+										                                    {% if value.8 %}
+																				{% for x in value.12 %}
+																				{{x}},
+																			{% endfor %}
+																			{% else %}
+																			---
+																			{% endif %}
+																			</div>		
+
+																		</div>
+																		
+																	</div>
+																	{% endfor %}
+																</div>
+															</div>
+
+															<div class="tab-pane" id="tab_1_3">
+																<ul class="nav nav-tabs" id="myTab" role="tablist">
+																	{% for key in years.keys %}
+																	<li class="nav-item">
+																		<a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
+																	</li>
+																	{% endfor %}
+
+																</ul>
+
+																<!-- Tab panes -->
+																<div class="tab-content">
+																	{% for key,value in years.items  %}
+																	<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
+																		<div class="row">
+																			<div class="col-sm-6">
+																				Origen de la propiedad: {{value.5.0|default:"---"}}
+																				<br>
+																				Propiedad legalizada: {{value.6.0|default:"---"}}
+																				<br>
+																				{% if value.7 %}
+																				Documento: {{value.7.0|default:"---"}}
+																				<br>
+																				{% endif %}
+																				Sistema de agua utilizado para la finca y consumo: 
+																				{% if value.8 %}
+																					{% for x in value.8 %}
+																					{{x}},
+																				{% endfor %}
+																				{% else %}
+																				---
+																				{% endif %}
+																				<br>
+																				Acceso a energía eléctrica: {{value.9.0|default:"---"}}
+																				
+																			</div>
+																		</div>
+																		
+																	</div>
+																	{% endfor %}
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endif %}
+										<!-- END PROFILE CONTENT -->
+									</div>
+								</div>
+							</div>
+							<!-- END PAGE CONTENT INNER -->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT BODY -->
+					<!-- END CONTENT BODY -->
+				</div>
+				<!-- END CONTENT -->
+
+			</div>
+			<!-- END CONTAINER -->
+		</div>
+	</div>
 </div>
 {% endblock content %}
 
@@ -328,115 +426,115 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <script type="text/javascript">
-    $(".js-example-basic-multiple").select2({
-      placeholder: "Seleccionar afiliado",
-      allowClear: true
-  });
+	$(".js-example-basic-multiple").select2({
+		placeholder: "Seleccionar afiliado",
+		allowClear: true
+	});
 </script>
 
 
 <script type="text/javascript">
-    $(function () {
-        {% for key,value in years.items %}
-        
-        $('#area{{key}}').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: ''
-            },
-            credits: {
-                enabled: false
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                                //distance: -30,
-                                format: '{point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: "",
-                        colorByPoint: true,
-                        data: [
-                        {% for k,v in value.3.items %}
-                        {
-                            name: "{{k}} ({{v.0|default:"0"}})",
-                            y: {{v.0|default:"0"}}
-                        },
-                        {% endfor %}
+	$(function () {
+		{% for key,value in years.items %}
+		
+		$('#area{{key}}').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: ''
+			},
+			credits: {
+				enabled: false
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+								//distance: -30,
+								format: '{point.percentage:.1f} %',
+								style: {
+									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								}
+							},
+							showInLegend: true
+						}
+					},
+					series: [{
+						name: "",
+						colorByPoint: true,
+						data: [
+						{% for k,v in value.3.items %}
+						{
+							name: "{{k}} ({{v.0|default:"0"}})",
+							y: {{v.0|default:"0"}}
+						},
+						{% endfor %}
 
 
-                        ]
-                    }]
-                });
-        $('#otras{{key}}').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: ''
-            },
-            credits: {
-                enabled: false
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                                //distance: -30,
-                                format: '{point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: "",
-                        colorByPoint: true,
-                        data: [
-                        {% for k,v in value.4.items %}
-                        {
-                            name: "{{k}} ({{v.0|default:"0"}})",
-                            y: {{v.0|default:"0"}}
-                        },
-                        {% endfor %}
+						]
+					}]
+				});
+		$('#otras{{key}}').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: ''
+			},
+			credits: {
+				enabled: false
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+								//distance: -30,
+								format: '{point.percentage:.1f} %',
+								style: {
+									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								}
+							},
+							showInLegend: true
+						}
+					},
+					series: [{
+						name: "",
+						colorByPoint: true,
+						data: [
+						{% for k,v in value.4.items %}
+						{
+							name: "{{k}} ({{v.0|default:"0"}})",
+							y: {{v.0|default:"0"}}
+						},
+						{% endfor %}
 
 
-                        ]
-                    }]
-                });
-    {% endfor %}
-    });
+						]
+					}]
+				});
+		{% endfor %}
+	});
 
 </script>
-    <script type="text/javascript">
-        $( ".hor-menu ul li" ).removeClass( "active" );
-        $( ".hor-menu ul li.afiliado" ).addClass( "active" );
-    </script>
+<script type="text/javascript">
+	$( ".hor-menu ul li" ).removeClass( "active" );
+	$( ".hor-menu ul li.afiliado" ).addClass( "active" );
+</script>
 {% endblock extra_js %}

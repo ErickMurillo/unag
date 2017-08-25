@@ -31,9 +31,9 @@ class Afiliado(models.Model):
     fecha_nacimiento = models.DateField()
     lugar_nacimiento = models.CharField(max_length=250)
     foto = ImageField(upload_to='productores/',blank=True, null=True)
-    anio_ingreso = models.IntegerField(verbose_name='Año ingreso')
-    numero_celular = models.CharField(max_length=20)
-    tipo_celular = models.CharField(max_length=20,choices=CELULAR_CHOICES)
+    anio_ingreso = models.IntegerField(verbose_name='Año ingreso',blank=True, null=True)
+    numero_celular = models.CharField(max_length=20,blank=True, null=True)
+    tipo_celular = models.CharField(max_length=20,choices=CELULAR_CHOICES,blank=True, null=True)
     edad = models.IntegerField(editable=False)
 
     class Meta:
@@ -66,7 +66,7 @@ class Encuesta(models.Model):
 
 class DatosGenerales(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    acceso_internet = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    acceso_internet = models.CharField(max_length=2,choices=SI_NO_CHOICES,blank=True, null=True)
     estado_civil = models.CharField(max_length=20,choices=ESTADO_CIVIL_CHOICES)
     # edad = models.IntegerField(editable=False)
 
@@ -231,9 +231,9 @@ class Agricultura(models.Model):
     consumo_humano = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo humano qq')
     consumo_animal = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo animal qq')
     venta = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Venta qq')
-    costo_produccion = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Costo de producción (Inversión) C$/Mz')
-    ingresos_produccion = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Ingresos de la producción C$/Mz')
-    ganancia_perdida = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Ganancia o Perdida C$/Mz')
+    costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz')
+    ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz')
+    ganancia_perdida = models.FloatField(verbose_name='Ganancia o Perdida C$/Mz')
     tipo = models.CharField(max_length=30,choices=CULTIVO_CHOICES)
 
     class Meta:
