@@ -94,10 +94,11 @@
                                             <div class="portlet-body">
                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 {% for key in dic_anios.keys %}
-                                                  <li class="nav-item">
+                                                  <li class="nav-item {% if forloop.first %}active{% endif %}">
                                                     <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
                                                   </li>
                                                 {% endfor %}
+
                                                   
                                                 </ul>
 
@@ -146,7 +147,7 @@
                                             <div class="portlet-body">
                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 {% for key in dic_anios.keys %}
-                                                  <li class="nav-item">
+                                                  <li class="nav-item {% if forloop.first %}active{% endif %}">
                                                     <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}-vende" role="tab">{{key}}</a>
                                                   </li>
                                                 {% endfor %}

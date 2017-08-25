@@ -1,0 +1,55 @@
+.create-account input{
+	background: transparent;
+	border: none;
+}
+.nav-tabs>li{
+	a{padding: 10px 10px;}
+
+}
+.nav-tabs>li.nav-item>a{
+	background: #42bb48;
+	color: white;
+	font-weight: bold;
+}
+
+.nav-tabs>li.active>a.active{
+	background: transparent;
+	color: #42bb48;
+	border-bottom-color:#42bb48;
+	
+}
+#id_sexo{
+	list-style:none;
+	margin: 0;
+	padding:0;
+	li{display:inline-block; padding-left: 10px;}
+
+}
+.mt-radio{
+	padding-left:22px;
+}
+.multiselect-container>li>a>label.radio, .multiselect-container>li>a>label.checkbox{
+	margin-left: 30px;
+	padding-top:5px;
+}
+.indicadores .btn{
+	white-space: normal;
+}
+.font-green-steel{
+	color: #3a54a5 !important;
+
+}
+.v-aling{
+	display: table-cell;
+	vertical-align: middle;
+}
+.btn-icon-only>[class^=icon-], .btn-icon-only>i{
+	margin-top:5px;
+	font-weight:bold;
+}
+.portlet.box.green>.portlet-title>.actions .btn-default{
+	border:2px solid #8edfe6;
+}
+.portlet.box.green>.portlet-title, .portlet.green, .portlet>.portlet-body.green{
+	background:#3a54a5 !important;
+}
