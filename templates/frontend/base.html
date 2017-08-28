@@ -18,25 +18,20 @@
         <link href="/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="/static/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
         <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="/static/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="/static/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="/static/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
-        <link href="/static/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
-        <link href="/static/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
-        <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="/static/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
         <link href="/static/css/plugins.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
+        {% block extra_head %}{% endblock extra_head %}
         <link href="/static/layouts/layout3/css/layout.css" rel="stylesheet" type="text/css" />
         <link href="/static/layouts/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="/static/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/css/costum.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> 
-        {% block extra_head %}{% endblock extra_head %}
+        
     </head>
     <!-- END HEAD -->
 
@@ -190,9 +185,7 @@
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="/static/scripts/app.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
-        <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="/static/pages/scripts/dashboard.min.js" type="text/javascript"></script>
-        <!-- END PAGE LEVEL SCRIPTS -->
+
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="/static/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
         <script src="/static/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
