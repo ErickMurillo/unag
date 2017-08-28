@@ -1,0 +1,21 @@
+{% if request.session.anio %}
+<p>Año: {{request.session.anio}}</p>
+{% endif %}
+
+{% if request.session.municipio %}
+<p>Municipios: {% for x in request.session.municipio %}{{x.nombre}},{% endfor %}</p>
+{% endif %}
+
+{% if request.session.comunidad %}
+<p>Comunidades: {% for x in request.session.comunidad %}{{x.nombre}},{% endfor %}</p>
+{% endif %}
+
+{% if request.session.sexo %}
+<p>Sexo: {{request.session.sexo}}</p>
+{% else %}
+<p>Sexo: Ambos</p>
+{% endif %}
+
+{% if request.session.edad_inicio and request.session.edad_fin %}
+<p>Rango de edad: {{request.session.edad_inicio}} - {{request.session.edad_fin}}</p>
+{% endif %}

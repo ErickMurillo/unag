@@ -561,8 +561,15 @@ def organizacion(request,template='frontend/organizacion.html'):
 
 	#cuanto cotiza
 	lista = filtro.filter(cotizacion__respuesta = 'Si').values_list('respuestasicotiza__cuanto_cotiza',flat=True)
-	minimo = min(lista)
-	maximo = max(lista)
+	try:
+		minimo = min(lista)
+	except:
+		minimo = 0
+
+	try:
+		maximo = max(lista)
+	except:
+		maximo = 0	
 
 	cuanto_cotiza = crear_rangos(request, lista, minimo, maximo, step=50)
 
