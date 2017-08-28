@@ -7,7 +7,7 @@ from productores.forms import *
 from django.http import HttpResponse
 import json as simplejson
 from django.db.models import Avg, Sum, F, Count
-import collections 
+import collections
 
 # Create your views here.
 @login_required
@@ -66,7 +66,7 @@ def index(request,template='frontend/index.html'):
 	 	list_munis = []
 	 	for obj in municipios:
 	 		conteo_munis = afiliados.filter(municipio__nombre = obj).count()
-	 		list_munis.append((obj,conteo_munis)) 
+	 		list_munis.append((obj,conteo_munis))
 	 	dic_deptos[x] = conteo,list_munis
 
 	return render(request, template, locals())
@@ -85,9 +85,9 @@ def afiliados(request,template='frontend/afiliados.html'):
 		mujeres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Mujeres').values_list('cantidad',flat=True).last()
 		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años').values_list('cantidad',flat=True).last()
 		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años').values_list('cantidad',flat=True).last()
-		
+
 		anios_encuesta = Encuesta.objects.filter(afiliado = afiliado.id).values_list('anio',flat=True)
-		
+
 		years = collections.OrderedDict()
 		for anio in anios_encuesta:
 			#info general
@@ -144,8 +144,132 @@ def afiliados(request,template='frontend/afiliados.html'):
 
 			infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id,possee = 'Si').values_list('tipo__nombre',flat=True)
 
+			#agricultura
+			#primera
+			primera = []
+			cultivos_primera = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__tipo = 'Cultivo de primera').values_list('agricultura__rubro',flat=True)
+			for obj in Cultivo.objects.filter(id__in = cultivos_primera):
+				cultivo = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__rubro = obj).aggregate(
+							area_sembrada = Sum('agricultura__area_sembrada'),
+							produccion_total = Sum('agricultura__produccion_total'),
+							semillas = Sum('agricultura__semillas'),
+							consumo_humano = Sum('agricultura__consumo_humano'),
+							consumo_animal = Sum('agricultura__consumo_animal'),
+							venta = Sum('agricultura__venta'),
+							costo_produccion = Avg('agricultura__costo_produccion'),
+							ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+				primera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+								cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+								cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+								cultivo['ganancia_perdida']))
+
+
+			#postrera
+			postrera = []
+			cultivos_postrera = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__tipo = 'Cultivo de postrera').values_list('agricultura__rubro',flat=True)
+			for obj in Cultivo.objects.filter(id__in = cultivos_postrera):
+				cultivo = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__rubro = obj).aggregate(
+							area_sembrada = Sum('agricultura__area_sembrada'),
+							produccion_total = Sum('agricultura__produccion_total'),
+							semillas = Sum('agricultura__semillas'),
+							consumo_humano = Sum('agricultura__consumo_humano'),
+							consumo_animal = Sum('agricultura__consumo_animal'),
+							venta = Sum('agricultura__venta'),
+							costo_produccion = Avg('agricultura__costo_produccion'),
+							ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+				postrera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+								cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+								cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+								cultivo['ganancia_perdida']))
+
+			#apante
+			apante = []
+			cultivos_apante = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__tipo = 'Cultivo de apante').values_list('agricultura__rubro',flat=True)
+			for obj in Cultivo.objects.filter(id__in = cultivos_apante):
+				cultivo = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__rubro = obj).aggregate(
+							area_sembrada = Sum('agricultura__area_sembrada'),
+							produccion_total = Sum('agricultura__produccion_total'),
+							semillas = Sum('agricultura__semillas'),
+							consumo_humano = Sum('agricultura__consumo_humano'),
+							consumo_animal = Sum('agricultura__consumo_animal'),
+							venta = Sum('agricultura__venta'),
+							costo_produccion = Avg('agricultura__costo_produccion'),
+							ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+				apante.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+								cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+								cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+								cultivo['ganancia_perdida']))
+
+			#permanentes
+			permanentes = []
+			cultivos_permanentes = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__tipo = 'Cultivos permanentes (Frutales, Cítricos, …)').values_list('agricultura__rubro',flat=True)
+			for obj in Cultivo.objects.filter(id__in = cultivos_permanentes):
+				cultivo = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__rubro = obj).aggregate(
+							area_sembrada = Sum('agricultura__area_sembrada'),
+							produccion_total = Sum('agricultura__produccion_total'),
+							semillas = Sum('agricultura__semillas'),
+							consumo_humano = Sum('agricultura__consumo_humano'),
+							consumo_animal = Sum('agricultura__consumo_animal'),
+							venta = Sum('agricultura__venta'),
+							costo_produccion = Avg('agricultura__costo_produccion'),
+							ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+				permanentes.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+								cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+								cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+								cultivo['ganancia_perdida']))
+
+			#otros
+			otros = []
+			cultivos_otros = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__tipo = 'Otros').values_list('agricultura__rubro',flat=True)
+			for obj in Cultivo.objects.filter(id__in = cultivos_otros):
+				cultivo = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,agricultura__rubro = obj).aggregate(
+							area_sembrada = Sum('agricultura__area_sembrada'),
+							produccion_total = Sum('agricultura__produccion_total'),
+							semillas = Sum('agricultura__semillas'),
+							consumo_humano = Sum('agricultura__consumo_humano'),
+							consumo_animal = Sum('agricultura__consumo_animal'),
+							venta = Sum('agricultura__venta'),
+							costo_produccion = Avg('agricultura__costo_produccion'),
+							ingresos_produccion = Avg('agricultura__ingresos_produccion'),
+							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
+
+				otros.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+								cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
+								cultivo['venta'],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
+								cultivo['ganancia_perdida']))
+			#inventario animales
+			animales = []
+			for animal in Animales.objects.all():
+				conteos = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,inventarioanimales__animal = animal).aggregate(
+										cantidad = Sum('inventarioanimales__cantidad'),
+										cuanto_vende = Sum('inventarioanimales__cuanto_vende'))
+
+				animales.append((animal,conteos['cantidad'],conteos['cuanto_vende']))
+
+			#produccion leche y huevos
+			produccion = {}
+			for obj in PRODUCCION_CHOICES:
+				list_prod = []
+				for x in QUIEN_VENDE_CHOICES:
+					conteos = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,produccionhuevosleche__tipo_produccion = obj[0],produccionhuevosleche__quien_vende = x[0]).aggregate(
+											cantidad = Sum('produccionhuevosleche__cantidad'),
+											cuanto_vende = Sum('produccionhuevosleche__cuanto_vende'))
+
+					list_prod.append((x[0],conteos['cantidad'],conteos['cuanto_vende']))
+				produccion[obj[0]] = list_prod
+
+
 			years[anio] = (info,familiares,emigran,areas,otras,origen_propiedad,legalizada,documento,agua,energia,
-							mano_obra,tabla_empleo,infraestructura)
+							mano_obra,tabla_empleo,infraestructura,primera,postrera,apante,permanentes,otros,
+							animales,produccion)
 
 		consulta = 1
 	else:
@@ -326,7 +450,7 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	except:
 		propiedad['Otros'] = 0
 
-	#tenencia 
+	#tenencia
 	tenencia = {}
 	for obj in SI_NO_CHOICES:
 		conteo = filtro.filter(formatenencia__legalizada = obj[0]).count()
@@ -359,7 +483,7 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	except:
 		acceso_agua['Otros'] = 0
 
-	#energia 
+	#energia
 	energia = {}
 	for obj in SI_NO_CHOICES:
 		conteo = filtro.filter(energiaelectrica__respuesta = obj[0]).count()
@@ -415,7 +539,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 								cuanto_vende = Sum('inventarioanimales__cuanto_vende'))
 
 		animales.append((animal,conteos['cantidad'],conteos['cuanto_vende']))
-	
+
 	#produccion leche y huevos
 	produccion = {}
 	for obj in PRODUCCION_CHOICES:
@@ -569,7 +693,7 @@ def organizacion(request,template='frontend/organizacion.html'):
 	try:
 		maximo = max(lista)
 	except:
-		maximo = 0	
+		maximo = 0
 
 	cuanto_cotiza = crear_rangos(request, lista, minimo, maximo, step=50)
 
