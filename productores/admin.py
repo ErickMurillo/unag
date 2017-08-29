@@ -141,6 +141,10 @@ class CotizacionOrganizacionInline(admin.TabularInline):
     can_delete = False
 
 class EncuestaAdmin(admin.ModelAdmin):
+    list_display = ['afiliado','fecha_encuesta']
+    date_hierarchy = 'fecha_encuesta'
+    search_fields = ['afiliado__nombre']
+
     def get_queryset(self, request):
         if request.user.is_superuser:
             return Encuesta.objects.all()

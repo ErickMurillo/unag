@@ -266,10 +266,36 @@ def afiliados(request,template='frontend/afiliados.html'):
 					list_prod.append((x[0],conteos['cantidad'],conteos['cuanto_vende']))
 				produccion[obj[0]] = list_prod
 
+			quien_vende = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('vendeproduccion__respuesta',flat=True)
+
+			#organizacion
+			cotiza = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('cotizacion__respuesta',flat=True)
+			si_cotiza = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list(
+							'respuestasicotiza__donde_cotiza__nombre','respuestasicotiza__desde_cuando',
+							'respuestasicotiza__cuanto_cotiza','respuestasicotiza__frecuencia')
+
+			cooperativa = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('miembrocooperativa__respuesta',flat=True)
+			list_cooperativas = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('miembrocooperativa__cooperativa__nombre',flat=True)
+
+			proyecto = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('beneficiadoproyecto__respuesta',flat=True)
+			list_proyectos = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('beneficiadoproyecto__proyectos__nombre',flat=True)
+
+			credito = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('credito__respuesta','credito__proyectos__nombre')
+			list_credito = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('credito__formas_recibe_credito__nombre',flat=True)
+
+			problemas = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('cotizacionorganizacion__problemas_productor__nombre',flat=True)
+
+			acciones = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('cotizacionorganizacion__acciones_cambio_climatico__nombre',flat=True)
+
+			motivos_afiliacion = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('cotizacionorganizacion__afiliacion_unag__nombre',flat=True)
+
+			comentarios = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list('cotizacionorganizacion__comentarios',flat=True)
 
 			years[anio] = (info,familiares,emigran,areas,otras,origen_propiedad,legalizada,documento,agua,energia,
 							mano_obra,tabla_empleo,infraestructura,primera,postrera,apante,permanentes,otros,
-							animales,produccion)
+							animales,produccion,quien_vende,cotiza,si_cotiza,cooperativa,list_cooperativas,
+							proyecto,list_proyectos,credito,list_credito,problemas,acciones,motivos_afiliacion,
+							comentarios)
 
 		consulta = 1
 	else:
