@@ -53,3 +53,55 @@
 .portlet.box.green>.portlet-title, .portlet.green, .portlet>.portlet-body.green{
 	background:#3a54a5 !important;
 }
+.theme-panel{
+	min-width:450px;
+	h3{
+		font-size: 16px;
+		font-weight: bold;
+		color: #757373;
+	}
+
+}
+.theme-color a{
+	display:block;
+	padding:8px 12px;
+}
+.theme-color a:hover{
+	text-decoration: none;
+	color: white;
+}
+.theme-panel .theme-colors > li.theme-color{
+	padding: 0;
+}
+.theme-panel .theme-colors > li.theme-color:hover{
+	background: #3954a5;
+	
+}
+.titulo-page{
+	border-bottom: 1px solid #eee;
+}
+.btn-theme-panel.open .btn{
+	opacity: 0.6;
+}
+
+.btn-theme-panel.open .dropdown-toggle{
+	opacity: 1;
+}
+
+
+.btn-theme-panel .filtros:not(.collapsed){
+	opacity: 1;
+}
+.list-filtro{
+	li{
+		color: #383838;
+		padding:5px;
+		b{
+			color: #2d8031;		
+		}
+		i{
+			color: #2d8031;
+		}
+	}
+
+}
