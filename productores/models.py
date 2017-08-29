@@ -301,7 +301,7 @@ class RespuestaSiCotiza(models.Model):
 class MiembroCooperativa(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
-    cooperativa = models.ForeignKey(Cooperativa,null=True,blank=True)
+    cooperativa = models.ManyToManyField(Cooperativa,blank=True)
 
     class Meta:
         verbose_name_plural = '¿Es miembro de Cooperativa?'
