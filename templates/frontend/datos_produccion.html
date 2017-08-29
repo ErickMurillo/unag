@@ -10,31 +10,43 @@
                 <!-- BEGIN CONTENT BODY -->
                 <!-- BEGIN PAGE HEAD-->
                 <div class="page-head">
-                   <div class="container">
-                      <!-- BEGIN PAGE TITLE -->
-                        <div class="page-title">
-                            <h1>Datos de Producción
-                                <!-- <small>dashboard & statistics</small> -->
-                            </h1>
-                            {% include "frontend/filtros.html" %}
-                        </div>
-                        <!-- END PAGE TITLE -->
-                        <!-- BEGIN PAGE TOOLBAR -->
-                        <div class="page-toolbar">
-                            <!-- BEGIN THEME PANEL -->
-                            <div class="btn-group btn-theme-panel">
-                                <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-                                   <i class="fa fa-filter"></i>
-                                </a>
-                                <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-                                   <i class="fa fa-bars"></i>
-                                </a>
-                               {% include "frontend/indicadores.html" %}
+                    <div class="titulo-page">
+                        <div class="container">
+                            <!-- BEGIN PAGE TITLE -->
+                            <div class="page-title">
+                                <h1>Datos de Producción
+                                    <!-- <small>dashboard & statistics</small> -->
+                                </h1>
+                                
                             </div>
-                            <!-- END THEME PANEL -->
+                            <!-- END PAGE TITLE -->
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar">
+                                <!-- BEGIN THEME PANEL -->
+                                <div class="btn-group btn-theme-panel">
+
+                                    <a class="btn filtros collapsed" role="button" data-toggle="collapse" href="#filtros" aria-expanded="false" aria-controls="filtros">
+                                        <i class="fa fa-filter"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-bars"></i>
+                                    </a>
+                                    {% include "frontend/indicadores.html" %}
+                                </div>
+                                <!-- END THEME PANEL -->
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
+
                         </div>
-                        <!-- END PAGE TOOLBAR -->
                     </div>
+                    <div class="">
+                        <div class="container">
+                            <div class="collapse" id="filtros">
+                                {% include "frontend/filtros.html" %}
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 <!-- END PAGE HEAD-->
                 <!-- BEGIN PAGE CONTENT BODY -->

@@ -7,270 +7,282 @@
         <div class="page-container">
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
-<!-- BEGIN CONTENT BODY -->
-<!-- BEGIN PAGE HEAD-->
-<div class="page-head">
-	<div class="container">
-		<!-- BEGIN PAGE TITLE -->
-		<div class="page-title">
-			<h1>Datos de la Propiedad
-				<!-- <small>dashboard & statistics</small> -->
-			</h1>
-            {% include "frontend/filtros.html" %}
-		</div>
-		<!-- END PAGE TITLE -->
-		<!-- BEGIN PAGE TOOLBAR -->
-		<div class="page-toolbar">
-			<!-- BEGIN THEME PANEL -->
-			<div class="btn-group btn-theme-panel">
-				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-filter"></i>
-				</a>
-				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-bars"></i>
-				</a>
-				{% include "frontend/indicadores.html" %}
-			</div>
-			<!-- END THEME PANEL -->
-		</div>
-		<!-- END PAGE TOOLBAR -->
-	</div>
-</div>
-<!-- END PAGE HEAD-->
-<!-- BEGIN PAGE CONTENT BODY -->
-<div class="page-content">
-	<div class="container">
-		<!-- BEGIN PAGE BREADCRUMBS -->
-		<ul class="page-breadcrumb breadcrumb">
-			<li>
-				<a href="/">Inicio</a>
-				<i class="fa fa-circle"></i>
-			</li>
-            <li>
-                <a href="/consulta/">Consulta</a>
-                <i class="fa fa-circle"></i>
-            </li>
-			<li>
-				<span>Datos de la Propiedad</span>
-			</li>
-		</ul>
-		<!-- END PAGE BREADCRUMBS -->
-		<!-- BEGIN PAGE CONTENT INNER -->
-		<div class="page-content-inner">
-			<div class="mt-content-body">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Área de la finca (Mz)</span>
-                                </div>
+                <!-- BEGIN CONTENT BODY -->
+                <!-- BEGIN PAGE HEAD-->
+                <div class="page-head">
+                    <div class="titulo-page">
+                        <div class="container">
+                            <!-- BEGIN PAGE TITLE -->
+                            <div class="page-title">
+                                <h1>Datos de la propiedad
+                                    <!-- <small>dashboard & statistics</small> -->
+                                </h1>
+                                
                             </div>
+                            <!-- END PAGE TITLE -->
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar">
+                                <!-- BEGIN THEME PANEL -->
+                                <div class="btn-group btn-theme-panel">
 
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="areas_finca" width='100%'></div>
+                                    <a class="btn filtros collapsed" role="button" data-toggle="collapse" href="#filtros" aria-expanded="false" aria-controls="filtros">
+                                        <i class="fa fa-filter"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-bars"></i>
+                                    </a>
+                                    {% include "frontend/indicadores.html" %}
                                 </div>
+                                <!-- END THEME PANEL -->
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
+
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="container">
+                            <div class="collapse" id="filtros">
+                                {% include "frontend/filtros.html" %}
                             </div>
                         </div>
                     </div>
+                    
+                </div>
+                <!-- END PAGE HEAD-->
+                <!-- BEGIN PAGE CONTENT BODY -->
+                <div class="page-content">
+                	<div class="container">
+                		<!-- BEGIN PAGE BREADCRUMBS -->
+                		<ul class="page-breadcrumb breadcrumb">
+                			<li>
+                				<a href="/">Inicio</a>
+                				<i class="fa fa-circle"></i>
+                			</li>
+                            <li>
+                                <a href="/consulta/">Consulta</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                			<li>
+                				<span>Datos de la Propiedad</span>
+                			</li>
+                		</ul>
+                		<!-- END PAGE BREADCRUMBS -->
+                		<!-- BEGIN PAGE CONTENT INNER -->
+                		<div class="page-content-inner">
+                			<div class="mt-content-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Área de la finca (Mz)</span>
+                                                </div>
+                                            </div>
 
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Otras tierras que cultivan (Mz)</span>
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="areas_finca" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Otras tierras que cultivan (Mz)</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="otras_areas_finca" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="otras_areas_finca" width='100%'></div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">¿Cuál es el origen de la tierra?</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="origen-tierra" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Propiedad legalizada</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="tenencia" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Tenencia de la propiedad</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="doc-propiedad" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Acceso al agua para consumo humano y uso en la finca</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="agua" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Acceso a Energía Eléctrica</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="energia" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Contratan mano de obra</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="mano_obra" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Empleo</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Rubro</th>
+                                                                <th>Temporal Hombres</th>
+                                                                <th>Temporal Mujeres</th>
+                                                                <th>Permanente Hombres</th>
+                                                                <th>Permanente Hombres</th>
+                                                                <th>Familiar Hombres</th>
+                                                                <th>Familiar Hombres</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for obj in list_contratacion %}
+                                                            <tr>                                                    
+                                                                <td>{{obj.0}}</td>
+                                                                <td>{{obj.1}}</td>
+                                                                <td>{{obj.2}}</td>
+                                                                <td>{{obj.3}}</td>
+                                                                <td>{{obj.4}}</td>
+                                                                <td>{{obj.5}}</td>
+                                                                <td>{{obj.6}}</td>
+                                                            </tr>          
+                                                        {% endfor %}                
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Infraestructura</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="infra" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- END PAGE CONTENT INNER -->
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">¿Cuál es el origen de la tierra?</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="origen-tierra" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Propiedad legalizada</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="tenencia" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Tenencia de la propiedad</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="doc-propiedad" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Acceso al agua para consumo humano y uso en la finca</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="agua" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Acceso a Energía Eléctrica</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="energia" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Contratan mano de obra</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="mano_obra" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Empleo</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Rubro</th>
-                                                <th>Temporal Hombres</th>
-                                                <th>Temporal Mujeres</th>
-                                                <th>Permanente Hombres</th>
-                                                <th>Permanente Hombres</th>
-                                                <th>Familiar Hombres</th>
-                                                <th>Familiar Hombres</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for obj in list_contratacion %}
-                                            <tr>                                                    
-                                                <td>{{obj.0}}</td>
-                                                <td>{{obj.1}}</td>
-                                                <td>{{obj.2}}</td>
-                                                <td>{{obj.3}}</td>
-                                                <td>{{obj.4}}</td>
-                                                <td>{{obj.5}}</td>
-                                                <td>{{obj.6}}</td>
-                                            </tr>          
-                                        {% endfor %}                
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Infraestructura</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="infra" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- END PAGE CONTENT BODY -->
+                <!-- END CONTENT BODY -->
             </div>
         </div>
-        <!-- END PAGE CONTENT INNER -->
     </div>
-</div>
-<!-- END PAGE CONTENT BODY -->
-<!-- END CONTENT BODY -->
-</div>
-</div>
-</div>
 </div>
 {% endblock content %}
 

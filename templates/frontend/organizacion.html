@@ -7,346 +7,358 @@
         <div class="page-container">
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
-<!-- BEGIN CONTENT BODY -->
-<!-- BEGIN PAGE HEAD-->
-<div class="page-head">
-	<div class="container">
-		<!-- BEGIN PAGE TITLE -->
-		<div class="page-title">
-			<h1>Organización
-				<!-- <small>dashboard & statistics</small> -->
-			</h1>
-            {% include "frontend/filtros.html" %}
-		</div>
-		<!-- END PAGE TITLE -->
-		<!-- BEGIN PAGE TOOLBAR -->
-		<div class="page-toolbar">
-			<!-- BEGIN THEME PANEL -->
-			<div class="btn-group btn-theme-panel">
-				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-filter"></i>
-				</a>
-				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-bars"></i>
-				</a>
-				{% include "frontend/indicadores.html" %}
-			</div>
-			<!-- END THEME PANEL -->
-		</div>
-		<!-- END PAGE TOOLBAR -->
-	</div>
-</div>
-<!-- END PAGE HEAD-->
-<!-- BEGIN PAGE CONTENT BODY -->
-<div class="page-content">
-	<div class="container">
-		<!-- BEGIN PAGE BREADCRUMBS -->
-		<ul class="page-breadcrumb breadcrumb">
-			<li>
-				<a href="/">Inicio</a>
-				<i class="fa fa-circle"></i>
-			</li>
-            <li>
-                <a href="/consulta/">Consulta</a>
-                <i class="fa fa-circle"></i>
-            </li>
-			<li>
-				<span>Organización</span>
-			</li>
-		</ul>
-		<!-- END PAGE BREADCRUMBS -->
-		<!-- BEGIN PAGE CONTENT INNER -->
-		<div class="page-content-inner">
-			<div class="mt-content-body">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Cotiza</span>
-                                </div>
+                <!-- BEGIN CONTENT BODY -->
+                <!-- BEGIN PAGE HEAD-->
+                <div class="page-head">
+                    <div class="titulo-page">
+                        <div class="container">
+                            <!-- BEGIN PAGE TITLE -->
+                            <div class="page-title">
+                                <h1>Datos de la Organización
+                                    <!-- <small>dashboard & statistics</small> -->
+                                </h1>
+                                
                             </div>
+                            <!-- END PAGE TITLE -->
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar">
+                                <!-- BEGIN THEME PANEL -->
+                                <div class="btn-group btn-theme-panel">
 
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="cotiza" width='100%'></div>
+                                    <a class="btn filtros collapsed" role="button" data-toggle="collapse" href="#filtros" aria-expanded="false" aria-controls="filtros">
+                                        <i class="fa fa-filter"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-bars"></i>
+                                    </a>
+                                    {% include "frontend/indicadores.html" %}
                                 </div>
+                                <!-- END THEME PANEL -->
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
+
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="container">
+                            <div class="collapse" id="filtros">
+                                {% include "frontend/filtros.html" %}
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Donde cotiza</span>
-                                </div>
-                            </div>
+                    
+                </div>
+                <!-- END PAGE HEAD-->
+                <!-- BEGIN PAGE CONTENT BODY -->
+                <div class="page-content">
+                	<div class="container">
+                		<!-- BEGIN PAGE BREADCRUMBS -->
+                		<ul class="page-breadcrumb breadcrumb">
+                			<li>
+                				<a href="/">Inicio</a>
+                				<i class="fa fa-circle"></i>
+                			</li>
+                            <li>
+                                <a href="/consulta/">Consulta</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                			<li>
+                				<span>Datos de la organización</span>
+                			</li>
+                		</ul>
+                		<!-- END PAGE BREADCRUMBS -->
+                		<!-- BEGIN PAGE CONTENT INNER -->
+                		<div class="page-content-inner">
+                			<div class="mt-content-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Cotiza</span>
+                                                </div>
+                                            </div>
 
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="donde_cotiza" width='100%'></div>
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Donde cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="donde_cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Desde cuando cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="desde_cuando" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Cuanto cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="cuanto_cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Frecuencia que cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="frecuencia_cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Miembros cooperativa</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="cooperativa" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Cooperativas a las que pertenecen los afiliados</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="list_cooperativas" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Beneficiados por otros proyectos o programas del gobierno</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="beneficiado" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Otros proyectos o programas de Gobierno</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="otros_proyectos" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">¿Ha recibido algún Crédito?</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="credito" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">¿Quién brinda el Crédito?</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Fuentes de credito</th>
+                                                                <th>Cantidad</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for obj in brinda_credito %}
+                                                            <tr>
+                                                                <td>{{obj.0}}</td>
+                                                                <td>{{obj.1}}</td>
+                                                                <td>{{obj.2}}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Tipo de Crédito obtenido</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="tipo_credito" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Problemas más sentidos como productor</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="problemas_productor" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Acciones que realiza para enfrentar el cambio climático</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="acciones" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Motivos</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="motivos" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- END PAGE CONTENT INNER -->
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Desde cuando cotiza</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="desde_cuando" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Cuanto cotiza</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="cuanto_cotiza" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Frecuencia que cotiza</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="frecuencia_cotiza" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Miembros cooperativa</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="cooperativa" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Cooperativas a las que pertenecen los afiliados</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="list_cooperativas" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Beneficiados por otros proyectos o programas del gobierno</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="beneficiado" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Otros proyectos o programas de Gobierno</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="otros_proyectos" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">¿Ha recibido algún Crédito?</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="credito" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">¿Quién brinda el Crédito?</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Fuentes de credito</th>
-                                                <th>Cantidad</th>
-                                                <th>%</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for obj in brinda_credito %}
-                                            <tr>
-                                                <td>{{obj.0}}</td>
-                                                <td>{{obj.1}}</td>
-                                                <td>{{obj.2}}</td>
-                                            </tr>
-                                        {% endfor %}
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Tipo de Crédito obtenido</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="tipo_credito" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Problemas más sentidos como productor</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="problemas_productor" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Acciones que realiza para enfrentar el cambio climático</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="acciones" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-title tabbable-line">
-                                <div class="caption">
-                                    <i class="icon-globe font-dark hide"></i>
-                                    <span class="caption-subject font-green-steel bold uppercase">Motivos</span>
-                                </div>
-                            </div>
-
-                            <div class="portlet-body">
-                                <div class="map">
-                                    <div class="grafico-ind" id="motivos" width='100%'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- END PAGE CONTENT BODY -->
+                <!-- END CONTENT BODY -->
             </div>
         </div>
-        <!-- END PAGE CONTENT INNER -->
     </div>
-</div>
-<!-- END PAGE CONTENT BODY -->
-<!-- END CONTENT BODY -->
-</div>
-</div>
-</div>
 </div>
 {% endblock content %}
 
