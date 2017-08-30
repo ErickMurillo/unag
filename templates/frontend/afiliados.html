@@ -114,16 +114,52 @@
 											{% if consulta == 1 %}
 											<!-- PERSONAL TAB -->
 											<div class="tab-pane active" id="personales">
+												
 												<div class="row">
-							
-						
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+														<div class="profile-usertitle-name">				
+															{{afiliado.nombre}} 
+														</div>
+													</div>
 													<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 														<!-- SIDEBAR USER TITLE -->
-														<div class="profile-usertitle">
-															<div class="profile-usertitle-name"> <i class="fa fa-male"> </i> {{afiliado.nombre}} </div>
-															<div class="profile-usertitle-job"> Productor </div>
-															<div>{{afiliado.municipio}}, {{afiliado.comunidad.nombre}}</div>
+														<!-- SIDEBAR MENU -->
+														<div class="profile-usermenu">
+															<ul class="nav nav-pills nav-stacked">
+
+
+																<li>
+																	<a><i class="fa fa fa-map-marker"></i> {{afiliado.municipio.departamento}}</a>
+																</li>
+																<li>
+																	<a><i class="fa fa fa-map-marker"></i> {{afiliado.municipio.nombre}}</a>
+																</li>
+																<li>
+																	<a>
+																		<i class="fa fa fa-map-marker"></i> {{afiliado.comunidad.nombre}}
+																	</a>
+																</li>
+																<li>
+																	<a >
+																		{% if afiliado.sexo == 'Masculino' %}
+																			<i class="fa fa-mars"></i>
+																		{% else %}
+																			<i class="fa fa-venus"></i>
+																		{% endif %}
+																		{{afiliado.sexo}}
+																	</a>
+																</li>
+																<li>
+																	<a > <i class="fa fa-legal"></i> {{estado_civil}} </a>
+																</li>
+																
+																<li>
+																	<a > <i class="fa fa-calendar"></i> Ingreso: {{afiliado.anio_ingreso}} </a>
+																</li>
+																 
+															</ul>
 														</div>
+														<!-- END MENU -->
 														<!-- END SIDEBAR USER TITLE -->
 													</div>
 													<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -131,7 +167,9 @@
 														<div class="profile-usermenu">
 															<ul class="nav nav-pills nav-stacked">
 																<li>
-																	<a > <i class="fa fa-legal"></i> Casado </a>
+																	<a>
+																		<i class="fa fa-graduation-cap"></i> {{escolaridad}}
+																	</a>
 																</li>
 																<li>
 																	<a><i class="fa fa fa-credit-card"></i> {{afiliado.cedula}}</a>
@@ -144,13 +182,12 @@
 
 																<li>
 																	<a>
-																		<i class="fa fa-phone"></i> {{afiliado.numero_celular}}
+																		<i class="fa fa-phone"></i> {{afiliado.numero_celular}} ({{afiliado.tipo_celular}})
 																	</a>
 																</li>
+																
 																<li>
-																	<a>
-																		<i class="fa fa-graduation-cap"></i> {{escolaridad}}
-																	</a>
+																	<a > <i class="fa fa-wifi"></i> Acceso a internet: {{acceso_internet}} </a>
 																</li>
 
 															</ul>
@@ -159,33 +196,36 @@
 													</div>
 													<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 														<div class="portlet-title">
-															<div class="caption caption-subject font-red-sunglo">
+															<div class="caption caption-subject font-red-sunglo text-center">
 
 																Personas que dependen del afiliado
 															</div>
 
 														</div>
 														<!-- STAT -->
-														<div class="row list-separated profile-stat">
-															<div class="col-md-6 col-sm-4 col-xs-6">
-																<div class="uppercase profile-stat-title"> {{hombres|default:"0"}} </div>
-																<div class="uppercase profile-stat-text"> Hombres Adultos </div>
-															</div>
-															<div class="col-md-6 col-sm-4 col-xs-6">
-																<div class="uppercase profile-stat-title"> {{mujeres|default:"0"}} </div>
-																<div class="uppercase profile-stat-text"> Mujeres Adultas </div>
-															</div>
-															<div class="col-md-6 col-sm-4 col-xs-6">
-																<div class="uppercase profile-stat-title"> {{ninos|default:"0"}} </div>
-																<div class="uppercase profile-stat-text"> Niños menores de 12 años</div>
-															</div>
-															<div class="col-md-6 col-sm-4 col-xs-6">
-																<div class="uppercase profile-stat-title"> {{ninas|default:"0"}} </div>
-																<div class="uppercase profile-stat-text"> Niñas menores de 12 años </div>
+														<div class="list-separated profile-stat">
+															<div class="row">
+																<div class="col-md-6 col-sm-4 col-xs-6 border">
+																	<div class="uppercase profile-stat-title"> {{hombres|default:"0"}} </div>
+																	<div class="uppercase profile-stat-text"> Hombres Adultos </div>
+																</div>
+																<div class="col-md-6 col-sm-4 col-xs-6 border">
+																	<div class="uppercase profile-stat-title"> {{mujeres|default:"0"}} </div>
+																	<div class="uppercase profile-stat-text"> Mujeres Adultas </div>
+																</div>
+																<div class="col-md-6 col-sm-4 col-xs-6 border">
+																	<div class="uppercase profile-stat-title"> {{ninos|default:"0"}} </div>
+																	<div class="uppercase profile-stat-text"> Niños menores de 12 años</div>
+																</div>
+																<div class="col-md-6 col-sm-4 col-xs-6 border">
+																	<div class="uppercase profile-stat-title"> {{ninas|default:"0"}} </div>
+																	<div class="uppercase profile-stat-text"> Niñas menores de 12 años </div>
+																</div>
 															</div>
 														</div>
 													</div>
 												</div>
+												
 											</div>
 											<!-- FAMILIA TAB -->
 											<div class="tab-pane" id="familia">
