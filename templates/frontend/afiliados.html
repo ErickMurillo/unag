@@ -92,7 +92,7 @@
 													<form class="form-inline" role="form" action="." method='GET'>
 														<div class="input-group">
 															<div class="input-group-addon">
-																<i class="fa fa-search font-purple"></i>
+																<i class="fa fa-search font-red"></i>
 															</div>
 															<select class="form-control js-example-basic-multiple " name="afiliado">
 																<option value=""></option>
@@ -242,45 +242,80 @@
 												<div class="tab-content">
 													{% for key,value in years.items  %}
 													<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-generales" role="tabpanel">
-														Acceso internet: {{value.0.0.0|default:"---"}} <br>
+														<!--Acceso internet:  <br>
 														Estado civil: {{value.0.0.1|default:"---"}}
 														<br>
 														Escolaridad: {{value.0.0.2|default:"---"}}
 														<br>
 														Profesión: {{value.0.0.3|default:"---"}}
-														<br>
-														<table>
-															<thead>
-																<tr>
-																	<th>Nombre</th>
-																	<th>Sexo</th>
-																	<th>Edad</th>
-																	<th>Escolaridad</th>
-																	<th>Parentesco</th>
-																</tr>
-															</thead>
-															<tbody>
-																{% for x in value.1 %}
-																<tr>
-																	<td>{{x.0}}</td>
-																	<td>{{x.1}}</td>
-																	<td>{{x.2}}</td>
-																	<td>{{x.3}}</td>
-																	<td>{{x.4}}</td>
-																</tr>
-																{% endfor %}
+														<br> -->
+														<div class="portlet box green">
+															<div class="portlet-title">
+				                                                <div class="caption">
+				                                                    <i class="fa fa-list"></i>Miembros de la familia
+				                                                </div>
+				                                                <div class="actions">
+				                                                    <a class="btn btn-circle btn-icon-only btn-default" href="">
+				                                                        <i class="icon-cloud-download"></i>
+				                                                    </a>
 
-															</tbody>
-														</table>
+				                                                </div>
+				                                            </div>
+				                                            <div class="portlet-body flip-scroll">
+																<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																	<thead>
+																		<tr>
+																			<th>Nombre</th>
+																			<th>Sexo</th>
+																			<th>Edad</th>
+																			<th>Escolaridad</th>
+																			<th>Parentesco</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		{% for x in value.1 %}
+																		<tr>
+																			<td>{{x.0}}</td>
+																			<td>{{x.1}}</td>
+																			<td>{{x.2}}</td>
+																			<td>{{x.3}}</td>
+																			<td>{{x.4}}</td>
+																		</tr>
+																		{% endfor %}
 
-														<br>
-														<h1>MIEMBROS DE LA FAMILIA EMIGRAN</h1>
-														<br>
-														Hombres: {{value.2.0.0|default:"---"}}
-														Mujeres: {{value.2.0.1|default:"---"}}
-														Donde: {{value.2.0.2|default:"---"}}
-														Tiempo: {{value.2.0.3|default:"---"}}
-														Meses: {{value.2.0.4|default:"---"}}
+																	</tbody>
+																</table>
+															</div>
+														</div>
+														<div class="portlet box green">
+															<div class="portlet-title">
+				                                                <div class="caption">
+				                                                    <i class="fa fa-list"></i>Miembros de la familia emigran
+				                                                </div>
+				                                            </div>
+				                                        	<div class="portlet-body flip-scroll">
+				                                        		<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																	<thead>
+																		<tr>
+																			<th>Hombres</th>
+																			<th>Mujeres</th>
+																			<th>Donde</th>
+																			<th>Tiempo</th>
+																			<th>Meses</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr>
+																			<td>{{value.2.0.0|default:"0"}}</td>
+																			<td>{{value.2.0.1|default:"0"}}</td>
+																			<td>{{value.2.0.2|default:"---"}}</td>
+																			<td>{{value.2.0.3|default:"---"}}</td>
+																			<td>{{value.2.0.4|default:"---"}}</td>
+																		</tr>
+																	</tbody>
+				                                        		</table>
+				                                        	</div>
+				                                        </div>
 													</div>
 
 
@@ -344,65 +379,100 @@
 																</div>
 															</div>
 															<div class="col-sm-6">
-																Origen de la propiedad: {{value.5.0|default:"---"}}
-																<br>
-																Propiedad legalizada: {{value.6.0|default:"---"}}
-																<br>
-																{% if value.7 %}
-																Documento: {{value.7.0|default:"---"}}
-																<br>
-																{% endif %}
-																Sistema de agua utilizado para la finca y consumo:
-																{% if value.8 %}
-																{% for x in value.8 %}
-																{{x}},
-																{% endfor %}
-																{% else %}
-																---
-																{% endif %}
-																<br>
-																Acceso a energía eléctrica: {{value.9.0|default:"---"}}
+																<div class="profile-usermenu profile-list">
+																	<ul class="nav nav-pills nav-stacked">
+																		<li>
+																			<a>
+																				<b>Origen de la propiedad:</b> {{value.5.0|default:"---"}}
+																			</a>
+																		</li>
+																		<li>
+																			<a><b>Propiedad legalizada:</b> {{value.6.0|default:"---"}}</a>
+																		</li>
+																		{% if value.7 %}
+																		<li>
+																			<a>
+																				<b>Documento:</b> {{value.7.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% endif %}
+																		<li>
+																			<a>
+																				<b>Sistema de agua utilizado y consumo:</b>
+																				{% if value.8 %}
+																					{% for x in value.8 %}
+																						{{x}},
+																					{% endfor %}
+																				{% else %}
+																				---
+																				{% endif %}
+																			</a>
+																		</li>
+																		
+																		<li>
+																			<a > <b>Acceso a energía eléctrica:</b> {{value.9.0|default:"---"}} </a>
+																		</li>
+																		<li>
+																			<a > <b>Infraestructura:</b> 
+																				{% if value.8 %}
+																				{% for x in value.12 %}
+																				{{x}},
+																				{% endfor %}
+																				{% else %}
+																				---
+																				{% endif %}
+																			</a>
+																		</li>
+																		<li>
+																			<a > <b>Contrata mano de obra:</b> {{value.10.0|default:"---"}} </a>
+																		</li>
+																		 
+
+																	</ul>
+																</div>
 
 															</div>
 															<div class="col-sm-6">
-																Contrata mano de obra: {{value.10.0|default:"---"}}
-																<br>
-																<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																	<thead>
-																		<tr>
-																			<th>Rubro</th>
-																			<th>Temporal Hombres</th>
-																			<th>Temporal Mujeres</th>
-																			<th>Permanente Hombres</th>
-																			<th>Permanente Hombres</th>
-																			<th>Familiar Hombres</th>
-																			<th>Familiar Hombres</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		{% for obj in value.11 %}
-																		<tr>
-																			<td>{{obj.0}}</td>
-																			<td>{{obj.1}}</td>
-																			<td>{{obj.2}}</td>
-																			<td>{{obj.3}}</td>
-																			<td>{{obj.4}}</td>
-																			<td>{{obj.5}}</td>
-																			<td>{{obj.6}}</td>
-																		</tr>
-																		{% endfor %}
+																<div class="portlet box green">
+																	<div class="portlet-title">
+						                                                <div class="caption">
+						                                                    <i class="fa fa-list"></i>Empleo
+						                                                </div>
+						                                            </div>
+						                                        	<div class="portlet-body table-responsive portlet-special">
+						                                        		<table class="table table-bordered table-striped table-condensed small-table" cellspacing="0" width="100%">
+																			<thead>
+																				<tr>
+																					<th>Rubro</th>
+																					<th>Temporal Hombres</th>
+																					<th>Temporal Mujeres</th>
+																					<th>Permanente Hombres</th>
+																					<th>Permanente Hombres</th>
+																					<th>Familiar Hombres</th>
+																					<th>Familiar Hombres</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				{% for obj in value.11 %}
+																				<tr>
+																					<td>{{obj.0}}</td>
+																					<td>{{obj.1}}</td>
+																					<td>{{obj.2}}</td>
+																					<td>{{obj.3}}</td>
+																					<td>{{obj.4}}</td>
+																					<td>{{obj.5}}</td>
+																					<td>{{obj.6}}</td>
+																				</tr>
+																				{% endfor %}
 
-																	</tbody>
-																</table>
+																			</tbody>
+																		</table>
+						                                        	</div>
+						                                        </div>
+																		
 
-																Infraestructura:
-																{% if value.8 %}
-																{% for x in value.12 %}
-																{{x}},
-																{% endfor %}
-																{% else %}
-																---
-																{% endif %}
+																
+																
 															</div>
 
 														</div>
@@ -423,12 +493,7 @@
 												<div class="tab-content">
 													{% for key,value in years.items  %}
 														<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-prod" role="tabpanel">
-															<div class="row">
-																<div class="col-sm-12">
-																	A quien vende la producción:
-																	{% for x in value.20 %}{{x|default:"---"}}{% if not forloop.last %},{% endif %}{% endfor %}
-																</div>
-															</div>
+
 															<div class="row">
 																<div class="col-sm-6">
 																	<div class="portlet box green">
@@ -523,197 +588,206 @@
 															</div>
 															<div class="row">
 																<div class="col-sm-12">
-																	<ul class="nav nav-tabs" role="tablist">
-																		<li role="presentation" class="nav-item active">
-																			<a class="nav-link active" href="#primera-{{key}}" aria-controls="primera" role="tab" data-toggle="tab">Primera</a>
-																		</li>
-																		<li role="presentation" class="nav-item">
-																			<a class="nav-link" href="#postrera-{{key}}" aria-controls="postrera" role="tab" data-toggle="tab">Postrera</a>
-																		</li>
-																		<li role="presentation" class="nav-item">
-																			<a class="nav-link" href="#apante-{{key}}" aria-controls="apante" role="tab" data-toggle="tab">Apante</a>
-																		</li>
-																		<li role="presentation" class="nav-item">
-																			<a class="nav-link" href="#permanentes-{{key}}" aria-controls="permanentes" role="tab" data-toggle="tab">Permanentes</a>
-																		</li>
-																		<li role="presentation" class="nav-item">
-																			<a class="nav-link" href="#otros-{{key}}" aria-controls="otros" role="tab" data-toggle="tab">Otros</a>
-																		</li>
-																	</ul>
-																	<div class="tab-content">
-																		<div role="tabpanel" class="tab-pane active" id="primera-{{key}}">
-																			<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																				<thead>
-																					<tr>
-																						<th>Cultivo</th>
-																						<th>Área sembrada(Mz)</th>
-																						<th>Producción Total qq</th>
-																						<th>Semilla qq</th>
-																						<th>Consumo humano qq</th>
-																						<th>Consumo animal qq</th>
-																						<th>Venta qq</th>
-																						<th>Costo promedio de producción (Inversión) C$/Mz</th>
-																						<th>Ingresos promedios de la producción C$/Mz</th>
-																						<th>Ganancia o Perdida promedio C$/Mz</th>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					{% for obj in value.13 %}
-																					<tr>
-																						<td>{{obj.0}}</td>
-																						<td>{{obj.1|default:"0"}}</td>
-																						<td>{{obj.2|default:"0"}}</td>
-																						<td>{{obj.3|default:"0"}}</td>
-																						<td>{{obj.4|default:"0"}}</td>
-																						<td>{{obj.5|default:"0"}}</td>
-																						<td>{{obj.6|default:"0"}}</td>
-																						<td>{{obj.7|default:"0"}}</td>
-																						<td>{{obj.8|default:"0"}}</td>
-																						<td>{{obj.9|default:"0"}}</td>
-																					</tr>
-																					{% endfor %}
+																	<div class="portlet box green">
+																		<div class="portlet-title">
+							                                                <div class="caption">
+							                                                    <i class="fa fa-list"></i>Producción - A quien vende la producción: {% for x in value.20 %}{{x|default:"---"}}{% if not forloop.last %},{% endif %}{% endfor %}
+							                                                </div>
+							                                            </div>
+							                                        	<div class="portlet-body table-responsive portlet-special">
+																			<ul class="nav nav-tabs" role="tablist">
+																				<li role="presentation" class="nav-item active">
+																					<a class="nav-link active" href="#primera-{{key}}" aria-controls="primera" role="tab" data-toggle="tab">Primera</a>
+																				</li>
+																				<li role="presentation" class="nav-item">
+																					<a class="nav-link" href="#postrera-{{key}}" aria-controls="postrera" role="tab" data-toggle="tab">Postrera</a>
+																				</li>
+																				<li role="presentation" class="nav-item">
+																					<a class="nav-link" href="#apante-{{key}}" aria-controls="apante" role="tab" data-toggle="tab">Apante</a>
+																				</li>
+																				<li role="presentation" class="nav-item">
+																					<a class="nav-link" href="#permanentes-{{key}}" aria-controls="permanentes" role="tab" data-toggle="tab">Permanentes</a>
+																				</li>
+																				<li role="presentation" class="nav-item">
+																					<a class="nav-link" href="#otros-{{key}}" aria-controls="otros" role="tab" data-toggle="tab">Otros</a>
+																				</li>
+																			</ul>
+																			<div class="tab-content">
+																				<div role="tabpanel" class="tab-pane active" id="primera-{{key}}">
+																					<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																						<thead>
+																							<tr>
+																								<th>Cultivo</th>
+																								<th>Área sembrada(Mz)</th>
+																								<th>Producción Total qq</th>
+																								<th>Semilla qq</th>
+																								<th>Consumo humano qq</th>
+																								<th>Consumo animal qq</th>
+																								<th>Venta qq</th>
+																								<th>Costo promedio de producción (Inversión) C$/Mz</th>
+																								<th>Ingresos promedios de la producción C$/Mz</th>
+																								<th>Ganancia o Perdida promedio C$/Mz</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																							{% for obj in value.13 %}
+																							<tr>
+																								<td>{{obj.0}}</td>
+																								<td>{{obj.1|default:"0"}}</td>
+																								<td>{{obj.2|default:"0"}}</td>
+																								<td>{{obj.3|default:"0"}}</td>
+																								<td>{{obj.4|default:"0"}}</td>
+																								<td>{{obj.5|default:"0"}}</td>
+																								<td>{{obj.6|default:"0"}}</td>
+																								<td>{{obj.7|default:"0"}}</td>
+																								<td>{{obj.8|default:"0"}}</td>
+																								<td>{{obj.9|default:"0"}}</td>
+																							</tr>
+																							{% endfor %}
 
-																				</tbody>
-																			</table>
-																		</div>
-																		<div role="tabpanel" class="tab-pane" id="postrera-{{key}}">
-																			<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																				<thead>
-																					<tr>
-																						<th>Cultivo</th>
-																						<th>Área sembrada(Mz)</th>
-																						<th>Producción Total qq</th>
-																						<th>Semilla qq</th>
-																						<th>Consumo humano qq</th>
-																						<th>Consumo animal qq</th>
-																						<th>Venta qq</th>
-																						<th>Costo promedio de producción (Inversión) C$/Mz</th>
-																						<th>Ingresos promedios de la producción C$/Mz</th>
-																						<th>Ganancia o Perdida promedio C$/Mz</th>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					{% for obj in value.14 %}
-																					<tr>
-																						<td>{{obj.0}}</td>
-																						<td>{{obj.1|default:"0"}}</td>
-																						<td>{{obj.2|default:"0"}}</td>
-																						<td>{{obj.3|default:"0"}}</td>
-																						<td>{{obj.4|default:"0"}}</td>
-																						<td>{{obj.5|default:"0"}}</td>
-																						<td>{{obj.6|default:"0"}}</td>
-																						<td>{{obj.7|default:"0"}}</td>
-																						<td>{{obj.8|default:"0"}}</td>
-																						<td>{{obj.9|default:"0"}}</td>
-																					</tr>
-																					{% endfor %}
+																						</tbody>
+																					</table>
+																				</div>
+																				<div role="tabpanel" class="tab-pane" id="postrera-{{key}}">
+																					<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																						<thead>
+																							<tr>
+																								<th>Cultivo</th>
+																								<th>Área sembrada(Mz)</th>
+																								<th>Producción Total qq</th>
+																								<th>Semilla qq</th>
+																								<th>Consumo humano qq</th>
+																								<th>Consumo animal qq</th>
+																								<th>Venta qq</th>
+																								<th>Costo promedio de producción (Inversión) C$/Mz</th>
+																								<th>Ingresos promedios de la producción C$/Mz</th>
+																								<th>Ganancia o Perdida promedio C$/Mz</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																							{% for obj in value.14 %}
+																							<tr>
+																								<td>{{obj.0}}</td>
+																								<td>{{obj.1|default:"0"}}</td>
+																								<td>{{obj.2|default:"0"}}</td>
+																								<td>{{obj.3|default:"0"}}</td>
+																								<td>{{obj.4|default:"0"}}</td>
+																								<td>{{obj.5|default:"0"}}</td>
+																								<td>{{obj.6|default:"0"}}</td>
+																								<td>{{obj.7|default:"0"}}</td>
+																								<td>{{obj.8|default:"0"}}</td>
+																								<td>{{obj.9|default:"0"}}</td>
+																							</tr>
+																							{% endfor %}
 
-																				</tbody>
-																			</table>
-																		</div>
-																		<div role="tabpanel" class="tab-pane" id="apante-{{key}}">
-																			<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																				<thead>
-																					<tr>
-																						<th>Cultivo</th>
-																						<th>Área sembrada(Mz)</th>
-																						<th>Producción Total qq</th>
-																						<th>Semilla qq</th>
-																						<th>Consumo humano qq</th>
-																						<th>Consumo animal qq</th>
-																						<th>Venta qq</th>
-																						<th>Costo promedio de producción (Inversión) C$/Mz</th>
-																						<th>Ingresos promedios de la producción C$/Mz</th>
-																						<th>Ganancia o Perdida promedio C$/Mz</th>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					{% for obj in value.15 %}
-																					<tr>
-																						<td>{{obj.0}}</td>
-																						<td>{{obj.1|default:"0"}}</td>
-																						<td>{{obj.2|default:"0"}}</td>
-																						<td>{{obj.3|default:"0"}}</td>
-																						<td>{{obj.4|default:"0"}}</td>
-																						<td>{{obj.5|default:"0"}}</td>
-																						<td>{{obj.6|default:"0"}}</td>
-																						<td>{{obj.7|default:"0"}}</td>
-																						<td>{{obj.8|default:"0"}}</td>
-																						<td>{{obj.9|default:"0"}}</td>
-																					</tr>
-																					{% endfor %}
+																						</tbody>
+																					</table>
+																				</div>
+																				<div role="tabpanel" class="tab-pane" id="apante-{{key}}">
+																					<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																						<thead>
+																							<tr>
+																								<th>Cultivo</th>
+																								<th>Área sembrada(Mz)</th>
+																								<th>Producción Total qq</th>
+																								<th>Semilla qq</th>
+																								<th>Consumo humano qq</th>
+																								<th>Consumo animal qq</th>
+																								<th>Venta qq</th>
+																								<th>Costo promedio de producción (Inversión) C$/Mz</th>
+																								<th>Ingresos promedios de la producción C$/Mz</th>
+																								<th>Ganancia o Perdida promedio C$/Mz</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																							{% for obj in value.15 %}
+																							<tr>
+																								<td>{{obj.0}}</td>
+																								<td>{{obj.1|default:"0"}}</td>
+																								<td>{{obj.2|default:"0"}}</td>
+																								<td>{{obj.3|default:"0"}}</td>
+																								<td>{{obj.4|default:"0"}}</td>
+																								<td>{{obj.5|default:"0"}}</td>
+																								<td>{{obj.6|default:"0"}}</td>
+																								<td>{{obj.7|default:"0"}}</td>
+																								<td>{{obj.8|default:"0"}}</td>
+																								<td>{{obj.9|default:"0"}}</td>
+																							</tr>
+																							{% endfor %}
 
-																				</tbody>
-																			</table>
-																		</div>
-																		<div role="tabpanel" class="tab-pane" id="permanentes-{{key}}">
-																			<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																				<thead>
-																					<tr>
-																						<th>Cultivo</th>
-																						<th>Área sembrada(Mz)</th>
-																						<th>Producción Total qq</th>
-																						<th>Semilla qq</th>
-																						<th>Consumo humano qq</th>
-																						<th>Consumo animal qq</th>
-																						<th>Venta qq</th>
-																						<th>Costo promedio de producción (Inversión) C$/Mz</th>
-																						<th>Ingresos promedios de la producción C$/Mz</th>
-																						<th>Ganancia o Perdida promedio C$/Mz</th>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					{% for obj in value.16 %}
-																					<tr>
-																						<td>{{obj.0}}</td>
-																						<td>{{obj.1|default:"0"}}</td>
-																						<td>{{obj.2|default:"0"}}</td>
-																						<td>{{obj.3|default:"0"}}</td>
-																						<td>{{obj.4|default:"0"}}</td>
-																						<td>{{obj.5|default:"0"}}</td>
-																						<td>{{obj.6|default:"0"}}</td>
-																						<td>{{obj.7|default:"0"}}</td>
-																						<td>{{obj.8|default:"0"}}</td>
-																						<td>{{obj.9|default:"0"}}</td>
-																					</tr>
-																					{% endfor %}
+																						</tbody>
+																					</table>
+																				</div>
+																				<div role="tabpanel" class="tab-pane" id="permanentes-{{key}}">
+																					<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																						<thead>
+																							<tr>
+																								<th>Cultivo</th>
+																								<th>Área sembrada(Mz)</th>
+																								<th>Producción Total qq</th>
+																								<th>Semilla qq</th>
+																								<th>Consumo humano qq</th>
+																								<th>Consumo animal qq</th>
+																								<th>Venta qq</th>
+																								<th>Costo promedio de producción (Inversión) C$/Mz</th>
+																								<th>Ingresos promedios de la producción C$/Mz</th>
+																								<th>Ganancia o Perdida promedio C$/Mz</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																							{% for obj in value.16 %}
+																							<tr>
+																								<td>{{obj.0}}</td>
+																								<td>{{obj.1|default:"0"}}</td>
+																								<td>{{obj.2|default:"0"}}</td>
+																								<td>{{obj.3|default:"0"}}</td>
+																								<td>{{obj.4|default:"0"}}</td>
+																								<td>{{obj.5|default:"0"}}</td>
+																								<td>{{obj.6|default:"0"}}</td>
+																								<td>{{obj.7|default:"0"}}</td>
+																								<td>{{obj.8|default:"0"}}</td>
+																								<td>{{obj.9|default:"0"}}</td>
+																							</tr>
+																							{% endfor %}
 
-																				</tbody>
-																			</table>
-																		</div>
-																		<div role="tabpanel" class="tab-pane" id="otros-{{key}}">
-																			<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																				<thead>
-																					<tr>
-																						<th>Cultivo</th>
-																						<th>Área sembrada(Mz)</th>
-																						<th>Producción Total qq</th>
-																						<th>Semilla qq</th>
-																						<th>Consumo humano qq</th>
-																						<th>Consumo animal qq</th>
-																						<th>Venta qq</th>
-																						<th>Costo promedio de producción (Inversión) C$/Mz</th>
-																						<th>Ingresos promedios de la producción C$/Mz</th>
-																						<th>Ganancia o Perdida promedio C$/Mz</th>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					{% for obj in value.17 %}
-																					<tr>
-																						<td>{{obj.0}}</td>
-																						<td>{{obj.1|default:"0"}}</td>
-																						<td>{{obj.2|default:"0"}}</td>
-																						<td>{{obj.3|default:"0"}}</td>
-																						<td>{{obj.4|default:"0"}}</td>
-																						<td>{{obj.5|default:"0"}}</td>
-																						<td>{{obj.6|default:"0"}}</td>
-																						<td>{{obj.7|default:"0"}}</td>
-																						<td>{{obj.8|default:"0"}}</td>
-																						<td>{{obj.9|default:"0"}}</td>
-																					</tr>
-																					{% endfor %}
-																				</tbody>
-																			</table>
+																						</tbody>
+																					</table>
+																				</div>
+																				<div role="tabpanel" class="tab-pane" id="otros-{{key}}">
+																					<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																						<thead>
+																							<tr>
+																								<th>Cultivo</th>
+																								<th>Área sembrada(Mz)</th>
+																								<th>Producción Total qq</th>
+																								<th>Semilla qq</th>
+																								<th>Consumo humano qq</th>
+																								<th>Consumo animal qq</th>
+																								<th>Venta qq</th>
+																								<th>Costo promedio de producción (Inversión) C$/Mz</th>
+																								<th>Ingresos promedios de la producción C$/Mz</th>
+																								<th>Ganancia o Perdida promedio C$/Mz</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																							{% for obj in value.17 %}
+																							<tr>
+																								<td>{{obj.0}}</td>
+																								<td>{{obj.1|default:"0"}}</td>
+																								<td>{{obj.2|default:"0"}}</td>
+																								<td>{{obj.3|default:"0"}}</td>
+																								<td>{{obj.4|default:"0"}}</td>
+																								<td>{{obj.5|default:"0"}}</td>
+																								<td>{{obj.6|default:"0"}}</td>
+																								<td>{{obj.7|default:"0"}}</td>
+																								<td>{{obj.8|default:"0"}}</td>
+																								<td>{{obj.9|default:"0"}}</td>
+																							</tr>
+																							{% endfor %}
+																						</tbody>
+																					</table>
+																				</div>
+																			</div>
 																		</div>
 																	</div>
 																</div>
@@ -740,63 +814,237 @@
 													{% for key,value in years.items  %}
 													<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-org" role="tabpanel">
 														<div class="row">
-															<div class="col-sm-6">
-																Cotiza: {{value.21.0|default:"---"}} <br>
-																{% if value.21.0 == 'Si' %}
-																Donde cotiza: {{value.22.0.0}} <br>
-																Desde cuando: {{value.22.0.1}} <br>
-																Cuanto cotiza: C$ {{value.22.0.2}} <br>
-																Frecuencia: {{value.22.0.3}} <br>
-																{% endif %}
+															<div class="col-sm-4">
+																<div class="profile-usermenu">
+																	<ul class="nav nav-pills nav-stacked">
+
+
+																		<li>
+																			<a>
+																				<b>Cotiza:</b> {{value.21.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.21.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>Donde cotiza:</b> {{value.22.0.0}}
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Desde cuando:</b> {{value.22.0.1}}
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Cuanto cotiza:</b> C$ {{value.22.0.2}}
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Frecuencia:</b> {{value.22.0.3}} 
+																				</a>
+																			</li>
+																		{% endif %}
+																		
+
+																		 
+																	</ul>
+																</div>
+																
 															</div>
-															<div class="col-sm-6">
-																Miembro cooperativa: {{value.23.0|default:"---"}} <br>
-																{% if value.23.0 == 'Si' %}
-																Cooperativas: {% for x in value.24 %}
-																				{{x}}{% if not forloop.last %},{% endif %}		
-																			{% endfor %}
-																{% endif %}
+															<div class="col-sm-4">
+																<div class="profile-usermenu">
+																	<ul class="nav nav-pills nav-stacked">
+
+
+																		<li>
+																			<a>
+																				<b>Miembro cooperativa:</b> {{value.23.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.23.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>Cooperativas: </b> 
+																					{% for x in value.24 %}
+																						{{x}}{% if not forloop.last %},{% endif %}		
+																					{% endfor %}
+																				</a>
+																			</li>
+																			
+																		{% endif %}
+																		<li>
+																			<a>
+																				<b>Beneficiado de un proyecto: </b>
+																				{{value.25.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.25.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>Proyectos: </b>
+																					{% for x in value.26 %}
+																						{{x}}{% if not forloop.last %},{% endif %}		
+																					{% endfor %}
+																				</a>
+																			</li>
+																		{% endif %}
+
+																		 
+																	</ul>
+																</div>
+															</div>
+															<div class="col-sm-4">
+																<div class="profile-usermenu">
+																	<ul class="nav nav-pills nav-stacked">
+
+
+																		<li>
+																			<a>
+																				<b>Recibe credito:</b> {{value.27.0.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.27.0.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>De quien recibe el credito: </b>
+																					{{value.27.0.1}} 
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Formas que recibe el credito:  </b>
+																					{% for x in value.28 %}
+																						{{x}}{% if not forloop.last %},{% endif %}		
+																					{% endfor %}
+																				</a>
+																			</li>
+																			
+																		{% endif %}
+																		
+
+
+																		 
+																	</ul>
+																</div>
 															</div>
 														</div>
 														<div class="row">
-															<div class="col-sm-6">
-																Beneficiado de un proyecto: {{value.25.0|default:"---"}} <br>
-																{% if value.25.0 == 'Si' %}
-																Proyectos: {% for x in value.26 %}
-																				{{x}}{% if not forloop.last %},{% endif %}		
-																			{% endfor %}
-																{% endif %}
-															</div>
-															<div class="col-sm-6">
-															Recibe credito: {{value.27.0.0|default:"---"}} <br>
-															{% if value.27.0.0 == 'Si' %}
-															De quien recibe el credito: {{value.27.0.1}} <br>
-																Formas que recibe el credito: {% for x in value.28 %}
-																				{{x}}{% if not forloop.last %},{% endif %}		
-																			{% endfor %}
-																{% endif %}
-															</div>
-														</div>
 
-														<div class="row">
 															<div class="col-sm-6">
-																Problemas más sentidos: {% for x in value.29 %}
-																						{{x|default:"---"}}{% if not forloop.last %},{% endif %}
-																					{% endfor %}
-																					<br>
-																Acciones que realiza para enfrentar el cambio climático: {% for x in value.30 %}
-																						{{x|default:"---"}}{% if not forloop.last %},{% endif %}
-																					{% endfor %}
-																					<br>
-																Motivos de Afiliación a la UNAG: {% for x in value.31 %}
-																						{{x|default:"---"}}{% if not forloop.last %},{% endif %}
-																					{% endfor %}
-																					<br>
-																Comentarios: {{value.32.0|default:"---"}}
-
-															</div>
+															  <br>
 															
+															 <br>
+																
+															
+															</div>
 														</div>
+
+														<div class="row">
+															<div class="col-sm-4">
+
+																<div class="portlet sale-summary">
+                                                                    <div class="portlet-title">
+                                                                        <div class="caption font-red sbold"> Problemas más sentidos: </div>
+
+                                                                    </div>
+                                                                    <div class="portlet-body">
+                                                                        <ul class="list-unstyled">
+                                                                        	{% for x in value.29 %}
+																				
+																			
+                                                                            <li>
+                                                                                <span class="sale-info"> 
+                                                                                {{x|default:"---"}}
+                                                                                </span>
+
+                                                                            </li>
+                                                                            {% endfor %}
+
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+
+															</div>
+															<div class="col-sm-4">
+
+																<div class="portlet sale-summary">
+                                                                    <div class="portlet-title">
+                                                                        <div class="caption font-red sbold"> Acciones que realiza para enfrentar el cambio climático: </div>
+
+                                                                    </div>
+                                                                    <div class="portlet-body">
+                                                                        <ul class="list-unstyled">
+                                                                        	{% for x in value.30 %}
+																				
+																			
+                                                                            <li>
+                                                                                <span class="sale-info"> 
+                                                                                {{x|default:"---"}}
+                                                                                </span>
+
+                                                                            </li>
+                                                                            {% endfor %}
+
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+
+															
+															</div>
+															<div class="col-sm-4">
+
+																<div class="portlet sale-summary">
+                                                                    <div class="portlet-title">
+                                                                        <div class="caption font-red sbold"> Motivos de Afiliación a la UNAG: </div>
+
+                                                                    </div>
+                                                                    <div class="portlet-body">
+                                                                        <ul class="list-unstyled">
+                                                                        	{% for x in value.31 %}
+																				
+																			
+                                                                            <li>
+                                                                                <span class="sale-info"> 
+                                                                                {{x|default:"---"}}
+                                                                                </span>
+
+                                                                            </li>
+                                                                            {% endfor %}
+
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+
+															
+															</div>
+															<div class="col-sm-12">
+
+																<div class="portlet sale-summary">
+                                                                    <div class="portlet-title">
+                                                                        <div class="caption font-red sbold"> Comentarios:  </div>
+
+                                                                    </div>
+                                                                    <div class="portlet-body">
+                                                                        <ul class="list-unstyled">
+                                                                        	
+																				
+																			
+                                                                            <li>
+                                                                                <span class="sale-info"> 
+                                                                                {{value.32.0|default:"---"}}
+                                                                                </span>
+
+                                                                            </li>
+                                                                          
+
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+
+															
+															</div>
 
 													</div>
 													{% endfor %}
