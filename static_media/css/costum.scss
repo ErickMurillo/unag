@@ -48,7 +48,13 @@
 	font-weight:bold;
 }
 .portlet.box.green>.portlet-title>.actions .btn-default{
-	border:2px solid #8edfe6;
+	border:1px solid white;
+}
+.portlet.light .btn.btn-circle.btn-icon-only.btn-default:hover, .portlet.light .btn.btn-circle.btn-icon-only.btn-default.active{
+	border:2px solid white;
+}
+.portlet.light .btn.btn-circle.btn-icon-only.btn-default > i{
+	color:white;
 }
 .portlet.box.green>.portlet-title, .portlet.green, .portlet>.portlet-body.green{
 	background:#3a54a5 !important;
@@ -127,8 +133,11 @@
 	border-left:1px solid #f0f4f7;
 	border-right:1px solid #f0f4f7;
 	a{
-		color: #5b9bd1;
+		color: #3279b5;
 	}
+}
+.profile-stat-text{
+	color: #3279b5;
 }
 .profile-usermenu ul li:first-child{
 	border-top: 1px solid #f0f4f7;
@@ -150,4 +159,19 @@
 .profile-usertitle-name{
 	margin-bottom: 20px;
     margin-top: 10px;
+}
+.small-table thead tr th{
+	font-size: 13px;
+}
+.portlet.box>.portlet-special{
+	padding: 5px;
+}
+.profile-list ul li a{
+	font-size:15px;
+}
+.portlet.blue, .portlet.box.blue>.portlet-title, .portlet>.portlet-body.blue{
+	background-color: #3a54a5;
+}
+.font-purple{
+	color: #e26a6a!important;
 }
