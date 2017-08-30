@@ -80,15 +80,16 @@ def afiliados(request,template='frontend/afiliados.html'):
 		afiliado = Afiliado.objects.get(id = id)
 		escolaridad = Escolaridad.objects.filter(encuesta__afiliado = id,respuesta = 'Si').values_list('escolaridad',flat=True).last()
 
-		# dependen
-		hombres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Hombres').values_list('cantidad',flat=True).last()
-		mujeres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Mujeres').aggregate(total= Sum('cantidad'))['total']
-		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años').values_list('cantidad',flat=True).last()
-		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años').values_list('cantidad',flat=True).last()
-
 		anios_encuesta = Encuesta.objects.filter(afiliado = afiliado.id).values_list('anio',flat=True)
 		estado_civil = Encuesta.objects.filter(afiliado = afiliado.id).values_list('datosgenerales__estado_civil', flat=True).last()
 		acceso_internet = Encuesta.objects.filter(afiliado = afiliado.id).values_list('datosgenerales__acceso_internet', flat=True).last()
+
+		# dependen
+		last_year = anios_encuesta.last()
+		hombres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Hombres',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
+		mujeres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Mujeres',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
+		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
+		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
 
 		years = collections.OrderedDict()
 		for anio in anios_encuesta:
