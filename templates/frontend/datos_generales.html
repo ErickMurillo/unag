@@ -280,7 +280,7 @@ Highcharts.chart('dependen', {
         data: [
         {% for k,v in personas_dependen.items %}
         {
-            name: '{{k}} ({{v|default:"0"}})',
+            name: '{{k}} ({{v|default:"0"|floatformat:"2"}})',
             y: {{v|default:"0"}}
         },
         {% endfor %}]
