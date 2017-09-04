@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'sorl.thumbnail',
     'import_export',
+    'django_select2',
 ]
 
 MIDDLEWARE = [

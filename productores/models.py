@@ -241,7 +241,7 @@ class Agricultura(models.Model):
 
 PRODUCCION_CHOICES2 = (('Intermediario','Intermediario'),('Al estado','Al estado'),
                         ('Consumidor / Mercado local','Consumidor / Mercado local'),
-                        ('Mercado nacional','Mercado nacional'),('Exportación','Exportación'))
+                        ('Mercado nacional','Mercado nacional'),('Mercado internacional / Exportación','Mercado internacional / Exportación'))
 
 class VendeProduccion(models.Model):
     encuesta = models.ForeignKey(Encuesta)

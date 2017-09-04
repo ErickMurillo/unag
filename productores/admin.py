@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from .models import *
+from .forms import * 
 
 # Register your models here.
 class AfiliadoAdmin(admin.ModelAdmin):
@@ -144,6 +145,7 @@ class EncuestaAdmin(admin.ModelAdmin):
     list_display = ['afiliado','fecha_encuesta']
     date_hierarchy = 'fecha_encuesta'
     search_fields = ['afiliado__nombre']
+    form = EncuestaAfiliadoForm
 
     def get_queryset(self, request):
         if request.user.is_superuser:
@@ -175,6 +177,6 @@ class EncuestaAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/admin.css',)
         }
-        js = ('js/admin.js',)
+        js = ('plugins/jquery.min.js','js/admin.js',)
 
 admin.site.register(Encuesta,EncuestaAdmin)

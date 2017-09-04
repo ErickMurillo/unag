@@ -35,5 +35,6 @@ urlpatterns = [
     url(r'^datos-propiedad/$', datos_propiedad, name='datos-propiedad'),
     url(r'^datos-produccion/$', datos_produccion, name='datos-produccion'),
     url(r'^organizacion/$', organizacion, name='organizacion'),
+    url(r'^select2/', include('django_select2.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
