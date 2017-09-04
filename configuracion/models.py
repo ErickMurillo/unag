@@ -59,6 +59,7 @@ class Cultivo(models.Model):
 
     class Meta:
         verbose_name_plural = 'Cultivos'
+        ordering = ('nombre',)
 
 class Infraestructuras(models.Model):
     nombre = models.CharField(max_length=60)
