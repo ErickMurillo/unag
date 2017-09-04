@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'import_export',
     'django_select2',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,6 @@ LOGIN_REDIRECT_URL = '/'
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
+CRONJOBS = [
+    ('*/262800 * * * *', 'productores.cron.my_scheduled_job')
+]
