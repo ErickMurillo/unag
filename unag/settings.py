@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'configuracion',
     'smart_selects',
     'sorl.thumbnail',
+    'import_export',
 ]
 
 MIDDLEWARE = [
