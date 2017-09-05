@@ -145,7 +145,7 @@ def afiliados(request,template='frontend/afiliados.html'):
 											cont['permanente_hombres'],cont['permanente_mujeres'],
 											cont['familiar_hombres'],cont['familiar_mujeres']))
 
-			infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id,possee = 'Si').values_list('tipo__nombre',flat=True)
+			infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('tipo__nombre',flat=True)
 
 			#agricultura
 			#primera
@@ -393,8 +393,8 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 	#miembros que dependen del jefe
 	personas_dependen = {}
 	for obj in PERSONAS_CHOICES:
-		avg = filtro.filter(personasdependen__opcion = obj[0]).aggregate(avg = Avg('personasdependen__cantidad'))['avg']
-		personas_dependen[obj[0]] = avg
+		conteo = filtro.filter(personasdependen__opcion = obj[0]).aggregate(sum = Sum('personasdependen__cantidad'))['sum']
+		personas_dependen[obj[0]] = conteo
 
 	#acceso internet
 	internet = {}
@@ -424,7 +424,7 @@ def datos_familiares(request,template='frontend/datos_familiares.html'):
 		migran[obj[0]] = conteo
 
 	#periodo de tiepo que migran
-	periodo = {}
+	periodo = collections.OrderedDict()
 	for obj in TIEMPO_CHOICES:
 		conteo = filtro.filter(familiaemigra__tiempo = obj[0]).count()
 		periodo[obj[0]] = conteo
@@ -515,7 +515,7 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	infra = {}
 	list_infra = filtro.values_list('infraestructura__tipo',flat=True)
 	for obj in Infraestructuras.objects.filter(id__in = list_infra):
-		conteo = filtro.filter(infraestructura__tipo = obj.id,infraestructura__possee = 'Si').count()
+		conteo = filtro.filter(infraestructura__tipo = obj.id).count()
 		infra[obj] = conteo
 
 	return render(request, template, locals())

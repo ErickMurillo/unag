@@ -107,7 +107,7 @@ class DatosFamiliares(models.Model):
     nombres = models.CharField(max_length=300)
     sexo = models.CharField(max_length=20,choices=SEXO_CHOICES)
     fecha_nacimiento =  models.DateField()
-    escolaridad = models.CharField(max_length=300,verbose_name='Escolaridad (Último año de escolaridad)')
+    escolaridad = models.CharField(max_length=300,verbose_name='Escolaridad (Último año de escolaridad)',choices=ESCOLARIDAD_CHOICES)
     parentesco = models.CharField(max_length=200)
     edad = models.IntegerField(editable=False)
 
@@ -274,7 +274,7 @@ class TablaEmpleo(models.Model):
 class Infraestructura(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     tipo = models.ForeignKey(Infraestructuras)
-    possee = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    # possee = models.CharField(max_length=2,choices=SI_NO_CHOICES)
 
 class Cotizacion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
