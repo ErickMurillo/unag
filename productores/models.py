@@ -73,20 +73,20 @@ class DatosGenerales(models.Model):
     class Meta:
         verbose_name_plural = 'Datos generales'
 
-ESCOLARIDAD_CHOICES = (('Alfabetizado','Alfabetizado'), ('Lee y Escribe','Lee y Escribe'), ('Primaria','Primaria'),
+ESCOLARIDAD_CHOICES = (('Lee y Escribe','Lee y Escribe'), ('Primaria','Primaria'),
                         ('Secundaria','Secundaria'), ('Universitario','Universitario'))
 
 class Escolaridad(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     escolaridad = models.CharField(max_length=20,choices=ESCOLARIDAD_CHOICES)
-    respuesta = models.CharField(max_length=20,choices=SI_NO_CHOICES)
+    # respuesta = models.CharField(max_length=20,choices=SI_NO_CHOICES)
 
     class Meta:
         verbose_name_plural = 'Escolaridad afiliado'
 
 class Profesion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    profecion = models.CharField(max_length=200)
+    profecion = models.CharField(max_length=200,verbose_name='Profesión')
 
     class Meta:
         verbose_name_plural = 'Profesión'

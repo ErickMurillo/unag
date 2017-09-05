@@ -78,7 +78,7 @@ def afiliados(request,template='frontend/afiliados.html'):
 	if request.GET.get('afiliado'):
 		id = request.GET.get('afiliado')
 		afiliado = Afiliado.objects.get(id = id)
-		escolaridad = Escolaridad.objects.filter(encuesta__afiliado = id,respuesta = 'Si').values_list('escolaridad',flat=True).last()
+		escolaridad = Escolaridad.objects.filter(encuesta__afiliado = id).values_list('escolaridad',flat=True).last()
 
 		anios_encuesta = Encuesta.objects.filter(afiliado = afiliado.id).values_list('anio',flat=True)
 		estado_civil = Encuesta.objects.filter(afiliado = afiliado.id).values_list('datosgenerales__estado_civil', flat=True).last()
