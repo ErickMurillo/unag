@@ -46,6 +46,11 @@ class AreasFincaInline(admin.TabularInline):
     model = AreasFinca
     extra = 1
 
+class TierrasAlquiladasInline(admin.TabularInline):
+    model = TierrasAlquiladas
+    max_num = 1
+    can_delete = False
+
 class OtrasTierrasInline(admin.TabularInline):
     model = OtrasTierras
     extra = 1
@@ -87,11 +92,6 @@ class ProduccionHuevosLecheInline(admin.TabularInline):
 class AgriculturaInline(admin.TabularInline):
     model = Agricultura
     extra = 1
-
-class VendeProduccionInline(admin.TabularInline):
-    model = VendeProduccion
-    max_num = 1
-    can_delete = False
 
 class ManoObraInline(admin.TabularInline):
     model = ManoObra
@@ -166,10 +166,10 @@ class EncuestaAdmin(admin.ModelAdmin):
         return super(EncuestaAdmin, self).get_form(request, obj=None, **kwargs)
 
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,PersonasDependenInline,
-                DatosFamiliaresInline,FamiliaEmigraInline,AreasFincaInline,
-                OtrasTierrasInline,OrigenPropiedadInline,FormaTenenciaInline,
+                DatosFamiliaresInline,AreasFincaInline,
+                TierrasAlquiladasInline,OtrasTierrasInline,FormaTenenciaInline,
                 DocumentoPropiedadInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
-                ProduccionHuevosLecheInline,AgriculturaInline,VendeProduccionInline,ManoObraInline,
+                ProduccionHuevosLecheInline,AgriculturaInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
                 MiembroCooperativaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]
 
