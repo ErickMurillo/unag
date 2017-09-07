@@ -73,20 +73,21 @@ class DatosGenerales(models.Model):
     class Meta:
         verbose_name_plural = 'Datos generales'
 
-ESCOLARIDAD_CHOICES = (('Alfabetizado','Alfabetizado'), ('Lee y Escribe','Lee y Escribe'), ('Primaria','Primaria'),
+ESCOLARIDAD_CHOICES = (('Primaria','Primaria'),
                         ('Secundaria','Secundaria'), ('Universitario','Universitario'))
 
 class Escolaridad(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    escolaridad = models.CharField(max_length=20,choices=ESCOLARIDAD_CHOICES)
-    respuesta = models.CharField(max_length=20,choices=SI_NO_CHOICES)
+    escolaridad = models.CharField(max_length=20,choices=SI_NO_CHOICES, verbose_name='Lee y escribe')
+    nivel_escolaridad = models.CharField(max_length=20,choices=ESCOLARIDAD_CHOICES)
+    # respuesta = models.CharField(max_length=20,choices=SI_NO_CHOICES)
 
     class Meta:
         verbose_name_plural = 'Escolaridad afiliado'
 
 class Profesion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    profecion = models.CharField(max_length=200)
+    profecion = models.CharField(max_length=200,verbose_name='Profesión')
 
     class Meta:
         verbose_name_plural = 'Profesión'
@@ -102,24 +103,6 @@ class PersonasDependen(models.Model):
     class Meta:
         verbose_name_plural = 'Personas que dependen del afiliado'
 
-class DatosFamiliares(models.Model):
-    encuesta = models.ForeignKey(Encuesta)
-    nombres = models.CharField(max_length=300)
-    sexo = models.CharField(max_length=20,choices=SEXO_CHOICES)
-    fecha_nacimiento =  models.DateField()
-    escolaridad = models.CharField(max_length=300,verbose_name='Escolaridad (Último año de escolaridad)')
-    parentesco = models.CharField(max_length=200)
-    edad = models.IntegerField(editable=False)
-
-    class Meta:
-        verbose_name_plural = 'Datos Familiares'
-
-    def save(self, *args, **kwargs):
-        #calcular edad a partir de fecha nacimiento
-        today = datetime.date.today()
-        self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
-        super(DatosFamiliares, self).save(*args, **kwargs)
-
 EMIGRAN_CHOICES = (('Local','Local'),('Nacional','Nacional'),('Centroamérica','Centroamérica'), 
                     ('Internacional','Internacional'))
 
@@ -130,6 +113,27 @@ MESES_CHOICES = (('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abr
                 ('Mayo','Mayo'),('Junio','Junio'),('Julio','Julio'),('Agosto','Agosto'),
                 ('Septiembre','Septiembre'),('Octubre','Octubre'),('Noviembre','Noviembre'),
                 ('Diciembre','Diciembre'))
+
+class DatosFamiliares(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    nombres = models.CharField(max_length=300)
+    sexo = models.CharField(max_length=20,choices=SEXO_CHOICES)
+    fecha_nacimiento =  models.DateField()
+    escolaridad = models.CharField(max_length=300,verbose_name='Escolaridad (Último año de escolaridad)',choices=ESCOLARIDAD_CHOICES)
+    parentesco = models.CharField(max_length=200)
+    donde_emigran = models.CharField(max_length=25,choices=EMIGRAN_CHOICES,blank=True,null=True)
+    tiempo = models.CharField(max_length=25,choices=TIEMPO_CHOICES,blank=True,null=True)
+    meses = MultiSelectField(choices=MESES_CHOICES,blank=True)
+    edad = models.IntegerField(editable=False)
+
+    class Meta:
+        verbose_name_plural = 'Datos Familiares'
+
+    def save(self, *args, **kwargs):
+        #calcular edad a partir de fecha nacimiento
+        today = datetime.date.today()
+        self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
+        super(DatosFamiliares, self).save(*args, **kwargs)
 
 class FamiliaEmigra(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -146,9 +150,17 @@ class AreasFinca(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     areas = models.ForeignKey(Areas)
     mz = models.FloatField(validators = [MinValueValidator(0.0)])
+    origen = models.ForeignKey(Origen)
 
     class Meta:
         verbose_name_plural = 'Área de la Finca (Mzs)'
+
+class TierrasAlquiladas(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    posse = models.CharField(max_length=20,choices=SI_NO_CHOICES)
+
+    class Meta:
+        verbose_name_plural = 'Posse tierras alquiladas'
 
 class OtrasTierras(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -222,6 +234,10 @@ CULTIVO_CHOICES = (('Cultivo de primera','Cultivo de primera'),('Cultivo de post
                     ('Cultivo de apante','Cultivo de apante'),('Cultivos permanentes (Frutales, Cítricos, …)','Cultivos permanentes (Frutales, Cítricos, …)'),
                     ('Otros','Otros'))
 
+PRODUCCION_CHOICES2 = (('Intermediario','Intermediario'),('Al estado','Al estado'),
+                        ('Consumidor / Mercado local','Consumidor / Mercado local'),
+                        ('Mercado nacional','Mercado nacional'),('Mercado internacional / Exportación','Mercado internacional / Exportación'))
+
 class Agricultura(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     rubro = models.ForeignKey(Cultivo)
@@ -231,6 +247,7 @@ class Agricultura(models.Model):
     consumo_humano = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo humano qq')
     consumo_animal = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo animal qq')
     venta = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Venta qq')
+    quien_vende = models.CharField(max_length=50,choices=PRODUCCION_CHOICES2)
     costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz')
     ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz')
     ganancia_perdida = models.FloatField(verbose_name='Ganancia o Perdida C$/Mz')
@@ -238,10 +255,6 @@ class Agricultura(models.Model):
 
     class Meta:
         verbose_name_plural = 'Agricultura'
-
-PRODUCCION_CHOICES2 = (('Intermediario','Intermediario'),('Al estado','Al estado'),
-                        ('Consumidor / Mercado local','Consumidor / Mercado local'),
-                        ('Mercado nacional','Mercado nacional'),('Exportación','Exportación'))
 
 class VendeProduccion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -274,7 +287,7 @@ class TablaEmpleo(models.Model):
 class Infraestructura(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     tipo = models.ForeignKey(Infraestructuras)
-    possee = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    # possee = models.CharField(max_length=2,choices=SI_NO_CHOICES)
 
 class Cotizacion(models.Model):
     encuesta = models.ForeignKey(Encuesta)

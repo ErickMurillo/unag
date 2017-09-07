@@ -2,6 +2,7 @@
 from django.db import models
 from .models import *
 from django import forms
+from django_select2.forms import *
 
 def fecha_choice():
     years = []
@@ -30,3 +31,11 @@ class AfiliadoForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AfiliadoForm, self).__init__(*args, **kwargs)
         self.fields['afiliado'] = forms.ModelChoiceField(queryset=Afiliado.objects.all(),required=False,label='Municipios')
+
+class EncuestaAfiliadoForm(forms.ModelForm):
+    class Meta:
+        model = Afiliado
+        fields = '__all__'
+        widgets = {
+            'afiliado': Select2Widget
+        }

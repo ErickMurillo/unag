@@ -78,17 +78,18 @@ def afiliados(request,template='frontend/afiliados.html'):
 	if request.GET.get('afiliado'):
 		id = request.GET.get('afiliado')
 		afiliado = Afiliado.objects.get(id = id)
-		escolaridad = Escolaridad.objects.filter(encuesta__afiliado = id,respuesta = 'Si').values_list('escolaridad',flat=True).last()
-
-		# dependen
-		hombres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Hombres').values_list('cantidad',flat=True).last()
-		mujeres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Mujeres').aggregate(total= Sum('cantidad'))['total']
-		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años').values_list('cantidad',flat=True).last()
-		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años').values_list('cantidad',flat=True).last()
+		escolaridad = Escolaridad.objects.filter(encuesta__afiliado = id).values_list('escolaridad',flat=True).last()
 
 		anios_encuesta = Encuesta.objects.filter(afiliado = afiliado.id).values_list('anio',flat=True)
 		estado_civil = Encuesta.objects.filter(afiliado = afiliado.id).values_list('datosgenerales__estado_civil', flat=True).last()
 		acceso_internet = Encuesta.objects.filter(afiliado = afiliado.id).values_list('datosgenerales__acceso_internet', flat=True).last()
+
+		# dependen
+		last_year = anios_encuesta.last()
+		hombres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Hombres',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
+		mujeres = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Adultos: Mujeres',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
+		ninas = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niñas menores de 12 años',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
+		ninos = PersonasDependen.objects.filter(encuesta__afiliado = id,opcion = 'Niños menores de 12 años',encuesta__anio = last_year).aggregate(total= Sum('cantidad'))['total']
 
 		years = collections.OrderedDict()
 		for anio in anios_encuesta:
@@ -144,7 +145,7 @@ def afiliados(request,template='frontend/afiliados.html'):
 											cont['permanente_hombres'],cont['permanente_mujeres'],
 											cont['familiar_hombres'],cont['familiar_mujeres']))
 
-			infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id,possee = 'Si').values_list('tipo__nombre',flat=True)
+			infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('tipo__nombre',flat=True)
 
 			#agricultura
 			#primera
@@ -393,8 +394,8 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 	#miembros que dependen del jefe
 	personas_dependen = {}
 	for obj in PERSONAS_CHOICES:
-		avg = filtro.filter(personasdependen__opcion = obj[0]).aggregate(avg = Avg('personasdependen__cantidad'))['avg']
-		personas_dependen[obj[0]] = avg
+		conteo = filtro.filter(personasdependen__opcion = obj[0]).aggregate(sum = Sum('personasdependen__cantidad'))['sum']
+		personas_dependen[obj[0]] = conteo
 
 	#acceso internet
 	internet = {}
@@ -424,7 +425,7 @@ def datos_familiares(request,template='frontend/datos_familiares.html'):
 		migran[obj[0]] = conteo
 
 	#periodo de tiepo que migran
-	periodo = {}
+	periodo = collections.OrderedDict()
 	for obj in TIEMPO_CHOICES:
 		conteo = filtro.filter(familiaemigra__tiempo = obj[0]).count()
 		periodo[obj[0]] = conteo
@@ -442,42 +443,24 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 
 	#areas
 	areas_finca = {}
-	list_areas = ['Pasto','Agrícola','Forestal','Café','Caña']
-	for obj in Areas.objects.all():
-		if obj.nombre in list_areas:
-			areas = filtro.filter(areasfinca__areas = obj.id).aggregate(suma = Sum('areasfinca__mz'))['suma']
-			areas_finca[obj] = areas
-	try:
-		otras_areas = filtro.aggregate(suma = Sum('areasfinca__mz'))['suma'].exclude(areasfinca__areas__in = list_areas)
-		areas_finca['Otros'] = otras_areas
-	except:
-		areas_finca['Otros'] = 0
+	list_areas = filtro.values_list('areasfinca__areas',flat=True)
+	for obj in Areas.objects.filter(id__in = list_areas):
+		areas = filtro.filter(areasfinca__areas = obj.id).aggregate(suma = Sum('areasfinca__mz'))['suma']
+		areas_finca[obj] = areas
 
 	#otras areas
 	otras_areas_finca = {}
-	list_areas = ['Pasto','Agrícola','Forestal','Café','Caña']
-	for obj in Areas.objects.all():
-		if obj.nombre in list_areas:
-			areas = filtro.filter(otrastierras__areas = obj.id).aggregate(suma = Sum('otrastierras__mz'))['suma']
-			otras_areas_finca[obj] = areas
-	try:
-		otras_areas = filtro.aggregate(suma = Sum('otrastierras__mz'))['suma'].exclude(otrastierras__areas__in = list_areas)
-		otras_areas_finca['Otros'] = otras_areas
-	except:
-		otras_areas_finca['Otros'] = 0
+	otras_areas = filtro.values_list('otrastierras__areas',flat=True)
+	for obj in Areas.objects.filter(id__in = otras_areas):
+		areas = filtro.filter(otrastierras__areas = obj.id).aggregate(suma = Sum('otrastierras__mz'))['suma']
+		otras_areas_finca[obj] = areas
 
 	#origen propiedad
 	propiedad = {}
-	list_origen = ['Comprada','Herencia','Reforma Agraria','Alquilada']
-	for obj in Origen.objects.all():
-		if obj.nombre in list_origen:
-			conteo = filtro.filter(origenpropiedad__opcion = obj.id).count()
-			propiedad[obj] = conteo
-	try:
-		otros_origen = filtro.count().exclude(origenpropiedad__opcion__in = list_origen)
-		propiedad['Otros'] = otros_origen
-	except:
-		propiedad['Otros'] = 0
+	list_origen = filtro.values_list('origenpropiedad__opcion',flat=True)
+	for obj in Origen.objects.filter(id__in = list_origen):
+		conteo = filtro.filter(origenpropiedad__opcion = obj.id).count()
+		propiedad[obj] = conteo
 
 	#tenencia
 	tenencia = {}
@@ -487,30 +470,18 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 
 	#documento propiedad
 	doc_propiedad = {}
-	list_doc = ['Constancia de asignación','Titulo supletorio','Titulo de Reforma agraria','Escritura pública']
-	for obj in Documento.objects.all():
-		if obj.nombre in list_doc:
-			conteo = filtro.filter(documentopropiedad__documento = obj.id).count()
-			doc_propiedad[obj] = conteo
-	try:
-		otros_doc = filtro.count().exclude(documentopropiedad__documento__in = list_doc)
-		doc_propiedad['Otros'] = otros_doc
-	except:
-		doc_propiedad['Otros'] = 0
+	list_doc = filtro.values_list('documentopropiedad__documento',flat=True)
+	for obj in Documento.objects.filter(id__in = list_doc):
+		conteo = filtro.filter(documentopropiedad__documento = obj.id).count()
+		doc_propiedad[obj] = conteo
 
 	#acceso agua
 	encuestados = filtro.count()
 	acceso_agua = {}
-	list_agua = ['Ojo de Agua','Pozo','Quebrada','Agua potable/Acueducto','Río']
-	for obj in Sistema.objects.all():
-		if obj.nombre in list_agua:
-			conteo = filtro.filter(sistemaagua__sistema = obj.id).count()
-			acceso_agua[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
-	try:
-		otros_agua = filtro.count().exclude(sistemaagua__sistema__in = list_agua)
-		acceso_agua['Otros'] = otros_agua,saca_porcentajes(otros_agua,encuestados,False)
-	except:
-		acceso_agua['Otros'] = 0
+	list_agua = filtro.values_list('sistemaagua__sistema',flat=True)
+	for obj in Sistema.objects.filter(id__in = list_agua):
+		conteo = filtro.filter(sistemaagua__sistema = obj.id).count()
+		acceso_agua[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
 
 	#energia
 	energia = {}
@@ -528,31 +499,25 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	list_contratacion = []
 	rubro = filtro.values_list('tablaempleo__rubro__nombre',flat=True).distinct()
 	for obj in rubro:
-		cont = filtro.filter(tablaempleo__rubro__nombre = obj).aggregate(
-				temporal_hombres = Sum('tablaempleo__temporal_hombres'),
-				temporal_mujeres = Sum('tablaempleo__temporal_mujeres'),
-				permanente_hombres = Sum('tablaempleo__permanente_hombres'),
-				permanente_mujeres = Sum('tablaempleo__permanente_mujeres'),
-				familiar_hombres = Sum('tablaempleo__familiar_hombres'),
-				familiar_mujeres = Sum('tablaempleo__familiar_mujeres'))
+		if obj != None:
+			cont = filtro.filter(tablaempleo__rubro__nombre = obj).aggregate(
+					temporal_hombres = Sum('tablaempleo__temporal_hombres'),
+					temporal_mujeres = Sum('tablaempleo__temporal_mujeres'),
+					permanente_hombres = Sum('tablaempleo__permanente_hombres'),
+					permanente_mujeres = Sum('tablaempleo__permanente_mujeres'),
+					familiar_hombres = Sum('tablaempleo__familiar_hombres'),
+					familiar_mujeres = Sum('tablaempleo__familiar_mujeres'))
 
-		list_contratacion.append((obj,cont['temporal_hombres'],cont['temporal_mujeres'],
-									cont['permanente_hombres'],cont['permanente_mujeres'],
-									cont['familiar_hombres'],cont['familiar_mujeres']))
+			list_contratacion.append((obj,cont['temporal_hombres'],cont['temporal_mujeres'],
+										cont['permanente_hombres'],cont['permanente_mujeres'],
+										cont['familiar_hombres'],cont['familiar_mujeres']))
 
 	#infraestructura
 	infra = {}
-	list_infra = ['Troja','Gallinero','Corral','Chiquero','Edificio de café','Horno','Letrina',
-					'Pilas para agua']
-	for obj in Infraestructuras.objects.all():
-		if obj.nombre in list_infra:
-			conteo = filtro.filter(infraestructura__tipo = obj.id,infraestructura__possee = 'Si').count()
-			infra[obj] = conteo
-	try:
-		otros_infra = filtro.count().exclude(infraestructura__tipo__in = list_infra,infraestructura__possee = 'Si')
-		infra['Otros'] = otros_infra
-	except:
-		infra['Otros'] = 0
+	list_infra = filtro.values_list('infraestructura__tipo',flat=True)
+	for obj in Infraestructuras.objects.filter(id__in = list_infra):
+		conteo = filtro.filter(infraestructura__tipo = obj.id).count()
+		infra[obj] = conteo
 
 	return render(request, template, locals())
 
