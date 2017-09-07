@@ -51,13 +51,17 @@
                                                             <div class="portlet-title">
                                                                 <div class="caption">
                                                                     <i class="icon-settings"></i>
-                                                                    <span class="caption-subject sbold uppercase">Indicadores</span>
+                                                                    <span class="caption-subject sbold uppercase">Consulta por indicadores</span>
                                                                 </div>
                                                                 
                                                             </div>
                                                             <div class="portlet-body form">
+                                                                <div class="" id="filtros">
+                                                                    {% include "frontend/filtros.html" %}
+                                                                </div>
                                                                 <form class="form-horizontal" role="form">
                                                                     <div class="form-body">
+
                                                                             <div class="indicadores row">
                                                                                 <div class="col-md-2 col-md-offset-1">
                                                                                     <a href="/datos-generales/" class="btn green-meadow">Datos Generales</a>

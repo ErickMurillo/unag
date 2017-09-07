@@ -353,6 +353,7 @@ def consulta(request,template="frontend/consulta.html"):
             mensaje = "Todas las variables estan correctamente :)"
             request.session['activo'] = True
             centinela = 1
+            
         else:
             centinela = 0
 

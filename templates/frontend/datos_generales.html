@@ -21,16 +21,7 @@
                     		<!-- BEGIN PAGE TOOLBAR -->
                     		<div class="page-toolbar">
                     			<!-- BEGIN THEME PANEL -->
-                    			<div class="btn-group btn-theme-panel">
-
-                                    <a class="btn filtros collapsed" role="button" data-toggle="collapse" href="#filtros" aria-expanded="false" aria-controls="filtros">
-                                        <i class="fa fa-filter"></i>
-                                    </a>
-                    				<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-                    					<i class="fa fa-bars"></i>
-                    				</a>
-                                    {% include "frontend/indicadores.html" %}
-                    			</div>
+                    			{% include "frontend/indicadores.html" %}
                     			<!-- END THEME PANEL -->
                     		</div>
                     		<!-- END PAGE TOOLBAR -->
@@ -39,7 +30,7 @@
                     </div>
                     <div class="">
                         <div class="container">
-                            <div class="collapse" id="filtros">
+                            <div class="" id="filtros">
                                 {% include "frontend/filtros.html" %}
                             </div>
                         </div>
@@ -370,5 +361,10 @@ Highcharts.chart('estado-civil', {
         ]
     }]
 });
+</script>
+<script type="text/javascript">
+    $( ".hor-menu ul li" ).removeClass( "active" );
+    $( ".ind-link li" ).removeClass( "active" );
+    $( ".ind-link li.general" ).addClass( "active" );
 </script>
 {% endblock extra_js %}
