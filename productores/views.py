@@ -744,6 +744,7 @@ def _queryset_filtrado(request):
 
 @login_required
 def consulta(request,template="frontend/consulta.html"):
+
 	if request.method == 'POST':
 		mensaje = None
 		form = EncuestaForm(request.POST)
@@ -777,6 +778,7 @@ def consulta(request,template="frontend/consulta.html"):
 			pass
 
 	return render(request, template, locals())
+
 
 def datos_generales(request,template='frontend/datos_generales.html'):
 	filtro = _queryset_filtrado(request)
