@@ -113,7 +113,6 @@
 }
 .select2-container{
 	min-width:200px;
-	max-width: 350px;
 }
 .select2-container .select2-selection--single{
 	height:34px;
@@ -189,4 +188,13 @@
 }
 .interteam-logo{
 	width: 55%;
+}
+@media only screen and (max-width: 768px){
+	.flip-scroll tbody tr{
+		border-right: 1px solid #ddd;
+		text-align:center;
+	}
+	.interteam-logo{
+		width: 100%;
+	}
 }

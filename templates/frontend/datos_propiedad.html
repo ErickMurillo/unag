@@ -212,36 +212,34 @@
                                                 </div>
                                             </div>
 
-                                            <div class="portlet-body">
-                                                <div class="map">
-                                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Rubro</th>
-                                                                <th>Temporal Hombres</th>
-                                                                <th>Temporal Mujeres</th>
-                                                                <th>Permanente Hombres</th>
-                                                                <th>Permanente Mujeres</th>
-                                                                <th>Familiar Hombres</th>
-                                                                <th>Familiar Mujeres</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        {% for obj in list_contratacion %}
-                                                            <tr>                                                    
-                                                                <td>{{obj.0}}</td>
-                                                                <td>{{obj.1}}</td>
-                                                                <td>{{obj.2}}</td>
-                                                                <td>{{obj.3}}</td>
-                                                                <td>{{obj.4}}</td>
-                                                                <td>{{obj.5}}</td>
-                                                                <td>{{obj.6}}</td>
-                                                            </tr>          
-                                                        {% endfor %}                
-                                                            
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                            <div class="portlet-body flip-scroll">
+                                                <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Rubro</th>
+                                                            <th>Temporal Hombres</th>
+                                                            <th>Temporal Mujeres</th>
+                                                            <th>Permanente Hombres</th>
+                                                            <th>Permanente Mujeres</th>
+                                                            <th>Familiar Hombres</th>
+                                                            <th>Familiar Mujeres</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for obj in list_contratacion %}
+                                                        <tr>                                                    
+                                                            <td>{{obj.0}}</td>
+                                                            <td>{{obj.1}}</td>
+                                                            <td>{{obj.2}}</td>
+                                                            <td>{{obj.3}}</td>
+                                                            <td>{{obj.4}}</td>
+                                                            <td>{{obj.5}}</td>
+                                                            <td>{{obj.6}}</td>
+                                                        </tr>          
+                                                    {% endfor %}                
+                                                        
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>

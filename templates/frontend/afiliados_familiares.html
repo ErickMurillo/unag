@@ -33,10 +33,10 @@
 														
 	                    				<ul class="nav nav-tabs">
 											<li>
-												<a href="/afiliados/datos-personales/">Datos Personales</a>
+												<a href="/afiliados/datos-personales/">Personales</a>
 											</li>
 											<li class="active">
-												<a href="/afiliados/datos-familiares/">Datos Familiares</a>
+												<a href="/afiliados/datos-familiares/">Familiares</a>
 											</li>
 											<li>
 												<a href="/afiliados/propiedad/">Propiedad</a>
@@ -80,13 +80,13 @@
 									<div class="portlet light">
 										<div class="portlet-title">
 											<div class="row">
-												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
 													<div class="caption font-red-sunglo">
 														
 														<h4 class="caption-subject bold uppercase"><i class="icon-user font-red-sunglo"></i> Perfil afiliados</h4>
 													</div>
 												</div>
-												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 													<form class="form-inline" role="form" action="." method='post'>{% csrf_token %}
 														<div class="input-group">
 															<div class="input-group-addon">
@@ -128,106 +128,112 @@
 														<br>
 														Profesión: {{value.0.0.3|default:"---"}}
 														<br> -->
-
-														<div>
-															<div class="portlet-title">
-																<div class="caption caption-subject font-red-sunglo text-center">
-
-																	Personas que dependen del afiliado
-																</div>
-
+														<div class="row">
+															<div class="col-xs-12 col-sm-6 ">
+																<div class="portlet box green">
+																	<div class="portlet-title">
+						                                                <div class="caption">
+						                                                    <i class="fa fa-list"></i>Miembros de la familia emigran
+						                                                </div>
+						                                            </div>
+						                                        	<div class="portlet-body table-responsive">
+						                                        		<table class="table table-bordered table-striped table-condensed " cellspacing="0" width="100%">
+																			<thead>
+																				<tr>
+																					<th>Hombres</th>
+																					<th>Mujeres</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr>
+																					<td>{{value.5|default:"0"}}</td>
+																					<td>{{value.6|default:"0"}}</td>
+																				</tr>
+																			</tbody>
+						                                        		</table>
+						                                        	</div>
+						                                        </div>
 															</div>
-															<!-- STAT -->
-															<div class="list-separated profile-stat">
-																<div class="row">
-																	<div class="col-md-6 col-sm-4 col-xs-6 border">
-																		<div class="uppercase profile-stat-title"> {{value.0|default:"0"}} </div>
-																		<div class="uppercase profile-stat-text"> Hombres Adultos </div>
-																	</div>
-																	<div class="col-md-6 col-sm-4 col-xs-6 border">
-																		<div class="uppercase profile-stat-title"> {{value.1|default:"0"}} </div>
-																		<div class="uppercase profile-stat-text"> Mujeres Adultas </div>
-																	</div>
-																	<div class="col-md-6 col-sm-4 col-xs-6 border">
-																		<div class="uppercase profile-stat-title"> {{value.2|default:"0"}} </div>
-																		<div class="uppercase profile-stat-text"> Niños menores de 12 años</div>
-																	</div>
-																	<div class="col-md-6 col-sm-4 col-xs-6 border">
-																		<div class="uppercase profile-stat-title"> {{value.3|default:"0"}} </div>
-																		<div class="uppercase profile-stat-text"> Niñas menores de 12 años </div>
+															<div class="col-xs-12 col-sm-6 ">
+						                                        <div class="portlet box green">
+																	<div class="portlet-title">
+						                                                <div class="caption">
+						                                                    <i class="fa fa-list"></i>Personas que dependen del afiliado
+						                                                </div>
+						                                            </div>
+						                                        	<div class="portlet-body flip-scroll">
+						                                        		<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																			<thead>
+																				<tr>
+																					<th>Hombres Adultos</th>
+																					<th>Mujeres Adultas</th>
+																					<th>Niños menores de 12 años</th>
+																					<th>Niñas menores de 12 años</th>
+																					
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr>
+																					<td>{{value.0|default:"0"}} </td>
+																					<td>{{value.1|default:"0"}} </td>
+																					<td>{{value.2|default:"0"}} </td>
+																					<td>{{value.3|default:"0"}} </td>
+																				</tr>
+																			</tbody>
+						                                        		</table>
+						                                        	</div>
+						                                        </div>
+						                                    </div>
+						                                </div>
+														<div class="row">
+															<div class="col-sm-12 ">
+																<div class="portlet box green">
+																	<div class="portlet-title">
+						                                                <div class="caption">
+						                                                    <i class="fa fa-list"></i>Miembros de la familia
+						                                                </div>
+						                                                <div class="actions">
+						                                                    <a class="btn btn-circle btn-icon-only btn-default" href="">
+						                                                        <i class="icon-cloud-download"></i>
+						                                                    </a>
+
+						                                                </div>
+						                                            </div>
+						                                            <div class="portlet-body flip-scroll">
+																		<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+																			<thead>
+																				<tr>
+																					<th>Nombre</th>
+																					<th>Sexo</th>
+																					<th>Edad</th>
+																					<th>Escolaridad</th>
+																					<th>Parentesco</th>
+																					<th>Donde emigran</th>
+																					<th>Tiempo</th>
+																					<th>Meses</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				{% for x in value.4 %}
+																				<tr>
+																					<td>{{x.0}}</td>
+																					<td>{{x.1}}</td>
+																					<td>{{x.2}}</td>
+																					<td>{{x.3}}</td>
+																					<td>{{x.4}}</td>
+																					<td>{{x.5|default:"---"}}</td>
+																					<td>{{x.6|default:"---"}}</td>
+																					<td>{{x.7|default:"---"}}</td>
+																				</tr>
+																				{% endfor %}
+
+																			</tbody>
+																		</table>
 																	</div>
 																</div>
 															</div>
 														</div>
-
-														<div class="portlet box green">
-															<div class="portlet-title">
-				                                                <div class="caption">
-				                                                    <i class="fa fa-list"></i>Miembros de la familia
-				                                                </div>
-				                                                <div class="actions">
-				                                                    <a class="btn btn-circle btn-icon-only btn-default" href="">
-				                                                        <i class="icon-cloud-download"></i>
-				                                                    </a>
-
-				                                                </div>
-				                                            </div>
-				                                            <div class="portlet-body flip-scroll">
-																<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																	<thead>
-																		<tr>
-																			<th>Nombre</th>
-																			<th>Sexo</th>
-																			<th>Edad</th>
-																			<th>Escolaridad</th>
-																			<th>Parentesco</th>
-																			<th>Donde emigran</th>
-																			<th>Tiempo</th>
-																			<th>Meses</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		{% for x in value.4 %}
-																		<tr>
-																			<td>{{x.0}}</td>
-																			<td>{{x.1}}</td>
-																			<td>{{x.2}}</td>
-																			<td>{{x.3}}</td>
-																			<td>{{x.4}}</td>
-																			<td>{{x.5|default:"---"}}</td>
-																			<td>{{x.6|default:"---"}}</td>
-																			<td>{{x.7|default:"---"}}</td>
-																		</tr>
-																		{% endfor %}
-
-																	</tbody>
-																</table>
-															</div>
-														</div>
-
-														<div class="portlet box green">
-															<div class="portlet-title">
-				                                                <div class="caption">
-				                                                    <i class="fa fa-list"></i>Miembros de la familia emigran
-				                                                </div>
-				                                            </div>
-				                                        	<div class="portlet-body flip-scroll">
-				                                        		<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
-																	<thead>
-																		<tr>
-																			<th>Hombres</th>
-																			<th>Mujeres</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<tr>
-																			<td>{{value.5|default:"0"}}</td>
-																			<td>{{value.6|default:"0"}}</td>
-																		</tr>
-																	</tbody>
-				                                        		</table>
-				                                        	</div>
-				                                        </div>
+														
 													</div>
 
 
