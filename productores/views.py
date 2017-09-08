@@ -99,7 +99,7 @@ def afiliados(request,template='frontend/afiliados.html'):
 			request.session['activo'] = True
 			centinela = 1
 
-			return HttpResponseRedirect('/afiliados/datos-generales/')
+			return HttpResponseRedirect('/afiliados/datos-personales/')
 		else:
 			centinela = 0
 
