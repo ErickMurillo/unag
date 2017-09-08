@@ -89,17 +89,12 @@
 													</div>
 												</div>
 												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-													<form class="form-inline" role="form" action="." method='GET'>
+													<form class="form-inline" role="form" action="." method='post'>{% csrf_token %}
 														<div class="input-group">
 															<div class="input-group-addon">
 																<i class="fa fa-search font-red"></i>
 															</div>
-															<select class="form-control js-example-basic-multiple " name="afiliado">
-																<option value=""></option>
-																	{% for obj in afiliados %}
-																		<option value="{{obj.id}}" >{{obj.nombre}}</option>
-																	{% endfor %}
-															</select>
+															{{form.nombre}}
 															<span class="input-group-btn">
 														        <button type="submit" name="consulta" value="Consultar" class="btn btn-default green">Consulta</button>
 														    </span>
@@ -1095,113 +1090,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <script type="text/javascript">
-	$(".js-example-basic-multiple").select2({
+	$("#id_nombre").select2({
 		placeholder: "Seleccionar afiliado",
 		allowClear: true
 	});
 </script>
 
-
-<script type="text/javascript">
-	$(function () {
-		{% for key,value in years.items %}
-
-		$('#area{{key}}').highcharts({
-			chart: {
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false,
-				type: 'pie'
-			},
-			title: {
-				text: ''
-			},
-			credits: {
-				enabled: false
-			},
-			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-								//distance: -30,
-								format: '{point.percentage:.1f} %',
-								style: {
-									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-								}
-							},
-							showInLegend: true
-						}
-					},
-					series: [{
-						name: "",
-						colorByPoint: true,
-						data: [
-						{% for k,v in value.3.items %}
-						{
-							name: "{{k}} ({{v.0|default:"0"}})",
-							y: {{v.0|default:"0"}}
-						},
-						{% endfor %}
-
-
-						]
-					}]
-				});
-		$('#otras{{key}}').highcharts({
-			chart: {
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false,
-				type: 'pie'
-			},
-			title: {
-				text: ''
-			},
-			credits: {
-				enabled: false
-			},
-			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-								//distance: -30,
-								format: '{point.percentage:.1f} %',
-								style: {
-									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-								}
-							},
-							showInLegend: true
-						}
-					},
-					series: [{
-						name: "",
-						colorByPoint: true,
-						data: [
-						{% for k,v in value.4.items %}
-						{
-							name: "{{k}} ({{v.0|default:"0"}})",
-							y: {{v.0|default:"0"}}
-						},
-						{% endfor %}
-
-
-						]
-					}]
-				});
-		{% endfor %}
-	});
-
-</script>
 <script type="text/javascript">
 	$( ".hor-menu ul li" ).removeClass( "active" );
 	$( ".hor-menu ul li.afiliado" ).addClass( "active" );

@@ -36,6 +36,7 @@ class PersonasDependenInline(admin.TabularInline):
 class DatosFamiliaresInline(admin.TabularInline):
     model = DatosFamiliares
     extra = 1
+    form = DatosFamiliaresForm
 
 class FamiliaEmigraInline(admin.TabularInline):
     model = FamiliaEmigra

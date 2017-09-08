@@ -30,7 +30,7 @@ class EncuestaForm(forms.Form):
 class AfiliadoForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AfiliadoForm, self).__init__(*args, **kwargs)
-        self.fields['afiliado'] = forms.ModelChoiceField(queryset=Afiliado.objects.all(),required=False,label='Municipios')
+        self.fields['nombre'] = forms.ModelChoiceField(queryset=Afiliado.objects.all(),required=True,label='Afiliados')
 
 class EncuestaAfiliadoForm(forms.ModelForm):
     class Meta:
@@ -39,3 +39,11 @@ class EncuestaAfiliadoForm(forms.ModelForm):
         widgets = {
             'afiliado': Select2Widget
         }
+
+class DatosFamiliaresForm(forms.ModelForm):
+    class Meta:
+        model = DatosFamiliares
+        fields = '__all__'
+        widgets = {
+            'meses': forms.SelectMultiple()
+            }
