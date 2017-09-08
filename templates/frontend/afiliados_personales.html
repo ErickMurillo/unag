@@ -1,0 +1,239 @@
+{% extends "frontend/base.html" %}
+{% load thumbnail %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+	<div class="page-wrapper-middle">
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<!-- BEGIN CONTENT BODY -->
+				<!-- BEGIN PAGE HEAD-->
+				<div class="page-head">
+                    <div class="titulo-page">
+                    	<div class="container">
+                    		<!-- BEGIN PAGE TITLE -->
+                    		<div class="page-title">
+                    			<h1>Datos Personales
+                    				<!-- <small>dashboard & statistics</small> -->
+                    			</h1>
+                                
+                    		</div>
+                    		<!-- END PAGE TITLE -->
+                    		<!-- BEGIN PAGE TOOLBAR -->
+                    		<div class="page-toolbar">
+                    			<!-- BEGIN THEME PANEL -->
+	                    			<div class="portlet-title tabbable-line">	
+														
+	                    				<ul class="nav nav-tabs">
+											<li class="active">
+												<a href="/afiliados/datos-personales/">Datos Personales</a>
+											</li>
+											<li>
+												<a href="/afiliados/datos-familiares/">Datos Familiares</a>
+											</li>
+											<li>
+												<a href="/afiliados/propiedad/">Propiedad</a>
+											</li>
+											<li>
+												<a href="/afiliados/produccion/">Producción</a>
+											</li>
+											<li>
+												<a href="/afiliados/organizacion/">Organización</a>
+											</li>
+										</ul>
+									</div>
+                    			<!-- END THEME PANEL -->
+                    		</div>
+                    		<!-- END PAGE TOOLBAR -->
+
+                    	</div>
+                    </div>
+                    
+                </div>
+				<!-- BEGIN PAGE CONTENT BODY -->
+				<div class="page-content">
+					<div class="container">
+						<!-- BEGIN PAGE BREADCRUMBS -->
+						<ul class="page-breadcrumb breadcrumb">
+							<li>
+								<a href="/">Inicio</a>
+								<i class="fa fa-circle"></i>
+							</li>
+							<li>
+								<a href="#">Perfil</a></i>
+							</li>
+						</ul>
+						<!-- END PAGE BREADCRUMBS -->
+						<!-- BEGIN PAGE CONTENT INNER -->
+						<div class="page-content-inner">
+							<div class="row">
+								<div class="col-md-12">
+									
+									<!-- PORTLET MAIN -->
+									<div class="portlet light">
+										<div class="portlet-title">
+											<div class="row">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+													<div class="caption font-red-sunglo">
+														
+														<h4 class="caption-subject bold uppercase"><i class="icon-user font-red-sunglo"></i> Perfil afiliados</h4>
+													</div>
+												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<form class="form-inline" role="form" action="." method='post'>{% csrf_token %}
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-search font-red"></i>
+															</div>
+															{{form.nombre}}
+															<span class="input-group-btn">
+														        <button type="submit" name="consulta" value="Consultar" class="btn btn-default green">Consulta</button>
+														    </span>
+														</div>
+														
+														
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="tab-content">
+											<!-- PERSONAL TAB -->
+											<div class="tab-pane active" id="personales">
+												
+												<div class="row">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+														<div class="profile-usertitle-name">				
+															{{afiliado.nombre}} 
+														</div>
+													</div>
+													<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+														<!-- SIDEBAR USER TITLE -->
+														<!-- SIDEBAR MENU -->
+														<div class="profile-usermenu">
+															<ul class="nav nav-pills nav-stacked">
+
+
+																<li>
+																	<a><i class="fa fa fa-map-marker"></i> {{afiliado.municipio.departamento}}</a>
+																</li>
+																<li>
+																	<a><i class="fa fa fa-map-marker"></i> {{afiliado.municipio.nombre}}</a>
+																</li>
+																<li>
+																	<a>
+																		<i class="fa fa fa-map-marker"></i> {{afiliado.comunidad.nombre}}
+																	</a>
+																</li>
+																<li>
+																	<a >
+																		{% if afiliado.sexo == 'Masculino' %}
+																			<i class="fa fa-mars"></i>
+																		{% else %}
+																			<i class="fa fa-venus"></i>
+																		{% endif %}
+																		{{afiliado.sexo}}
+																	</a>
+																</li>
+																<li>
+																	<a > <i class="fa fa-legal"></i> {{estado_civil}} </a>
+																</li>
+																
+																<li>
+																	<a > <i class="fa fa-calendar"></i> Ingreso: {{afiliado.anio_ingreso}} </a>
+																</li>
+																 
+															</ul>
+														</div>
+														<!-- END MENU -->
+														<!-- END SIDEBAR USER TITLE -->
+													</div>
+													<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+														<!-- SIDEBAR MENU -->
+														<div class="profile-usermenu">
+															<ul class="nav nav-pills nav-stacked">
+																<li>
+																	<a>
+																		<i class="fa fa-graduation-cap"></i> {{escolaridad}}
+																	</a>
+																</li>
+																<li>
+																	<a><i class="fa fa fa-credit-card"></i> {{afiliado.cedula}}</a>
+																</li>
+																<li>
+																	<a>
+																		<i class="fa fa-birthday-cake"></i> {{afiliado.fecha_nacimiento}} ({{afiliado.edad}} años)
+																	</a>
+																</li>
+
+																<li>
+																	<a>
+																		<i class="fa fa-phone"></i> {{afiliado.numero_celular}} ({{afiliado.tipo_celular}})
+																	</a>
+																</li>
+																
+																<li>
+																	<a > <i class="fa fa-wifi"></i> Acceso a internet: {{acceso_internet}} </a>
+																</li>
+
+															</ul>
+														</div>
+														<!-- END MENU -->
+													</div>
+													<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+														{% if afiliado.foto %}
+														{% thumbnail afiliado.foto "170" format="PNG" as img %}
+														<img src="/media/{{img}}" alt="">
+														{% endthumbnail %}
+														{% else %}
+														<img src="http://placehold.it/170x170" alt="">
+														{% endif %}
+													</div>
+													
+												</div>
+												
+											</div>
+											
+										</div>
+									</div>
+									<!-- END PORTLET MAIN -->
+
+									<!-- END BEGIN PROFILE SIDEBAR -->
+									<!-- BEGIN PROFILE CONTENT -->
+
+									<!-- END PROFILE CONTENT -->
+								</div>
+							</div>
+						</div>
+						<!-- END PAGE CONTENT INNER -->
+					</div>
+				</div>
+				<!-- END PAGE CONTENT BODY -->
+				<!-- END CONTENT BODY -->
+			</div>
+			<!-- END CONTENT -->
+
+		</div>
+		<!-- END CONTAINER -->
+	</div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+
+<!-- select 2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<script type="text/javascript">
+	$("#id_nombre").select2({
+		placeholder: "Seleccionar afiliado",
+		allowClear: true
+	});
+</script>
+
+<script type="text/javascript">
+	$( ".hor-menu ul li" ).removeClass( "active" );
+	$( ".hor-menu ul li.afiliado" ).addClass( "active" );
+</script>
+{% endblock extra_js %}

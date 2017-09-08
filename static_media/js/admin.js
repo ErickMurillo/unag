@@ -113,5 +113,39 @@
 	    }
       });
 
+    valor6 = $('#id_tierrasalquiladas_set-0-posse').val();
+    if (valor6 == 'Si') {
+      $('#otrastierras_set-group').show();
+     } else {
+      $('#otrastierras_set-group').hide();
+    }
+
+    $('#id_tierrasalquiladas_set-0-posse').change(function(){
+
+      valor6 = $('#id_tierrasalquiladas_set-0-posse').val();
+      if (valor6 == 'Si') {
+      $('#otrastierras_set-group').show();
+     } else {
+      $('#otrastierras_set-group').hide();
+    }
+      });
+
+    valor7 = $('#id_escolaridad_set-0-escolaridad').val();
+    if (valor7 == 'Si') {
+      $('.field-nivel_escolaridad').show();
+     } else {
+      $('.field-nivel_escolaridad').hide();
+    }
+
+    $('#id_escolaridad_set-0-escolaridad').change(function(){
+
+      valor7 = $('#id_escolaridad_set-0-escolaridad').val();
+      if (valor7 == 'Si') {
+      $('.field-nivel_escolaridad').show();
+     } else {
+      $('.field-nivel_escolaridad').hide();
+    }
+      });
+
 	});
 })(jQuery || django.jQuery);

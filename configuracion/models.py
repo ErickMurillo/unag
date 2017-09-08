@@ -14,6 +14,7 @@ class Areas(models.Model):
     class Meta:
         verbose_name = 'Área'
         verbose_name_plural = 'Áreas'
+        ordering = ('nombre',)
 
 class Origen(models.Model):
     nombre = models.CharField(max_length=60)
@@ -23,6 +24,7 @@ class Origen(models.Model):
 
     class Meta:
         verbose_name_plural = 'Origen de la Propiedad'
+        ordering = ('nombre',)
 
 class Documento(models.Model):
     nombre = models.CharField(max_length=60)
@@ -32,6 +34,7 @@ class Documento(models.Model):
 
     class Meta:
         verbose_name_plural = 'Documento de propiedad'
+        ordering = ('nombre',)
 
 class Sistema(models.Model):
     nombre = models.CharField(max_length=60)
@@ -41,6 +44,7 @@ class Sistema(models.Model):
 
     class Meta:
         verbose_name_plural = 'Sistema de Agua'
+        ordering = ('nombre',)
 
 class Animales(models.Model):
     nombre = models.CharField(max_length=60)
@@ -50,6 +54,7 @@ class Animales(models.Model):
 
     class Meta:
         verbose_name_plural = 'Animales'
+        ordering = ('nombre',)
 
 class Cultivo(models.Model):
     nombre = models.CharField(max_length=60)
@@ -69,6 +74,7 @@ class Infraestructuras(models.Model):
 
     class Meta:
         verbose_name_plural = 'Infraestructuras'
+        ordering = ('nombre',)
 
 class DondeCotiza(models.Model):
     nombre = models.CharField(max_length=60)
@@ -78,6 +84,7 @@ class DondeCotiza(models.Model):
 
     class Meta:
         verbose_name_plural = 'Donde cotiza'
+        ordering = ('nombre',)
 
 class Cooperativa(models.Model):
     nombre = models.CharField(max_length=60)
@@ -88,6 +95,7 @@ class Cooperativa(models.Model):
 
     class Meta:
         verbose_name_plural = 'Cooperativas'
+        ordering = ('nombre',)
 
 class Proyecto(models.Model):
     nombre = models.CharField(max_length=60)
@@ -97,6 +105,7 @@ class Proyecto(models.Model):
 
     class Meta:
         verbose_name_plural = 'Proyectos'
+        ordering = ('nombre',)
 
 class RecibeCredito(models.Model):
     nombre = models.CharField(max_length=60)
@@ -106,6 +115,7 @@ class RecibeCredito(models.Model):
 
     class Meta:
         verbose_name_plural = '¿De quién recibe crédito?'
+        ordering = ('nombre',)
 
 class FormasCredito(models.Model):
     nombre = models.CharField(max_length=60)
@@ -115,6 +125,7 @@ class FormasCredito(models.Model):
 
     class Meta:
         verbose_name_plural = 'Formas en que recibe crédito'
+        ordering = ('nombre',)
 
 class ProblemasProductor(models.Model):
     nombre = models.CharField(max_length=60)
@@ -124,6 +135,7 @@ class ProblemasProductor(models.Model):
 
     class Meta:
         verbose_name_plural = 'Problemas más sentidos como productor'
+        ordering = ('nombre',)
 
 class CambioClimatico(models.Model):
     nombre = models.CharField(max_length=60)
@@ -133,6 +145,7 @@ class CambioClimatico(models.Model):
 
     class Meta:
         verbose_name_plural = 'Acciones cambio climático'
+        ordering = ('nombre',)
 
 class AfiliacionUnag(models.Model):
     nombre = models.CharField(max_length=60)
@@ -142,3 +155,4 @@ class AfiliacionUnag(models.Model):
 
     class Meta:
         verbose_name_plural = 'Motivos de Afiliación'
+        ordering = ('nombre',)

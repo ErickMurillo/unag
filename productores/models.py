@@ -79,7 +79,7 @@ ESCOLARIDAD_CHOICES = (('Primaria','Primaria'),
 class Escolaridad(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     escolaridad = models.CharField(max_length=20,choices=SI_NO_CHOICES, verbose_name='Lee y escribe')
-    nivel_escolaridad = models.CharField(max_length=20,choices=ESCOLARIDAD_CHOICES)
+    nivel_escolaridad = models.CharField(max_length=20,choices=ESCOLARIDAD_CHOICES,null=True,blank=True)
     # respuesta = models.CharField(max_length=20,choices=SI_NO_CHOICES)
 
     class Meta:
@@ -114,13 +114,29 @@ MESES_CHOICES = (('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abr
                 ('Septiembre','Septiembre'),('Octubre','Octubre'),('Noviembre','Noviembre'),
                 ('Diciembre','Diciembre'))
 
+FAMILIA_CHOICES = (
+    ('Abuela','Abuela'),('Abuelo','Abuelo'),
+    ('Bisabuela','Bisabuela'),('Bisabuelo','Bisabuelo'),
+    ('Cuñada','Cuñada'),('Cuñado','Cuñado'),
+    ('Esposa','Esposa'),('Esposo','Esposo'),
+    ('Hermana','Hermana'),('Hermano','Hermano'),
+    ('Hija','Hija'),('Hijo','Hijo'),
+    ('Madre','Madre'),('Nuera','Nuera'),
+    ('Padre','Padre'),('Pareja','Pareja'),
+    ('Prima','Prima'),('Primo','Primo'),
+    ('Sobrina','Sobrina'),('Sobrino','Sobrino'),
+    ('Suegra','Suegra'),('Suegro','Suegro'),
+    ('Tía','Tía'),('Tío','Tío'),
+    ('Yerno','Yerno'),('Otro','Otro'),
+)
+
 class DatosFamiliares(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     nombres = models.CharField(max_length=300)
     sexo = models.CharField(max_length=20,choices=SEXO_CHOICES)
     fecha_nacimiento =  models.DateField()
     escolaridad = models.CharField(max_length=300,verbose_name='Escolaridad (Último año de escolaridad)',choices=ESCOLARIDAD_CHOICES)
-    parentesco = models.CharField(max_length=200)
+    parentesco = models.CharField(max_length=200,choices=FAMILIA_CHOICES)
     donde_emigran = models.CharField(max_length=25,choices=EMIGRAN_CHOICES,blank=True,null=True)
     tiempo = models.CharField(max_length=25,choices=TIEMPO_CHOICES,blank=True,null=True)
     meses = MultiSelectField(choices=MESES_CHOICES,blank=True)
@@ -157,7 +173,7 @@ class AreasFinca(models.Model):
 
 class TierrasAlquiladas(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    posse = models.CharField(max_length=20,choices=SI_NO_CHOICES)
+    posse = models.CharField(max_length=20,choices=SI_NO_CHOICES,verbose_name='Posee')
 
     class Meta:
         verbose_name_plural = 'Posse tierras alquiladas'
