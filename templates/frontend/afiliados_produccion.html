@@ -29,27 +29,14 @@
                     		<!-- BEGIN PAGE TOOLBAR -->
                     		<div class="page-toolbar">
                     			<!-- BEGIN THEME PANEL -->
-	                    			<div class="portlet-title tabbable-line">	
-														
-	                    				<ul class="nav nav-tabs">
-											<li>
-												<a href="/afiliados/datos-personales/">Personales</a>
-											</li>
-											<li>
-												<a href="/afiliados/datos-familiares/">Familiares</a>
-											</li>
-											<li>
-												<a href="/afiliados/propiedad/">Propiedad</a>
-											</li>
-											<li class="active">
-												<a href="/afiliados/produccion/" data-toggle="tab">Producción</a>
-											</li>
-											<li>
-												<a href="/afiliados/organizacion/">Organización</a>
-											</li>
-										</ul>
-									</div>
-                    			<!-- END THEME PANEL -->
+	                    		<!-- BEGIN PAGE TOOLBAR -->
+	                    		<div class="page-toolbar hidden-xs">
+	                    			{% include "frontend/indicador_afiliado.html" %}
+	                    		</div>
+	                    		<div class="page-toolbar visible-xs">
+	                    			{% include "frontend/indicador_afiliadoxm.html" %}
+	                    		</div>
+	                    		<!-- END PAGE TOOLBAR -->
                     		</div>
                     		<!-- END PAGE TOOLBAR -->
 
@@ -472,5 +459,9 @@
 <script type="text/javascript">
 	$( ".hor-menu ul li" ).removeClass( "active" );
 	$( ".hor-menu ul li.afiliado" ).addClass( "active" );
+	$( ".ind-link li" ).removeClass( "active" );
+    $( ".ind-link li.produccion" ).addClass( "active" );
+    $( ".theme-colors li" ).removeClass( "active" );
+    $( ".theme-colors li.produccion" ).addClass( "active" );
 </script>
 {% endblock extra_js %}

@@ -21,20 +21,25 @@
                     		</div>
                     		<!-- END PAGE TITLE -->
                     		<!-- BEGIN PAGE TOOLBAR -->
-                    		<div class="page-toolbar">
+                    		<div class="page-toolbar hidden-xs">
                     			<!-- BEGIN THEME PANEL -->
                     			{% include "frontend/indicadores.html" %}
                     			<!-- END THEME PANEL -->
+
+                    		</div>
+                    		<div class="page-toolbar visible-xs">
+                    			<!-- BEGIN THEME PANEL -->
+                    			{% include "frontend/indicadoresxm.html" %}
+                    			<!-- END THEME PANEL -->
+
                     		</div>
                     		<!-- END PAGE TOOLBAR -->
 
                     	</div>
                     </div>
-                    <div class="">
+                    <div class="filtros">
                         <div class="container">
-                            <div class="" id="filtros">
                                 {% include "frontend/filtros.html" %}
-                            </div>
                         </div>
                     </div>
                     
