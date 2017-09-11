@@ -393,6 +393,10 @@
 		placeholder: "Seleccionar afiliado",
 		allowClear: true
 	});
+	{% if request.session.nombre %}
+		$('#id_nombre').val({{request.session.nombre.id}});
+		$('#id_nombre').trigger('change');
+	{% endif %}
 </script>
 
 <script type="text/javascript">

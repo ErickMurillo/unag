@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from productores.views import *
 from django.contrib.auth import views as auth_views
+from productores.utils import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -41,5 +42,6 @@ urlpatterns = [
     url(r'^datos-produccion/$', datos_produccion, name='datos-produccion'),
     url(r'^organizacion/$', organizacion, name='organizacion'),
     url(r'^select2/', include('django_select2.urls')),
+    url(r'^xls/$', save_as_xls, name='xls'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
