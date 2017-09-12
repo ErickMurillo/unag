@@ -208,10 +208,34 @@
 .btn-theme-panel{
 	margin-top:15px;
 }
+.portlet.box.green>.portlet-title>.actions .btn-default>i{
+	color: white;
+}
+.btn-dow i{
+	color: #3a54a5 !important;
+}
+.btn-dow{
+	border-color: #3a54a5 !important;
+	margin-bottom: 10px !important;
 
+}
+.btn-dow:hover, .btn-dow:focus{
+	background: transparent !important;
+	color: #3a54a5 !important;
+	border-color: #3a54a5 !important;
+}
+.table .btn{
+	margin-right:0px ;
+}
+.table{
+	margin-bottom: 0px;
+}
 @media (max-width: 991px){
 	.page-header .page-header-menu .hor-menu .navbar-nav{
 		margin-bottom: 5px !important;
+	}
+	.page-header .page-header-menu .hor-menu .navbar-nav > li.open > a, .page-header .page-header-menu .hor-menu .navbar-nav > li.open > a:hover, .page-header .page-header-menu .hor-menu .navbar-nav > li.active > a, .page-header .page-header-menu .hor-menu .navbar-nav > li.active > a:hover, .page-header .page-header-menu .hor-menu .navbar-nav > li.current > a, .page-header .page-header-menu .hor-menu .navbar-nav > li.current > a:hover{
+		background: #3a54a5 ;
 	}
 }
 
