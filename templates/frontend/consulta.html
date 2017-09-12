@@ -44,8 +44,85 @@
                                         <div class="mt-content-body">
                                             <div class="row justify-content-md-center">
                                                 {% if centinela == 1 %}
+                                                    <div class="col-md-8 col-md-offset-2">
+                                                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                                                        <div class="portlet box blue ">
+                                                            <div class="portlet-title">
+                                                                <div class="caption">
+                                                                    <i class="icon-settings"></i>
+                                                                    <span class="caption-subject sbold uppercase">Consulta</span>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="portlet-body form">
+
+                                                                <form class="form-horizontal" role="form">
+                                                                    <div class="form-body">
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12 col-sm-8">
+                                                                                <ul class="list-line list-filtro">              
+                                                                                    {% if request.session.anio %}
+                                                                                        <li>
+                                                                                            <i class="fa fa-calendar"></i>
+                                                                                            <b>Año:</b> {{request.session.anio}}
+                                                                                        </li>
+                                                                                    {% endif %}
+                                                                                    {% if request.session.sexo %}
+                                                                                        <li>
+                                                                                            <i class="fa fa-venus-mars"></i>
+                                                                                            <b>Sexo:</b> {{request.session.sexo}}
+                                                                                        </li>
+                                                                                    {% else %}
+                                                                                    <li>
+                                                                                        <i class="fa fa-venus-mars"></i>
+                                                                                        <b>Sexo:</b> Ambos
+                                                                                    </li>
+                                                                                    {% endif %}
+                                                                                    {% if request.session.municipio %}
+                                                                                        <li>
+                                                                                            <i class="fa fa-map-marker"></i>
+                                                                                            <b>Municipios:</b> {% for x in request.session.municipio %}{{x.nombre}}, {% endfor %}   
+                                                                                        </li>
+                                                                                    {% endif %}
+                                                                                    {% if request.session.comunidad %}
+                                                                                        <li>
+                                                                                            <i class="fa fa-map-marker"></i>
+                                                                                            <b>Comunidades:</b> {% for x in request.session.comunidad %}{{x.nombre}}, {% endfor %}
+                                                                                        </li>
+                                                                                    {% endif %}
+                                                                                    {% if request.session.edad_inicio and request.session.edad_fin %}
+                                                                                        <li>
+                                                                                            <i class="fa fa-arrows-h"></i>
+                                                                                            <b>Rango de edad:</b> {{request.session.edad_inicio}} - {{request.session.edad_fin}}
+                                                                                        </li>
+
+                                                                                    {% endif %}
+                                                                                        
+                                                                                    
+                                                                                    
+                                                                                
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div class="col-xs-12 col-sm-4">
+                                                                                <ul class="list-line list-filtro">
+                                                                                    <li>
+                                                                                        <i class="fa fa-filter"></i>
+                                                                                        <b>Resultado:</b> {{conteo_encuesta}}
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <!-- END SAMPLE FORM PORTLET-->
+                                                
+                                                    </div>
                                                                                        
-                                                    <div class="col-md-10 col-md-offset-1">
+                                                    <div class="col-md-8 col-md-offset-2">
                                                         <!-- BEGIN SAMPLE FORM PORTLET-->
                                                         <div class="portlet box blue ">
                                                             <div class="portlet-title">
@@ -56,27 +133,24 @@
                                                                 
                                                             </div>
                                                             <div class="portlet-body form">
-                                                                <div class="" id="filtros">
-                                                                    {% include "frontend/filtros.html" %}
-                                                                </div>
                                                                 <form class="form-horizontal" role="form">
                                                                     <div class="form-body">
 
                                                                             <div class="indicadores row">
-                                                                                <div class="col-md-2 col-md-offset-1">
+                                                                                <div class="col-xs-6 col-md-2 col-md-offset-1">
                                                                                     <a href="/datos-generales/" class="btn green-meadow">Datos Generales</a>
                                                                                 </div>
-                                                                                <div class="col-md-2">
+                                                                                <div class="col-xs-6 col-md-2">
                                                                                     <a href="/datos-familiares/" class="btn green-meadow">Datos Familiares</a>
                                                                                 </div>
-                                                                                <div class="col-md-2">
-                                                                                    <a href="/datos-propiedad/" class="btn green-meadow">Datos de la Propiedad</a>
+                                                                                <div class="col-xs-6 col-md-2">
+                                                                                    <a href="/datos-propiedad/" class="btn green-meadow">Datos de Propiedad</a>
                                                                                 </div>
-                                                                                <div class="col-md-2">
+                                                                                <div class="col-xs-6 col-md-2">
                                                                                     <a href="/datos-produccion/" class="btn green-meadow">Datos de Producción</a>
                                                                                 </div>
-                                                                                <div class="col-md-2">
-                                                                                   <a href="/organizacion/" class="btn green-meadow">Datos de la Organización</a>
+                                                                                <div class="col-xs-6 col-md-2">
+                                                                                   <a href="/organizacion/" class="btn green-meadow">Datos de Organización</a>
                                                                                 </div>
                                                                                 <!--<div class="col-md-3">
                                                                                     <button type="button" class="btn green-meadow">Empleo</button>
@@ -93,6 +167,7 @@
                                                         <!-- END SAMPLE FORM PORTLET-->
                                                 
                                                     </div>
+                                                    
                                                 {% else %}
                                                     <div class="col-md-8 col-md-offset-2">
                                                         <div class="portlet box blue ">
@@ -152,7 +227,7 @@
                                                                                 <div class="form-group">
                                                                                     <label class="col-md-2 control-label">Rango edad</label>
                                                                                     <div class="col-md-10">
-                                                                                        <div class="form-inline">
+                                                                                        <div class="form-inline xs-margin">
                                                                                             <div class="input-group">
                                                                                                 <span class="input-group-addon" id="basic-addon1">
                                                                                                     Inicio

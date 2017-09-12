@@ -34,6 +34,7 @@
 }
 .indicadores .btn{
 	white-space: normal;
+	margin-top:10px;
 }
 .font-green-steel{
 	color: #3a54a5 !important;
@@ -60,7 +61,7 @@
 	background:#3a54a5 !important;
 }
 .theme-panel{
-	min-width:450px;
+	min-width:160px;
 	h3{
 		font-size: 16px;
 		font-weight: bold;
@@ -113,7 +114,6 @@
 }
 .select2-container{
 	min-width:200px;
-	max-width: 350px;
 }
 .select2-container .select2-selection--single{
 	height:34px;
@@ -189,4 +189,42 @@
 }
 .interteam-logo{
 	width: 55%;
+}
+.list-line li{
+	list-style-type: none;
+}
+.page-head > .container, .titulo-page, .filtros{
+	background: white;
+}
+.titulo-page{
+	border-bottom:1px solid #eee;
+}
+.btn-theme-panel .btn > i, .btn-theme-panel .btn{
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+
+}
+.btn-theme-panel{
+	margin-top:15px;
+}
+
+@media (max-width: 991px){
+	.page-header .page-header-menu .hor-menu .navbar-nav{
+		margin-bottom: 5px !important;
+	}
+}
+
+
+@media only screen and (max-width: 768px){
+	.flip-scroll tbody tr{
+		border-right: 1px solid #ddd;
+		text-align:center;
+	}
+	.interteam-logo{
+		width: 100%;
+	}
+	.xs-margin .input-group{
+		margin: 10px 0px;
+	}
 }

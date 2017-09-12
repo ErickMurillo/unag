@@ -1,4 +1,40 @@
-    {% extends "frontend/base.html" %}
+
+{% extends "frontend/base.html" %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+    <div class="page-wrapper-middle">
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <!-- BEGIN PAGE HEAD-->
+                <div class="page-head">
+                    <div class="titulo-page">
+                        <div class="container">
+                            <!-- BEGIN PAGE TITLE -->
+                            <div class="page-title">
+                                <h1>Datos de la propiedad
+                                    <!-- <small>dashboard & statistics</small> -->
+                                </h1>
+                                
+                            </div>
+                            <!-- END PAGE TITLE -->
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar hidden-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadores.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <div class="page-toolbar visible-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadoresxm.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
 
     {% block content %}
     <div class="page-wrapper-row full-height">
@@ -221,7 +257,6 @@
                                                         <a class="btn btn-circle btn-icon-only btn-default" href="">
                                                             <i class="icon-cloud-download"></i>
                                                         </a>
-
                                                     </div>
                                                 </div>
                                                 <div class="portlet-body flip-scroll">

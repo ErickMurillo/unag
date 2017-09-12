@@ -520,6 +520,8 @@ def consulta(request,template="frontend/consulta.html"):
 			mensaje = "Todas las variables estan correctamente :)"
 			request.session['activo'] = True
 			centinela = 1
+			filtro = _queryset_filtrado(request)
+			conteo_encuesta = filtro.count()
 		else:
 			centinela = 0
 
@@ -542,6 +544,7 @@ def consulta(request,template="frontend/consulta.html"):
 
 def datos_generales(request,template='frontend/datos_generales.html'):
 	filtro = _queryset_filtrado(request)
+	conteo_encuesta = filtro.count()
 
 	personas = filtro.count()
 
@@ -579,6 +582,7 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 
 def datos_familiares(request,template='frontend/datos_familiares.html'):
 	filtro = _queryset_filtrado(request)
+	conteo_encuesta = filtro.count()
 
 	#hombre y mujeres emigran
 	emigran_h = filtro.filter(datosfamiliares__donde_emigran__isnull = False,
@@ -608,6 +612,7 @@ def datos_familiares(request,template='frontend/datos_familiares.html'):
 
 def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	filtro = _queryset_filtrado(request)
+	conteo_encuesta = filtro.count()
 
 	#areas
 	areas_finca = {}
@@ -691,6 +696,7 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 def datos_produccion(request,template='frontend/datos_produccion.html'):
 	filtro = _queryset_filtrado(request)
 	encuestados = filtro.count()
+	conteo_encuesta = filtro.count()
 
 	#inventario animales
 	animales = []
@@ -831,6 +837,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 def organizacion(request,template='frontend/organizacion.html'):
 	filtro = _queryset_filtrado(request)
 	encuestados = filtro.count()
+	conteo_encuesta = filtro.count()
 
 	#cotiza
 	cotiza = {}

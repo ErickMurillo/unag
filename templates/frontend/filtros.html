@@ -1,8 +1,5 @@
 
 <ul class="list-inline list-filtro">
-		<li>
-			
-		</li>
 	{% if request.session.anio %}
 		<li>
 			<i class="fa fa-calendar"></i>
@@ -39,6 +36,10 @@
 		</li>
 
 	{% endif %}
+		<li>
+			<i class="fa fa-filter"></i>
+			<b>Resultado:</b> {{conteo_encuesta}}
+		</li>
 		
 		
 	

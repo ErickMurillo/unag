@@ -21,10 +21,17 @@
                             </div>
                             <!-- END PAGE TITLE -->
                             <!-- BEGIN PAGE TOOLBAR -->
-                            <div class="page-toolbar">
+                            <div class="page-toolbar hidden-xs">
                                 <!-- BEGIN THEME PANEL -->
                                 {% include "frontend/indicadores.html" %}
                                 <!-- END THEME PANEL -->
+
+                            </div>
+                            <div class="page-toolbar visible-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadoresxm.html" %}
+                                <!-- END THEME PANEL -->
+
                             </div>
                             <!-- END PAGE TOOLBAR -->
 
@@ -385,6 +392,7 @@
                                             </div>
                                             <div class="portlet-body flip-scroll" id="export2">
                                                 <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+
                                                     <thead>
                                                         <tr>
                                                            <th rowspan="5" valign="middle">Producción</th>
