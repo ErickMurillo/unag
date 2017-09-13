@@ -43,11 +43,11 @@ def index(request,template='frontend/index.html'):
 		encuestados = Encuesta.objects.filter(anio = anio).distinct().count()
 		quien_vende = {}
 		for obj in PRODUCCION_CHOICES2:
-			conteo = VendeProduccion.objects.filter(respuesta = obj[0]).count()
+			conteo = Agricultura.objects.filter(quien_vende = obj[0]).count()
 			if conteo == None:
 				conteo = 0
 
-			quien_vende[obj[0]] = conteo,saca_porcentajes(conteo,encuestados,False)
+			quien_vende[obj[0]] = conteo
 
 		dic_anios[anio] = dic_areas,quien_vende
 

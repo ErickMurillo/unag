@@ -303,25 +303,25 @@ Highcharts.chart('quien_vende{{key}}', {
             borderWidth: 0,
             dataLabels: {
                 enabled: true,
-                format: '{point.y:.1f}%'
+                format: '{point.y}'
             }
         }
     },
 
     tooltip: {
         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} productores </b> del total<br/>'
     },
 
     series: [{
-        name: 'Brands',
+        name: 'A  quién vende',
         colorByPoint: true,
         data: [
 
         {% for k,v in value.1.items %}
             {
-            name: '{{k}} ({{v.0|default:"0"}})',
-            y: {{v.1|default:"0"}},
+            name: '{{k}}',
+            y: {{v|default:"0"}},
         },
         {% endfor %}
         ]
