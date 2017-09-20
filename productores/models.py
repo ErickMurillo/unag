@@ -184,7 +184,7 @@ class OtrasTierras(models.Model):
     mz = models.FloatField(validators = [MinValueValidator(0.0)])
 
     class Meta:
-        verbose_name_plural = 'Otras tierras que trabaja (Mzs)'
+        verbose_name_plural = 'Áreas alquiladas de la finca (Mzs)'
 
 class OrigenPropiedad(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -267,7 +267,7 @@ class Agricultura(models.Model):
     costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz')
     ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz')
     ganancia_perdida = models.FloatField(verbose_name='Ganancia o Perdida C$/Mz')
-    tipo = models.CharField(max_length=30,choices=CULTIVO_CHOICES)
+    tipo = models.CharField(max_length=50,choices=CULTIVO_CHOICES)
 
     class Meta:
         verbose_name_plural = 'Agricultura'

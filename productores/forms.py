@@ -30,7 +30,7 @@ class EncuestaForm(forms.Form):
 class AfiliadoForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AfiliadoForm, self).__init__(*args, **kwargs)
-        self.fields['nombre'] = forms.ModelChoiceField(queryset=Afiliado.objects.all(),required=True,label='Afiliados')
+        self.fields['nombre'] = forms.ModelChoiceField(queryset=Afiliado.objects.all().order_by('nombre'),required=True,label='Afiliados')
 
 class EncuestaAfiliadoForm(forms.ModelForm):
     class Meta:

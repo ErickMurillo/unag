@@ -167,9 +167,8 @@ class EncuestaAdmin(admin.ModelAdmin):
         return super(EncuestaAdmin, self).get_form(request, obj=None, **kwargs)
 
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,PersonasDependenInline,
-                DatosFamiliaresInline,AreasFincaInline,
-                TierrasAlquiladasInline,OtrasTierrasInline,FormaTenenciaInline,
-                DocumentoPropiedadInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
+                DatosFamiliaresInline,AreasFincaInline,FormaTenenciaInline,DocumentoPropiedadInline,
+                TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
                 MiembroCooperativaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]
