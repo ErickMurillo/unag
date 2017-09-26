@@ -485,7 +485,10 @@ Highcharts.chart('cuanto_cotiza', {
         type: 'column'
     },
     title: {
-        text: ''
+        text: 'Cotizaciones C$ {{total|floatformat:"2"}}'
+    },
+    subtitle: {
+        text: 'Promedio C$ {{promedio|floatformat:"2"}}'
     },
     xAxis: {
         type: 'category'
@@ -511,15 +514,15 @@ Highcharts.chart('cuanto_cotiza', {
 
     tooltip: {
         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> del total<br/>'
     },
 
     series: [{
-        name: 'Brands',
+        name: 'Personas',
         colorByPoint: true,
         data: [
 
-        {% for k,v in cuanto_cotiza.items %}
+        {% for k,v in cotizaciones.items %}
             {
             name: '{{k}}',
             y: {{v|default:"0"}},

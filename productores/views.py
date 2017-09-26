@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from productores.forms import *
 from django.http import HttpResponse, HttpResponseRedirect
 import json as simplejson
-from django.db.models import Avg, Sum, F, Count
+from django.db.models import Avg, Sum, F, Count,Q
 import collections
 
 # Create your views here.
@@ -858,19 +858,35 @@ def organizacion(request,template='frontend/organizacion.html'):
 		desde_cuando[obj[0]] = conteo
 
 	#cuanto cotiza
-	lista = filtro.filter(cotizacion__respuesta = 'Si').values_list('respuestasicotiza__cuanto_cotiza',flat=True)
-	try:
-		minimo = min(lista)
-	except:
-		minimo = 0
+	mensual = filtro.filter(cotizacion__respuesta = 'Si',respuestasicotiza__frecuencia = 'Mensual').values_list('respuestasicotiza__cuanto_cotiza',flat=True)
+	trimestral = filtro.filter(cotizacion__respuesta = 'Si',respuestasicotiza__frecuencia = 'Trimestral').values_list(F('respuestasicotiza__cuanto_cotiza') / 3,flat=True)
+	semestral = filtro.filter(cotizacion__respuesta = 'Si',respuestasicotiza__frecuencia = 'Semestral').values_list(F('respuestasicotiza__cuanto_cotiza') / 6,flat=True)
+	anual = filtro.filter(cotizacion__respuesta = 'Si',respuestasicotiza__frecuencia = 'Anual').values_list(F('respuestasicotiza__cuanto_cotiza') / 12,flat=True)
 
-	try:
-		maximo = max(lista)
-	except:
-		maximo = 0
+	cotizacion_mensual = list(mensual) + list(trimestral) + list(semestral) + list(anual)
+	total = sum(cotizacion_mensual)
+	promedio = float(total) / len(cotizacion_mensual)
 
-	cuanto_cotiza = crear_rangos(request, lista, minimo, maximo, step=1000)
+	de_0_50 = 0
+	de_51_100 = 0
+	de_101_500 = 0
+	mas_500 = 0
+	cotizaciones = collections.OrderedDict()
+	for x in cotizacion_mensual:
+		if x <= 50:
+			de_0_50 = de_0_50 + 1
+		elif x > 50 and x <= 100: 
+			de_51_100 = de_51_100 + 1
+		elif x > 100 and x <= 500:
+			de_101_500 = de_101_500 + 1
+		elif x > 500:
+			mas_500 = mas_500 + 1
 
+	cotizaciones['0-50'] = de_0_50
+	cotizaciones['51-100'] = de_51_100
+	cotizaciones['101-500'] = de_101_500
+	cotizaciones['> 500'] = mas_500
+	
 	#frecuencia cotiza
 	frecuencia_cotiza = {}
 	for obj in FRECUENCIA_CHOICES:
