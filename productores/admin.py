@@ -160,11 +160,11 @@ class EncuestaAdmin(admin.ModelAdmin):
             obj.usuario = request.user
             obj.save()
 
-    def get_form(self, request, obj=None, **kwargs):
-        if not request.user.is_superuser:
-            self.exclude = ('usuario',)
+    # def get_form(self, request, obj=None, **kwargs):
+    #     if not request.user.is_superuser:
+    #         self.exclude = ('usuario',)
 
-        return super(EncuestaAdmin, self).get_form(request, obj=None, **kwargs)
+    #     return super(EncuestaAdmin, self).get_form(request, obj=None, **kwargs)
 
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,PersonasDependenInline,
                 DatosFamiliaresInline,AreasFincaInline,FormaTenenciaInline,DocumentoPropiedadInline,
