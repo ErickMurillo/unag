@@ -31,7 +31,7 @@ class Afiliado(models.Model):
     fecha_nacimiento = models.DateField()
     lugar_nacimiento = models.CharField(max_length=250)
     foto = ImageField(upload_to='productores/',blank=True, null=True)
-    anio_ingreso = models.IntegerField(verbose_name='Año ingreso',blank=True, null=True)
+    anio_ingreso = models.IntegerField(verbose_name='Año Ingreso UNAG',blank=True, null=True)
     numero_celular = models.CharField(max_length=20,blank=True, null=True)
     tipo_celular = models.CharField(max_length=20,choices=CELULAR_CHOICES,blank=True, null=True)
     edad = models.IntegerField(editable=False)
@@ -73,7 +73,7 @@ class DatosGenerales(models.Model):
     class Meta:
         verbose_name_plural = 'Datos generales'
 
-ESCOLARIDAD_CHOICES = (('Primaria','Primaria'),
+ESCOLARIDAD_CHOICES = (('No estudia','No estudia'),('Preescolar','Preescolar'),('Primaria','Primaria'),
                         ('Secundaria','Secundaria'), ('Universitario','Universitario'))
 
 class Escolaridad(models.Model):
@@ -155,9 +155,9 @@ class FamiliaEmigra(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     hombres = models.IntegerField()
     mujeres = models.IntegerField()
-    donde_emigran = models.CharField(max_length=25,choices=EMIGRAN_CHOICES)
-    tiempo = models.CharField(max_length=25,choices=TIEMPO_CHOICES)
-    meses = MultiSelectField(choices=MESES_CHOICES)
+    # donde_emigran = models.CharField(max_length=25,choices=EMIGRAN_CHOICES)
+    # tiempo = models.CharField(max_length=25,choices=TIEMPO_CHOICES)
+    # meses = MultiSelectField(choices=MESES_CHOICES)
 
     class Meta:
         verbose_name_plural = 'Cuántos miembros de la familia emigran'
@@ -234,7 +234,7 @@ PRODUCCION_CHOICES = (('Producción de huevos por mes','Producción de huevos po
                     ('Producción de leche (litros por día)','Producción de leche (litros por día)'))
 
 QUIEN_VENDE_CHOICES = (('Intermediarios','Intermediarios'),('Estado','Estado'),
-                        ('Mercado local','Mercado local'),('Otros','Otros'))
+                        ('Mercado local','Mercado local'),('Otros','Otros'),('No vende','No vende'))
 
 class ProduccionHuevosLeche(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -252,7 +252,9 @@ CULTIVO_CHOICES = (('Cultivo de primera','Cultivo de primera'),('Cultivo de post
 
 PRODUCCION_CHOICES2 = (('Intermediario','Intermediario'),('Al estado','Al estado'),
                         ('Consumidor / Mercado local','Consumidor / Mercado local'),
-                        ('Mercado nacional','Mercado nacional'),('Mercado internacional / Exportación','Mercado internacional / Exportación'))
+                        ('Mercado nacional','Mercado nacional'),
+                        ('Mercado internacional / Exportación','Mercado internacional / Exportación'),
+                        ('No vende','No vende'))
 
 class Agricultura(models.Model):
     encuesta = models.ForeignKey(Encuesta)

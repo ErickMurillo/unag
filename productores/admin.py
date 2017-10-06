@@ -93,6 +93,11 @@ class ProduccionHuevosLecheInline(admin.TabularInline):
 class AgriculturaInline(admin.TabularInline):
     model = Agricultura
     extra = 1
+    fieldsets = (
+        (None, {
+            'fields': ('rubro', 'tipo', 'area_sembrada', 'produccion_total','semillas','consumo_humano','consumo_animal','venta','quien_vende','costo_produccion','ingresos_produccion','ganancia_perdida')
+        }),
+    )
 
 class ManoObraInline(admin.TabularInline):
     model = ManoObra
@@ -166,7 +171,8 @@ class EncuestaAdmin(admin.ModelAdmin):
 
     #     return super(EncuestaAdmin, self).get_form(request, obj=None, **kwargs)
 
-    inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,PersonasDependenInline,
+    inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,
+                PersonasDependenInline,FamiliaEmigraInline,
                 DatosFamiliaresInline,AreasFincaInline,FormaTenenciaInline,DocumentoPropiedadInline,
                 TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,ManoObraInline,
