@@ -113,6 +113,7 @@ def afiliados(request,template='frontend/afiliados.html'):
 
 	return render(request, template, locals())
 
+@login_required
 def afiliados_personales(request,template="frontend/afiliados_personales.html"):
 	if request.method == 'POST':
 		mensaje = None
@@ -141,6 +142,7 @@ def afiliados_personales(request,template="frontend/afiliados_personales.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def afiliados_familiares(request,template="frontend/afiliados_familiares.html"):
 	if request.method == 'POST':
 		mensaje = None
@@ -181,16 +183,23 @@ def afiliados_familiares(request,template="frontend/afiliados_familiares.html"):
 		emigran = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list(
 					'familiaemigra__hombres',
 					'familiaemigra__mujeres')
-		hombres_emigran = DatosFamiliares.objects.filter(encuesta__anio = anio,donde_emigran__isnull = False,
-							encuesta__afiliado = afiliado.id,sexo = "Masculino").count()
 
-		mujeres_emigran = DatosFamiliares.objects.filter(encuesta__anio = anio,donde_emigran__isnull = False,
-							encuesta__afiliado = afiliado.id,sexo = "Femenino").count()
+		# hombres_emigran = DatosFamiliares.objects.filter(encuesta__anio = anio,donde_emigran__isnull = False,
+		# 					encuesta__afiliado = afiliado.id,sexo = "Masculino").count()
+		hombres_emigran = FamiliaEmigra.objects.filter(encuesta__anio = anio,
+							encuesta__afiliado = afiliado.id).values_list('hombres',flat = True)
+
+
+		# mujeres_emigran = DatosFamiliares.objects.filter(encuesta__anio = anio,donde_emigran__isnull = False,
+		# 					encuesta__afiliado = afiliado.id,sexo = "Femenino").count()
+		mujeres_emigran = FamiliaEmigra.objects.filter(encuesta__anio = anio,
+							encuesta__afiliado = afiliado.id).values_list('mujeres',flat = True)
 
 		years[anio] = (hombres,mujeres,ninas,ninos,familiares,hombres_emigran,mujeres_emigran)
 
 	return render(request, template, locals())
 
+@login_required
 def afiliados_propiedad(request,template="frontend/afiliados_propiedad.html"):
 	if request.method == 'POST':
 		mensaje = None
@@ -256,7 +265,7 @@ def afiliados_propiedad(request,template="frontend/afiliados_propiedad.html"):
 
 	return render(request, template, locals())
 
-
+@login_required
 def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 	if request.method == 'POST':
 		mensaje = None
@@ -418,6 +427,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 
 	return render(request, template, locals())
 
+@login_required
 def afiliados_organizacion(request,template="frontend/afiliados_organizacion.html"):
 	if request.method == 'POST':
 		mensaje = None
@@ -541,7 +551,7 @@ def consulta(request,template="frontend/consulta.html"):
 
 	return render(request, template, locals())
 
-
+@login_required
 def datos_generales(request,template='frontend/datos_generales.html'):
 	filtro = _queryset_filtrado(request)
 	conteo_encuesta = filtro.count()
@@ -580,15 +590,14 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 
 	return render(request, template, locals())
 
+@login_required
 def datos_familiares(request,template='frontend/datos_familiares.html'):
 	filtro = _queryset_filtrado(request)
 	conteo_encuesta = filtro.count()
 
 	#hombre y mujeres emigran
-	emigran_h = filtro.filter(datosfamiliares__donde_emigran__isnull = False,
-								datosfamiliares__sexo = 'Masculino').count()
-	emigran_m = filtro.filter(datosfamiliares__donde_emigran__isnull = False,
-								datosfamiliares__sexo = 'Femenino').count()
+	emigran_h = filtro.aggregate(total = Sum('familiaemigra__hombres'))['total']
+	emigran_m = filtro.aggregate(total = Sum('familiaemigra__mujeres'))['total']
 
 	#destino migrantes
 	migran = {}
@@ -610,6 +619,7 @@ def datos_familiares(request,template='frontend/datos_familiares.html'):
 
 	return render(request, template, locals())
 
+@login_required
 def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 	filtro = _queryset_filtrado(request)
 	conteo_encuesta = filtro.count()
@@ -693,6 +703,7 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 
 	return render(request, template, locals())
 
+@login_required
 def datos_produccion(request,template='frontend/datos_produccion.html'):
 	filtro = _queryset_filtrado(request)
 	encuestados = filtro.count()
@@ -834,6 +845,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 	return render(request, template, locals())
 
+@login_required
 def organizacion(request,template='frontend/organizacion.html'):
 	filtro = _queryset_filtrado(request)
 	encuestados = filtro.count()
