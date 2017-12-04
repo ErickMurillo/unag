@@ -313,6 +313,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
+		primera.sort()
 
 
 		#postrera
@@ -336,6 +337,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
+		postrera.sort()
 
 		#apante
 		apante = []
@@ -358,6 +360,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
+		apante.sort()
 
 		#permanentes
 		permanentes = []
@@ -380,6 +383,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
+		permanentes.sort()
 
 		#otros
 		otros = []
@@ -402,7 +406,9 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
-			#inventario animales
+		otros.sort()
+
+		#inventario animales
 		animales = []
 		for animal in Animales.objects.all():
 			conteos = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id,inventarioanimales__animal = animal).aggregate(
@@ -759,6 +765,8 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 								cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 								cultivo['ganancia_perdida']))
 
+	primera.sort()
+
 	#postrera
 	postrera = []
 	cultivos_postrera = filtro.filter(agricultura__tipo = 'Cultivo de postrera').values_list('agricultura__rubro',flat=True)
@@ -779,6 +787,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
+	postrera.sort()
 
 	#apante
 	apante = []
@@ -800,6 +809,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
+	apante.sort()
 
 	#permanentes
 	permanentes = []
@@ -821,6 +831,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
+	permanentes.sort()
 
 	#otros
 	otros = []
@@ -842,6 +853,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
+	otros.sort()
 
 	return render(request, template, locals())
 
