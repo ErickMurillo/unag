@@ -74,3 +74,4 @@ CACHE
 *.DS_Store
 media/
 *.styl
+*.pyc
