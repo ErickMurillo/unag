@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>UNAG</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="Sistema web de afiliados de UNAG" name="description" />
+        <meta content="SIMAS" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link rel="shortcut icon" href="/static/nuevo/logo1.png" /> 
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="/static/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        {% block extra_head %}{% endblock extra_head %}
+        <link href="/static/layouts/layout3/css/layout.css" rel="stylesheet" type="text/css" />
+        <link href="/static/layouts/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="/static/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/css/costum.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->
+        
+        
+    </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-header-menu-fixed">
+        <div class="page-wrapper">
+            <div class="page-wrapper-row">
+                <div class="page-wrapper-top">
+                    <!-- BEGIN HEADER -->
+                    <div class="page-header">
+                        <!-- BEGIN HEADER TOP -->
+                        <div class="page-header-top">
+                            <div class="container">
+                                <!-- BEGIN LOGO -->
+                                <div class="page-logo">
+                                    <a href="/">
+                                        <img src="/static/nuevo/logo1.png" alt="logo" class="logo-default">
+                                        <h3 class="hidden-xs">Unión Nacional de Agricultores y Ganaderos de Nicaragua (UNAG)</h3>
+                                    </a>
+                                </div>
+                                <!-- END LOGO -->
+                                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                                <a href="javascript:;" class="menu-toggler"></a>
+                                <!-- END RESPONSIVE MENU TOGGLER -->
+                                <!-- BEGIN TOP NAVIGATION MENU -->
+                                <div class="top-menu">
+                                    <ul class="nav navbar-nav pull-right">
+
+                                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                                        <li class="dropdown dropdown-user dropdown-dark">
+                                            <a  class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            
+                                                <span class="username">{{ user.username }}<i class="fa fa-user"></i></span>
+                                            </a>
+                                            
+                                        </li>
+                                        <li class="droddown dropdown-separator">
+                                            <span class="separator"></span>
+                                        </li>
+                                        <li class="dropdown dropdown-user dropdown-dark">
+                                            <a href="/admin" class="dropdown-toggle">
+                                            
+                                                <span class="username">Administración</span> <i class="fa fa-database"></i>
+                                            </a>
+                                            
+                                        </li>
+                                        <li class="droddown dropdown-separator">
+                                            <span class="separator"></span>
+                                        </li>
+                                        <li class="dropdown dropdown-user dropdown-dark">
+                                            <a href="/admin/logout/" class="dropdown-toggle">
+                                            
+                                                <span class="username">Cerrar sesión </span><i class="icon-logout"></i>
+                                            </a>
+                                            
+                                        </li>
+                                        <!-- END USER LOGIN DROPDOWN -->
+
+                                    </ul>
+                                </div>
+                                <!-- END TOP NAVIGATION MENU -->
+                            </div>
+                        </div>
+
+                        <!-- END HEADER TOP -->
+                        <!-- BEGIN HEADER MENU -->
+                        <div class="page-header-menu">
+                            <div class="container">
+                                <!-- BEGIN HEADER SEARCH BOX -->
+                                <!-- END HEADER SEARCH BOX -->
+                                <!-- BEGIN MEGA MENU -->
+                                <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
+                                <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
+                                <div class="hor-menu">
+                                    <ul class="nav navbar-nav">
+                                        <li class="inicio active" >
+                                            <a href="/">Inicio</a>
+                                        </li>
+                                        <li class="afiliado" >
+                                            <a href="/afiliados/">Afiliados y Afiliadas</a>
+                                        </li>
+                                        <li  class="consulta">
+                                            <a href="/consulta">Consultar</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="hor-menu nav-p">
+                                    <ul class="nav navbar-nav">
+                                        <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+                                            <a href="javascript:;"> Descargar
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class="">
+                                                    <a href="/static/Manual_unagdatos.pdf" class="nav-link" download> Manual de usuario </a>
+                                                </li>
+                                                <li aria-haspopup="true" class="">
+                                                    <a href="/static/Ficha_Afiliacion_Versión_Octubre_2017.docx" class="nav-link" download> Formato de encuesta </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                                <!-- END MEGA MENU -->
+                            </div>
+                        </div>
+                        <!-- END HEADER MENU -->
+                    </div>
+                    <!-- END HEADER -->
+                </div>
+            </div>
+
+            {% block content %}{% endblock content %}
+
+            <div class="page-wrapper-row">
+                <div class="page-wrapper-bottom">
+                    <!-- BEGIN FOOTER -->
+                    <!-- BEGIN INNER FOOTER -->
+                    <div class="page-footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="pull-left foot-left">
+                                        2017 &copy; Unión Nacional de Agricultores y Ganaderos de Nicaragua (UNAG) &nbsp;|&nbsp;
+                                        <a href="www.simas.org.ni" title="" target="_blank">Desarrollado por SIMAS</a></a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                   
+                                        
+                                        <a href="">
+                                            <img class="interteam-logo" src="/static/nuevo/INTERTEAM.jpg"  alt="">  
+                                        </a>
+                                   
+                                </div>
+                            </div>
+                            
+                            
+                                
+                            
+                        
+                            
+                        </div>
+                    </div>
+                    <div class="scroll-to-top">
+                        <i class="icon-arrow-up"></i>
+                    </div>
+                    <!-- END INNER FOOTER -->
+                    <!-- END FOOTER -->
+                </div>
+            </div>
+        </div>
+
+            
+        <!--[if lt IE 9]>
+<script src="../../static_media/plugins/respond.min.js"></script>
+<script src="../../static_media/plugins/excanvas.min.js"></script> 
+<script src="../../static_media/plugins/ie8.fix.min.js"></script> 
+<![endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
+
+        
+    <!-- END THEME LAYOUT SCRIPTS -->
+    	<script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="/static/js/export-csv.js" type="text/javascript"></script>
+
+        <script src="/static/js/jquery.cookie.js"></script>
+        <script src="/static/js/table.exporting.js"></script>
+
+    {% block extra_js %}{% endblock extra_js %}
+    </body>
+
+</html>

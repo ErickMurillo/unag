@@ -1,0 +1,398 @@
+{% extends "frontend/base.html" %}
+
+{% block extra_head %}
+<link href="/static/pages/css/profile.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/static/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="/static/plugins/select2/css/select2-bootstrap.min.css">
+{% endblock extra_head %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+	<div class="page-wrapper-middle">
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<!-- BEGIN CONTENT BODY -->
+				<!-- BEGIN PAGE HEAD-->
+				<div class="page-head">
+                    <div class="titulo-page">
+                    	<div class="container">
+                    		<!-- BEGIN PAGE TITLE -->
+                    		<div class="page-title">
+                    			<h1>Propiedad
+                    				<!-- <small>dashboard & statistics</small> -->
+                    			</h1>
+                                
+                    		</div>
+                    		<!-- END PAGE TITLE -->
+                    		<!-- BEGIN PAGE TOOLBAR -->
+                    		<div class="page-toolbar">
+                    			<!-- BEGIN THEME PANEL -->
+	                    		<!-- BEGIN PAGE TOOLBAR -->
+	                    		<div class="page-toolbar hidden-xs">
+	                    			{% include "frontend/indicador_afiliado.html" %}
+	                    		</div>
+	                    		<div class="page-toolbar visible-xs">
+	                    			{% include "frontend/indicador_afiliadoxm.html" %}
+	                    		</div>
+	                    		<!-- END PAGE TOOLBAR -->
+                    		</div>
+                    		<!-- END PAGE TOOLBAR -->
+
+                    	</div>
+                    </div>
+                    
+                </div>
+				<!-- BEGIN PAGE CONTENT BODY -->
+				<div class="page-content">
+					<div class="container">
+						<!-- BEGIN PAGE BREADCRUMBS -->
+						<ul class="page-breadcrumb breadcrumb">
+							<li>
+								<a href="/">Inicio</a>
+								<i class="fa fa-circle"></i>
+							</li>
+							<li>
+								<a href="#">Perfil</a></i>
+							</li>
+						</ul>
+						<!-- END PAGE BREADCRUMBS -->
+						<!-- BEGIN PAGE CONTENT INNER -->
+						<div class="page-content-inner">
+							<div class="row">
+								<div class="col-md-12">
+									
+									<!-- PORTLET MAIN -->
+									<div class="portlet light">
+										<div class="portlet-title">
+											<div class="row">
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+													<div class="caption font-red-sunglo">
+														
+														<h4 class="caption-subject bold uppercase"><i class="icon-user font-red-sunglo"></i> Perfil afiliados</h4>
+													</div>
+												</div>
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+													<form class="form-inline" role="form" action="." method='post'>{% csrf_token %}
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-search font-red"></i>
+															</div>
+															{{form.nombre}}
+															<span class="input-group-btn">
+														        <button type="submit" name="consulta" value="Consultar" class="btn btn-default green">Consulta</button>
+														    </span>
+														</div>
+														
+														
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="tab-content">
+
+											<!-- PROPIEDAD TAB -->
+											<div class="tab-pane active" id="propiedad">
+
+												<ul class="nav nav-tabs" id="myTab" role="tablist">
+													{% for key in years.keys %}
+													<li class="nav-item">
+														<a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
+													</li>
+													{% endfor %}
+
+												</ul>
+
+												<!-- Tab panes -->
+												<div class="tab-content">
+													{% for key,value in years.items  %}
+													<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
+														<div class="row">
+															<div class="col-sm-6">
+																<div class="portlet box blue ">
+																	<div class="portlet-title">
+																		<div class="caption">
+
+																			<span class="caption-subject bold uppercase">Área de la finca (Mz)</span>
+
+																		</div>
+																	</div>
+
+																	<div class="portlet-body">
+
+																		<div class="map">
+																			<div class="grafico-ind" id="area{{key}}" width='100%'></div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-sm-6">
+																<div class="portlet box blue ">
+																	<div class="portlet-title">
+																		<div class="caption">
+
+																			<span class="caption-subject bold uppercase">Áreas alquiladas de la finca (Mz)</span>
+
+																		</div>
+																	</div>
+
+																	<div class="portlet-body">
+
+																		<div class="map">
+																			<div class="grafico-ind" id="otras{{key}}" width='100%'></div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-sm-6">
+																<div class="profile-usermenu profile-list">
+																	<ul class="nav nav-pills nav-stacked">
+																		
+																		<li>
+																			<a><b>Propiedad legalizada:</b> {{value.2.0|default:"---"}}</a>
+																		</li>
+																		{% if value.3 %}
+																		<li>
+																			<a>
+																				<b>Documento:</b> {{value.3.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% endif %}
+																		<li>
+																			<a>
+																				<b>Sistema de agua utilizado y consumo:</b>
+																				{% if value.4 %}
+																					{% for x in value.4 %}
+																						{{x}},
+																					{% endfor %}
+																				{% else %}
+																				---
+																				{% endif %}
+																			</a>
+																		</li>
+																		
+																		<li>
+																			<a > <b>Acceso a energía eléctrica:</b> {{value.5.0|default:"---"}} </a>
+																		</li>
+																		<li>
+																			<a > <b>Infraestructura:</b> 
+																				{% if value.8 %}
+																				{% for x in value.8 %}
+																				{{x}},
+																				{% endfor %}
+																				{% else %}
+																				---
+																				{% endif %}
+																			</a>
+																		</li>
+																		<li>
+																			<a > <b>Contrata mano de obra:</b> {{value.6.0|default:"---"}} </a>
+																		</li>
+																		 
+
+																	</ul>
+																</div>
+
+															</div>
+															<div class="col-sm-6">
+																<div class="portlet box green">
+																	<div class="portlet-title">
+						                                                <div class="caption">
+						                                                    <i class="fa fa-list"></i>Empleo
+						                                                </div>
+						                                            </div>
+						                                        	<div class="portlet-body flip-scroll">
+						                                        		<table class="table table-bordered table-striped table-condensed flip-content small-table " cellspacing="0" width="100%">
+																			<thead>
+																				<tr>
+																					<th>Rubro</th>
+																					<th>Temporal Hombres</th>
+																					<th>Temporal Mujeres</th>
+																					<th>Permanente Hombres</th>
+																					<th>Permanente Mujeres</th>
+																					<th>Familiar Hombres</th>
+																					<th>Familiar Mujeres</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				{% for obj in value.7 %}
+																				<tr>
+																					<td>{{obj.0}}</td>
+																					<td>{{obj.1}}</td>
+																					<td>{{obj.2}}</td>
+																					<td>{{obj.3}}</td>
+																					<td>{{obj.4}}</td>
+																					<td>{{obj.5}}</td>
+																					<td>{{obj.6}}</td>
+																				</tr>
+																				{% endfor %}
+
+																			</tbody>
+																		</table>
+						                                        	</div>
+						                                        </div>
+																		
+
+																
+																
+															</div>
+
+														</div>
+
+													</div>
+													{% endfor %}
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- END PORTLET MAIN -->
+
+									<!-- END BEGIN PROFILE SIDEBAR -->
+									<!-- BEGIN PROFILE CONTENT -->
+
+									<!-- END PROFILE CONTENT -->
+								</div>
+							</div>
+						</div>
+						<!-- END PAGE CONTENT INNER -->
+					</div>
+				</div>
+				<!-- END PAGE CONTENT BODY -->
+				<!-- END CONTENT BODY -->
+			</div>
+			<!-- END CONTENT -->
+
+		</div>
+		<!-- END CONTAINER -->
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+
+<!-- select 2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<script type="text/javascript">
+	$("#id_nombre").select2({
+		placeholder: "Seleccionar afiliado",
+		allowClear: true
+	});
+	{% if request.session.nombre %}
+		$('#id_nombre').val({{request.session.nombre.id}});
+		$('#id_nombre').trigger('change');
+	{% endif %}
+</script>
+
+<script type="text/javascript">
+	$(function () {
+		{% for key,value in years.items %}
+
+		$('#area{{key}}').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: ''
+			},
+			credits: {
+				enabled: false
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+								//distance: -30,
+								format: '{point.percentage:.1f} %',
+								style: {
+									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								}
+							},
+							showInLegend: true
+						}
+					},
+					series: [{
+						name: "",
+						colorByPoint: true,
+						data: [
+						{% for k,v in value.0.items %}
+						{
+							name: "{{k}} ({{v.0|default:"0"}})",
+							y: {{v.0|default:"0"}}
+						},
+						{% endfor %}
+
+
+						]
+					}]
+				});
+		$('#otras{{key}}').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: ''
+			},
+			credits: {
+				enabled: false
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+								//distance: -30,
+								format: '{point.percentage:.1f} %',
+								style: {
+									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								}
+							},
+							showInLegend: true
+						}
+					},
+					series: [{
+						name: "",
+						colorByPoint: true,
+						data: [
+						{% for k,v in value.1.items %}
+						{
+							name: "{{k}} ({{v.0|default:"0"}})",
+							y: {{v.0|default:"0"}}
+						},
+						{% endfor %}
+
+
+						]
+					}]
+				});
+		{% endfor %}
+	});
+
+</script>
+
+<script type="text/javascript">
+	$( ".hor-menu ul li" ).removeClass( "active" );
+	$( ".hor-menu ul li.afiliado" ).addClass( "active" );
+	$( ".ind-link li" ).removeClass( "active" );
+    $( ".ind-link li.propiedad" ).addClass( "active" );
+    $( ".theme-colors li" ).removeClass( "active" );
+    $( ".theme-colors li.propiedad" ).addClass( "active" );
+</script>
+{% endblock extra_js %}

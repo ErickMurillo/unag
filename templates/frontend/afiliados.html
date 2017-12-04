@@ -1,0 +1,124 @@
+{% extends "frontend/base.html" %}
+
+{% block extra_head %}
+<link href="/static/pages/css/profile.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/static/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="/static/plugins/select2/css/select2-bootstrap.min.css">
+{% endblock extra_head %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+	<div class="page-wrapper-middle">
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<!-- BEGIN CONTENT BODY -->
+				<!-- BEGIN PAGE HEAD-->
+				<div class="page-head">
+                    <div class="titulo-page">
+                    	<div class="container">
+                    		<!-- BEGIN PAGE TITLE -->
+                    		<div class="page-title">
+                    			<h1>Afiliados
+                    				<!-- <small>dashboard & statistics</small> -->
+                    			</h1>
+                                
+                    		</div>
+                    		<!-- END PAGE TITLE -->
+                    		<!-- BEGIN PAGE TOOLBAR -->
+                    		
+                    		<!-- END PAGE TOOLBAR -->
+
+                    	</div>
+                    </div>
+                    
+                </div>
+				<!-- BEGIN PAGE CONTENT BODY -->
+				<div class="page-content">
+					<div class="container">
+						<!-- BEGIN PAGE BREADCRUMBS -->
+						<ul class="page-breadcrumb breadcrumb">
+							<li>
+								<a href="/">Inicio</a>
+								<i class="fa fa-circle"></i>
+							</li>
+							<li>
+								<a href="#">Perfil</a></i>
+							</li>
+						</ul>
+						<!-- END PAGE BREADCRUMBS -->
+						<!-- BEGIN PAGE CONTENT INNER -->
+						<div class="page-content-inner">
+							<div class="row">
+								<div class="col-md-12">
+									
+									<!-- PORTLET MAIN -->
+									<div class="portlet light">
+										<div class="portlet-title">
+											<div class="row">
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+													<div class="caption font-red-sunglo">
+														
+														<h4 class="caption-subject bold uppercase"><i class="icon-user font-red-sunglo"></i> Perfil afiliados</h4>
+													</div>
+												</div>
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+													<form class="form-inline" role="form" action="." method='post'>{% csrf_token %}
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-search font-red"></i>
+															</div>
+															{{form.nombre}}
+															<span class="input-group-btn">
+														        <button type="submit" name="consulta" value="Consultar" class="btn btn-default green">Consulta</button>
+														    </span>
+														</div>
+														
+														
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- END PORTLET MAIN -->
+
+									<!-- END BEGIN PROFILE SIDEBAR -->
+									<!-- BEGIN PROFILE CONTENT -->
+
+									<!-- END PROFILE CONTENT -->
+								</div>
+							</div>
+						</div>
+						<!-- END PAGE CONTENT INNER -->
+					</div>
+				</div>
+				<!-- END PAGE CONTENT BODY -->
+				<!-- END CONTENT BODY -->
+			</div>
+			<!-- END CONTENT -->
+
+		</div>
+		<!-- END CONTAINER -->
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+
+<!-- select 2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<script type="text/javascript">
+	$("#id_nombre").select2({
+		placeholder: "Seleccionar afiliado",
+		allowClear: true
+	});
+</script>
+
+<script type="text/javascript">
+	$( ".hor-menu ul li" ).removeClass( "active" );
+	$( ".hor-menu ul li.afiliado" ).addClass( "active" );
+</script>
+{% endblock extra_js %}

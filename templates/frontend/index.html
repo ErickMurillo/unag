@@ -1,0 +1,389 @@
+{% extends "frontend/base.html" %}
+{% block content %}                    
+<div class="page-wrapper-row full-height">
+    <div class="page-wrapper-middle">
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <!-- BEGIN PAGE HEAD-->
+                <div class="page-head">
+                    <div class="container">
+                        <!-- BEGIN PAGE TITLE -->
+                        <div class="page-title">
+                            <h1>Panorama General de la UNAG
+                                <!-- <small>dashboard & statistics</small> -->
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE HEAD-->
+                <!-- BEGIN PAGE CONTENT BODY -->
+                <div class="page-content">
+                    <div class="container">
+                        <!-- BEGIN PAGE BREADCRUMBS -->
+                        <ul class="page-breadcrumb breadcrumb">
+                            <li>
+                                <a href="index.html">Inicio</a>
+                                <!--<i class="fa fa-circle"></i>-->
+                            </li>
+                            <!--<li>
+                                <span>Dashboard</span>
+                            </li>-->
+                        </ul>
+                        <!-- END PAGE BREADCRUMBS -->
+                        <!-- BEGIN PAGE CONTENT INNER -->
+                        <div class="page-content-inner">
+                            <div class="mt-content-body">
+                                <div class="row">
+                                    
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-bar-chart font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Afiliados y Afiliadas</span>
+                                                    <span class="caption-helper"></span>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                                        <div class="font-grey-mint font-sm"> Total</div>
+                                                        <div class="uppercase font-hg font-red-flamingo">
+                                                        <span aria-hidden="true" class="icon-users"></span>
+                                                        {{total_afiliados}}
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                                        <div class="font-grey-mint font-sm"> Hombres </div>
+                                                        <div class="uppercase font-hg theme-font">
+                                                            <span aria-hidden="true" class="icon-user"></span>
+                                                            {{hombres}}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                                        <div class="font-grey-mint font-sm"> Mujeres </div>
+                                                        <div class="uppercase font-hg font-purple">
+                                                            <span aria-hidden="true" class="icon-user-female"></span>
+                                                            {{mujeres}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="map">
+                                                        <div id="map-canvas" style="width:100%; height:400px"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-bar-chart font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Áreas de los principales rubros</span>
+                                                    <span class="caption-helper"></span>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="portlet-body">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                {% for key in dic_anios.keys %}
+                                                  <li class="nav-item {% if forloop.first %}active{% endif %}">
+                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
+                                                  </li>
+                                                {% endfor %}
+
+                                                  
+                                                </ul>
+
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                {% for key in dic_anios.keys  %}
+                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
+                                                        <div class="grafico-ind" id="container{{key}}" width='100%'></div>
+                                                    </div>
+                                                {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-bar-chart font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Miembros registrados por departamento</span>
+                                                    <span class="caption-helper"></span>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="grafico-ind" id="deptos" width='100%'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-bar-chart font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Destino de producción</span>
+                                                    <span class="caption-helper"></span>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="portlet-body">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                {% for key in dic_anios.keys %}
+                                                  <li class="nav-item {% if forloop.first %}active{% endif %}">
+                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}-vende" role="tab">{{key}}</a>
+                                                  </li>
+                                                {% endfor %}
+                                                  
+                                                </ul>
+
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                {% for key in dic_anios.keys  %}
+                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-vende" role="tabpanel">
+                                                        <div class="grafico-ind" id="quien_vende{{key}}" width='100%'></div>
+                                                    </div>
+                                                {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PAGE CONTENT INNER -->
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT BODY -->
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+    </div>
+</div>   
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqZIKGS4tX1I2OrDtuCN-wSPVaPLS9UjU" type="text/javascript"></script>
+<script type="text/javascript" src="/static/js/markerclusterer.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script>
+
+
+    var markers = [];
+    function initialize()
+    {
+        var infowindow = new google.maps.InfoWindow();
+        var myLatlng = new google.maps.LatLng(13,-85);
+        var myOptions = {
+            zoom: 7,
+            center: myLatlng,
+        }
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();
+
+
+        $.getJSON("{% url 'obtener-lista' %}", function(data){
+            $.each(data, function(i, elemento){
+                var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
+                bounds.extend(latlng);
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: elemento.nombre,
+                    // icon: image,
+                    item: '',
+                    id: elemento.id
+                });
+                markers.push(marker);
+
+                // google.maps.event.addListener(marker, 'click', (function(mm, tt) {
+                //     return function() {
+                //         infowindow.setContent(tt);
+                //         infowindow.open(map, mm);
+                //     }
+                // })(marker, elemento.nombre));
+
+            });
+            var markerCluster = new MarkerClusterer(map, markers);
+
+        });
+
+        //map.fitBounds(bounds);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<script type="text/javascript">
+    $( ".hor-menu ul li" ).removeClass( "active" );
+    $( ".hor-menu ul li.inicio" ).addClass( "active" );
+</script>
+
+<script type="text/javascript">
+{% for key,value in dic_anios.items %}
+    Highcharts.chart('container{{key}}', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['Áreas',]
+    },
+    yAxis: {
+        title: {
+            text: 'Mz'
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}'
+            }
+        }
+    },
+    series: [
+    {% for k,v in value.0.items %}
+        {
+            name: '{{k}}',
+            data: [{{v}},]
+        },
+    {% endfor %}]
+});
+
+Highcharts.chart('quien_vende{{key}}', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} productores </b> del total<br/>'
+    },
+
+    series: [{
+        name: 'A  quién vende',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in value.1.items %}
+            {
+            name: '{{k}}',
+            y: {{v|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+{% endfor %}
+
+Highcharts.chart('deptos', {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: 'Click en los departamentos para ver detalle'
+    },
+
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}: {point.y}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+    },
+    series: [{
+        name: 'Departamentos',
+        colorByPoint: true,
+        data: [
+        {% for k,v in dic_deptos.items %}
+            {
+                name: '{{k}}',
+                y: {{v.0}},
+                drilldown: '{{k}}'
+            },
+        {% endfor %}
+         ]
+    }],
+    drilldown: {
+        series: [
+        {% for k,v in dic_deptos.items %}
+            {
+            name: '{{k}}',
+            id: '{{k}}',
+            data: [
+            {% for x in v.1 %}
+                ['{{x.0}}', {{x.1}}],
+            {% endfor %}
+            ]
+        },
+        {% endfor %}
+        ]
+    }
+});
+</script>
+{% endblock extra_js %}
+
+

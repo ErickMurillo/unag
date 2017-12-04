@@ -1,0 +1,993 @@
+{% extends "frontend/base.html" %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+    <div class="page-wrapper-middle">
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <!-- BEGIN PAGE HEAD-->
+                <div class="page-head">
+                    <div class="titulo-page">
+                        <div class="container">
+                            <!-- BEGIN PAGE TITLE -->
+                            <div class="page-title">
+                                <h1>Datos de la Organización
+                                    <!-- <small>dashboard & statistics</small> -->
+                                </h1>
+                                
+                            </div>
+                            <!-- END PAGE TITLE -->
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar hidden-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadores.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <div class="page-toolbar visible-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadoresxm.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
+
+                        </div>
+                    </div>
+                    <div class="filtros">
+                        <div class="container">
+                                {% include "frontend/filtros.html" %}
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- END PAGE HEAD-->
+                <!-- BEGIN PAGE CONTENT BODY -->
+                <div class="page-content">
+                	<div class="container">
+                		<!-- BEGIN PAGE BREADCRUMBS -->
+                		<ul class="page-breadcrumb breadcrumb">
+                			<li>
+                				<a href="/">Inicio</a>
+                				<i class="fa fa-circle"></i>
+                			</li>
+                            <li>
+                                <a href="/consulta/">Consulta</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                			<li>
+                				<span>Datos de la organización</span>
+                			</li>
+                		</ul>
+                		<!-- END PAGE BREADCRUMBS -->
+                		<!-- BEGIN PAGE CONTENT INNER -->
+                		<div class="page-content-inner">
+                			<div class="mt-content-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Donde cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="donde_cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Desde cuando cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="desde_cuando" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Cuanto cotiza por mes</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="cuanto_cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Frecuencia que cotiza</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="frecuencia_cotiza" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Miembros cooperativa</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="cooperativa" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Cooperativas a las que pertenecen los afiliados</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="list_cooperativas" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Beneficiados por otros proyectos o programas del gobierno</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="beneficiado" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Otros proyectos o programas de Gobierno</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="otros_proyectos" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">¿Ha recibido algún Crédito?</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="credito" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">¿Quién brinda el Crédito?</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Fuentes de credito</th>
+                                                                <th>Cantidad</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for obj in brinda_credito %}
+                                                            <tr>
+                                                                <td>{{obj.0}}</td>
+                                                                <td>{{obj.1}}</td>
+                                                                <td>{{obj.2}}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Tipo de Crédito obtenido</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="tipo_credito" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Problemas más sentidos como productor</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="problemas_productor" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Acciones que realiza para enfrentar el cambio climático</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="acciones" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Motivos de afiliación</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="motivos" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PAGE CONTENT INNER -->
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT BODY -->
+                <!-- END CONTENT BODY -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+Highcharts.chart('cotiza', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in cotiza.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('donde_cotiza', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in donde_cotiza.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('desde_cuando', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in desde_cuando.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('cuanto_cotiza', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Total C$ {{total|floatformat:"2"}}'
+    },
+    subtitle: {
+        text: 'Promedio C$ {{promedio|floatformat:"2"}}'
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Personas'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Personas',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in cotizaciones.items %}
+            {
+            name: '{{k}}',
+            y: {{v|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('frecuencia_cotiza', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in frecuencia_cotiza.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('cooperativa', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in cooperativa.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('beneficiado', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in beneficiados.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('list_cooperativas', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Cooperativa',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in list_cooperativas.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('otros_proyectos', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Proyectos',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in proyectos.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('credito', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in credito.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('tipo_credito', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in tipo_credito.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('problemas_productor', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Problemas',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in problemas.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('acciones', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Acciones',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in acciones.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('motivos', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Motivos',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in motivos.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+</script>
+<script type="text/javascript">
+    $( ".hor-menu ul li" ).removeClass( "active" );
+    $( ".ind-link li" ).removeClass( "active" );
+    $( ".ind-link li.org" ).addClass( "active" );
+    $( ".theme-colors li" ).removeClass( "active" );
+    $( ".theme-colors li.org" ).addClass( "active" );
+</script>
+{% endblock extra_js %}

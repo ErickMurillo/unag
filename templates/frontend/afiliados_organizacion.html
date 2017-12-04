@@ -1,0 +1,387 @@
+{% extends "frontend/base.html" %}
+
+{% block extra_head %}
+<link href="/static/pages/css/profile.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/static/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="/static/plugins/select2/css/select2-bootstrap.min.css">
+{% endblock extra_head %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+	<div class="page-wrapper-middle">
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<!-- BEGIN CONTENT BODY -->
+				<!-- BEGIN PAGE HEAD-->
+				<div class="page-head">
+                    <div class="titulo-page">
+                    	<div class="container">
+                    		<!-- BEGIN PAGE TITLE -->
+                    		<div class="page-title">
+                    			<h1>Datos Organización
+                    				<!-- <small>dashboard & statistics</small> -->
+                    			</h1>
+                                
+                    		</div>
+                    		<!-- END PAGE TITLE -->
+                    		<!-- BEGIN PAGE TOOLBAR -->
+                    		<div class="page-toolbar">
+                    			<!-- BEGIN THEME PANEL -->
+	                    		<!-- BEGIN PAGE TOOLBAR -->
+	                    		<div class="page-toolbar hidden-xs">
+	                    			{% include "frontend/indicador_afiliado.html" %}
+	                    		</div>
+	                    		<div class="page-toolbar visible-xs">
+	                    			{% include "frontend/indicador_afiliadoxm.html" %}
+	                    		</div>
+	                    		<!-- END PAGE TOOLBAR -->
+                    		</div>
+
+                    	</div>
+                    
+                	</div>
+				
+					<!-- END CONTENT BODY -->
+				</div>
+				<div class="page-content">
+					<div class="container">
+						<!-- BEGIN PAGE BREADCRUMBS -->
+						<ul class="page-breadcrumb breadcrumb">
+							<li>
+								<a href="/">Inicio</a>
+								<i class="fa fa-circle"></i>
+							</li>
+							<li>
+								<a href="#">Perfil</a></i>
+							</li>
+						</ul>
+						<!-- END PAGE BREADCRUMBS -->
+						<!-- BEGIN PAGE CONTENT INNER -->
+						<div class="page-content-inner">
+							<div class="row">
+								<div class="col-md-12">
+									
+									<!-- PORTLET MAIN -->
+									<div class="portlet light">
+										<div class="portlet-title">
+											<div class="row">
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+													<div class="caption font-red-sunglo">
+														
+														<h4 class="caption-subject bold uppercase"><i class="icon-user font-red-sunglo"></i> Perfil afiliados</h4>
+													</div>
+												</div>
+												<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+													<form class="form-inline" role="form" action="." method='post'>{% csrf_token %}
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-search font-red"></i>
+															</div>
+															{{form.nombre}}
+															<span class="input-group-btn">
+														        <button type="submit" name="consulta" value="Consultar" class="btn btn-default green">Consulta</button>
+														    </span>
+														</div>
+														
+														
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="tab-content">
+											<!-- ORGANIZACION TAB -->
+											<div class="tab-pane active" id="organizacion">
+												<ul class="nav nav-tabs" id="myTab" role="tablist">
+													{% for key in years.keys %}
+														<li class="nav-item">
+															<a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}-org" role="tab">{{key}}</a>
+														</li>
+													{% endfor %}
+
+												</ul>
+
+												<!-- Tab panes -->
+												<div class="tab-content">
+													{% for key,value in years.items  %}
+													<div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-org" role="tabpanel">
+														<div class="row">
+															<div class="col-sm-4">
+																<div class="profile-usermenu">
+																	<ul class="nav nav-pills nav-stacked">
+
+
+																		<li>
+																			<a>
+																				<b>Cotiza:</b> {{value.0.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.0.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>Donde cotiza:</b> {{value.1.0.0}}
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Desde cuando:</b> {{value.1.0.1}}
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Cuanto cotiza:</b> C$ {{value.1.0.2}}
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Frecuencia:</b> {{value.1.0.3}} 
+																				</a>
+																			</li>
+																		{% endif %}
+																		
+
+																		 
+																	</ul>
+																</div>
+																
+															</div>
+															<div class="col-sm-4">
+																<div class="profile-usermenu">
+																	<ul class="nav nav-pills nav-stacked">
+
+
+																		<li>
+																			<a>
+																				<b>Miembro cooperativa:</b> {{value.2.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.2.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>Cooperativas: </b> 
+																					{% for x in value.3 %}
+																						{{x}}{% if not forloop.last %},{% endif %}		
+																					{% endfor %}
+																				</a>
+																			</li>
+																			
+																		{% endif %}
+																		<li>
+																			<a>
+																				<b>Beneficiado de un proyecto: </b>
+																				{{value.4.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.4.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>Proyectos: </b>
+																					{% for x in value.5 %}
+																						{{x}}{% if not forloop.last %},{% endif %}		
+																					{% endfor %}
+																				</a>
+																			</li>
+																		{% endif %}
+
+																		 
+																	</ul>
+																</div>
+															</div>
+															<div class="col-sm-4">
+																<div class="profile-usermenu">
+																	<ul class="nav nav-pills nav-stacked">
+
+
+																		<li>
+																			<a>
+																				<b>Recibe credito:</b> {{value.6.0.0|default:"---"}}
+																			</a>
+																		</li>
+																		{% if value.6.0.0 == 'Si' %}
+																			<li>
+																				<a>
+																					<b>De quien recibe el credito: </b>
+																					{{value.6.0.1}} 
+																				</a>
+																			</li>
+																			<li>
+																				<a>
+																					<b>Formas que recibe el credito:  </b>
+																					{% for x in value.7 %}
+																						{{x}}{% if not forloop.last %},{% endif %}		
+																					{% endfor %}
+																				</a>
+																			</li>
+																			
+																		{% endif %}
+																		
+
+
+																		 
+																	</ul>
+																</div>
+															</div>
+														</div>
+
+
+														<div class="row">
+															<div class="col-sm-4">
+
+																<div class="portlet sale-summary">
+		                                                            <div class="portlet-title">
+		                                                                <div class="caption font-red sbold"> Problemas más sentidos: </div>
+
+		                                                            </div>
+		                                                            <div class="portlet-body">
+		                                                                <ul class="list-unstyled">
+		                                                                	{% for x in value.8 %}
+																				
+																			
+		                                                                    <li>
+		                                                                        <span class="sale-info"> 
+		                                                                        {{x|default:"---"}}
+		                                                                        </span>
+
+		                                                                    </li>
+		                                                                    {% endfor %}
+
+		                                                                </ul>
+		                                                            </div>
+		                                                        </div>
+
+															</div>
+															<div class="col-sm-4">
+
+																<div class="portlet sale-summary">
+		                                                            <div class="portlet-title">
+		                                                                <div class="caption font-red sbold"> Acciones que realiza para enfrentar el cambio climático: </div>
+
+		                                                            </div>
+		                                                            <div class="portlet-body">
+		                                                                <ul class="list-unstyled">
+		                                                                	{% for x in value.9 %}
+																				
+																			
+		                                                                    <li>
+		                                                                        <span class="sale-info"> 
+		                                                                        {{x|default:"---"}}
+		                                                                        </span>
+
+		                                                                    </li>
+		                                                                    {% endfor %}
+
+		                                                                </ul>
+		                                                            </div>
+		                                                        </div>
+
+															
+															</div>
+															<div class="col-sm-4">
+
+																<div class="portlet sale-summary">
+		                                                            <div class="portlet-title">
+		                                                                <div class="caption font-red sbold"> Motivos de Afiliación a la UNAG: </div>
+
+		                                                            </div>
+		                                                            <div class="portlet-body">
+		                                                                <ul class="list-unstyled">
+		                                                                	{% for x in value.10 %}
+																				
+																			
+		                                                                    <li>
+		                                                                        <span class="sale-info"> 
+		                                                                        {{x|default:"---"}}
+		                                                                        </span>
+
+		                                                                    </li>
+		                                                                    {% endfor %}
+
+		                                                                </ul>
+		                                                            </div>
+		                                                        </div>
+
+															
+															</div>
+															<div class="col-sm-12">
+
+																<div class="portlet sale-summary">
+		                                                            <div class="portlet-title">
+		                                                                <div class="caption font-red sbold"> Comentarios:  </div>
+
+		                                                            </div>
+		                                                            <div class="portlet-body">
+		                                                                <ul class="list-unstyled">
+		                                                                	
+																				
+																			
+		                                                                    <li>
+		                                                                        <span class="sale-info"> 
+		                                                                        {{value.11.0|default:"---"}}
+		                                                                        </span>
+
+		                                                                    </li>
+		                                                                  
+
+		                                                                </ul>
+		                                                            </div>
+		                                                        </div>
+
+															
+															</div>
+
+														</div>
+													</div>
+													{% endfor %}
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- END PORTLET MAIN -->
+
+									<!-- END BEGIN PROFILE SIDEBAR -->
+									<!-- BEGIN PROFILE CONTENT -->
+
+									<!-- END PROFILE CONTENT -->
+								</div>
+							</div>
+						</div>
+						<!-- END PAGE CONTENT INNER -->
+					</div>
+				</div>
+				<!-- END CONTENT -->
+
+			</div>
+		<!-- END CONTAINER -->
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+
+<!-- select 2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<script type="text/javascript">
+	$("#id_nombre").select2({
+		placeholder: "Seleccionar afiliado",
+		allowClear: true
+	});
+	{% if request.session.nombre %}
+		$('#id_nombre').val({{request.session.nombre.id}});
+		$('#id_nombre').trigger('change');
+	{% endif %}
+</script>
+
+<script type="text/javascript">
+	$( ".hor-menu ul li" ).removeClass( "active" );
+	$( ".hor-menu ul li.afiliado" ).addClass( "active" );
+	$( ".ind-link li" ).removeClass( "active" );
+    $( ".ind-link li.org" ).addClass( "active" );
+    $( ".theme-colors li" ).removeClass( "active" );
+    $( ".theme-colors li.org" ).addClass( "active" );
+
+</script>
+{% endblock extra_js %}

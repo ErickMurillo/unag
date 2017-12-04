@@ -1,0 +1,51 @@
+
+<ul class="list-inline list-filtro">
+	{% if request.session.anio %}
+		<li>
+			<i class="fa fa-calendar"></i>
+			<b>Año:</b> {{request.session.anio}}
+		</li>
+	{% endif %}
+	{% if request.session.sexo %}
+		<li>
+			<i class="fa fa-venus-mars"></i>
+			<b>Sexo:</b> {{request.session.sexo}}
+		</li>
+	{% else %}
+	<li>
+		<i class="fa fa-venus-mars"></i>
+		<b>Sexo:</b> Ambos
+	</li>
+	{% endif %}
+	{% if request.session.municipio %}
+		<li>
+			<i class="fa fa-map-marker"></i>
+			<b>Municipios:</b> {% for x in request.session.municipio %}{{x.nombre}}, {% endfor %}	
+		</li>
+	{% endif %}
+	{% if request.session.comunidad %}
+		<li>
+			<i class="fa fa-map-marker"></i>
+			<b>Comunidades:</b> {% for x in request.session.comunidad %}{{x.nombre}}, {% endfor %}
+		</li>
+	{% endif %}
+	{% if request.session.edad_inicio and request.session.edad_fin %}
+		<li>
+			<i class="fa fa-arrows-h"></i>
+			<b>Rango de edad:</b> {{request.session.edad_inicio}} - {{request.session.edad_fin}}
+		</li>
+
+	{% endif %}
+		<li>
+			<i class="fa fa-filter"></i>
+			<b>Resultado:</b> {{conteo_encuesta}}
+		</li>
+		
+		
+	
+</ul>
+
+
+
+
+

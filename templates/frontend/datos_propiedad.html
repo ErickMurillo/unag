@@ -1,0 +1,632 @@
+{% extends "frontend/base.html" %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+    <div class="page-wrapper-middle">
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <!-- BEGIN PAGE HEAD-->
+                <div class="page-head">
+                    <div class="titulo-page">
+                        <div class="container">
+                            <!-- BEGIN PAGE TITLE -->
+                            <div class="page-title">
+                                <h1>Datos de la propiedad
+                                    <!-- <small>dashboard & statistics</small> -->
+                                </h1>
+                                
+                            </div>
+                            <!-- END PAGE TITLE -->
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar hidden-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadores.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <div class="page-toolbar visible-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadoresxm.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
+
+                        </div>
+                    </div>
+                    <div class="filtros">
+                        <div class="container">
+                                {% include "frontend/filtros.html" %}
+                        </div>
+                    </div>
+                        
+                    </div>
+                    <!-- END PAGE HEAD-->
+                    <!-- BEGIN PAGE CONTENT BODY -->
+                    <div class="page-content">
+                    	<div class="container">
+                    		<!-- BEGIN PAGE BREADCRUMBS -->
+                    		<ul class="page-breadcrumb breadcrumb">
+                    			<li>
+                    				<a href="/">Inicio</a>
+                    				<i class="fa fa-circle"></i>
+                    			</li>
+                                <li>
+                                    <a href="/consulta/">Consulta</a>
+                                    <i class="fa fa-circle"></i>
+                                </li>
+                                <li>
+                                    <span>Datos de la Propiedad</span>
+                                </li>
+                            </ul>
+                            <!-- END PAGE BREADCRUMBS -->
+                            <!-- BEGIN PAGE CONTENT INNER -->
+                            <div class="page-content-inner">
+                             <div class="mt-content-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Área de la finca (Mz)</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="areas_finca" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Tierras alquiladas que cultivan (Mz)</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="otras_areas_finca" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Propiedad legalizada</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="tenencia" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Tenencia de la propiedad</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="doc-propiedad" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Acceso al agua para consumo humano y uso en la finca</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="agua" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Acceso a Energía Eléctrica</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="energia" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Contratan mano de obra</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="mano_obra" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Infraestructura</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="infra" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="portlet box green">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-list"></i>Empleos
+                                                </div>
+                                                    <!-- <div class="tools">
+                                                        <a href="javascript:;" class="collapse"> </a>
+                                                        <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                                        <a href="javascript:;" class="reload"> </a>
+                                                        <a href="javascript:;" class="remove"> </a>
+                                                    </div> -->
+                                                    <div class="actions">
+                                                        <a class="btn btn-circle btn-icon-only btn-default" href="" onclick="exportarXLS('export'); return false;">
+                                                            <i class="icon-cloud-download"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body flip-scroll" id="export">
+                                                    <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Rubro</th>
+                                                                <th>Temporal Hombres</th>
+                                                                <th>Temporal Mujeres</th>
+                                                                <th>Permanente Hombres</th>
+                                                                <th>Permanente Mujeres</th>
+                                                                <th>Familiar Hombres</th>
+                                                                <th>Familiar Mujeres</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for obj in list_contratacion %}
+                                                            <tr>                                                    
+                                                                <td>{{obj.0}}</td>
+                                                                <td>{{obj.1}}</td>
+                                                                <td>{{obj.2}}</td>
+                                                                <td>{{obj.3}}</td>
+                                                                <td>{{obj.4}}</td>
+                                                                <td>{{obj.5}}</td>
+                                                                <td>{{obj.6}}</td>
+                                                            </tr>          
+                                                            {% endfor %}                
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END PAGE CONTENT INNER -->
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT BODY -->
+                    <!-- END CONTENT BODY -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    {% block extra_js %}
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script>
+        Highcharts.chart('areas_finca', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: 'Click en las áreas para ver conteo de repuestas de origen'
+            },
+
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.y}'
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+            },
+            series: [{
+                name: 'Áreas',
+                colorByPoint: true,
+                data: [
+                {% for k,v in areas_finca.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v.0}},
+                    drilldown: '{{k}}'
+                },
+                {% endfor %}
+                ]
+            }],
+            drilldown: {
+                series: [
+                {% for k,v in areas_finca.items %}
+                {
+                    name: '{{k}}',
+                    id: '{{k}}',
+                    data: [
+                    {% for x,y in v.1.items %}
+                    ['{{x}}', {{y}}],
+                    {% endfor %}
+                    ]
+                },
+                {% endfor %}
+                ]
+            }
+        });
+
+        Highcharts.chart('otras_areas_finca', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentajes',
+                colorByPoint: true,
+                data: [
+                {% for k,v in otras_areas_finca.items %}
+                {
+                    name: '{{k}} ({{v|default:"0"}} mz)',
+                    y: {{v|default:"0"}}
+                },
+                {% endfor %}]
+            }]
+        });
+
+
+        Highcharts.chart('tenencia', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentajes',
+                colorByPoint: true,
+                data: [
+                {% for k,v in tenencia.items %}
+                {
+                    name: '{{k}} ({{v|default:"0"}})',
+                    y: {{v|default:"0"}}
+                },
+                {% endfor %}]
+            }]
+        });
+
+        Highcharts.chart('doc-propiedad', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentajes',
+                colorByPoint: true,
+                data: [
+                {% for k,v in doc_propiedad.items %}
+                {
+                    name: '{{k}} ({{v|default:"0"}})',
+                    y: {{v|default:"0"}}
+                },
+                {% endfor %}]
+            }]
+        });
+
+        Highcharts.chart('agua', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'Frecuencia'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.1f}%'
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [
+
+                {% for k,v in acceso_agua.items %}
+                {
+                    name: '{{k}} ({{v.0|default:"0"}})',
+                    y: {{v.1|default:"0"}},
+                },
+                {% endfor %}
+                ]
+            }],
+
+        });
+
+        Highcharts.chart('energia', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentajes',
+                colorByPoint: true,
+                data: [
+                {% for k,v in energia.items %}
+                {
+                    name: '{{k}} ({{v|default:"0"}})',
+                    y: {{v|default:"0"}}
+                },
+                {% endfor %}]
+            }]
+        });
+
+        Highcharts.chart('mano_obra', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentajes',
+                colorByPoint: true,
+                data: [
+                {% for k,v in mano_obra.items %}
+                {
+                    name: '{{k}} ({{v|default:"0"}})',
+                    y: {{v|default:"0"}}
+                },
+                {% endfor %}]
+            }]
+        });
+
+        Highcharts.chart('infra', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentajes',
+                colorByPoint: true,
+                data: [
+                {% for k,v in infra.items %}
+                {
+                    name: '{{k}} ({{v|default:"0"}})',
+                    y: {{v|default:"0"}}
+                },
+                {% endfor %}]
+            }]
+        });
+    </script>
+    <script type="text/javascript">
+        $( ".hor-menu ul li" ).removeClass( "active" );
+        $( ".ind-link li" ).removeClass( "active" );
+        $( ".ind-link li.propiedad" ).addClass( "active" );
+        $( ".theme-colors li" ).removeClass( "active" );
+        $( ".theme-colors li.propiedad" ).addClass( "active" );
+    </script>
+    {% endblock extra_js %}
