@@ -88,6 +88,15 @@
                                                     <i class="icon-bar-chart font-dark hide"></i>
                                                     <span class="caption-subject font-green-steel bold uppercase">Áreas de los principales rubros</span>
                                                     <span class="caption-helper"></span>
+                                                    <form class="form-horizontal" action='.' method='GET'>
+                                                      <select name="departamento" class="form-control">
+                                                        <option value="all">Todos</option>
+                                                        {% for depto in deptos %}
+                                                            <option value="{{depto.id}}" {% if dep == depto.id %}selected="selected"{% endif %}>{{depto}}</option>
+                                                        {% endfor %}                                                       
+                                                      </select>
+                                                      <button type="submit" class="btn btn-success">Consultar</button>
+                                                    </form>
                                                 </div>
                                             
                                             </div>
@@ -106,7 +115,7 @@
                                                 <div class="tab-content">
                                                 {% for key in dic_anios.keys  %}
                                                     <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
-                                                        <div class="grafico-ind" id="container{{key}}" width='100%'></div>
+                                                        <div class="grafico-ind" id="container{{forloop.counter}}" width='100%'></div>
                                                     </div>
                                                 {% endfor %}
                                                 </div>
@@ -243,7 +252,7 @@
 
 <script type="text/javascript">
 {% for key,value in dic_anios.items %}
-    Highcharts.chart('container{{key}}', {
+    Highcharts.chart('container{{forloop.counter}}', {
     chart: {
         type: 'column'
     },
@@ -251,7 +260,7 @@
         text: ''
     },
     xAxis: {
-        categories: ['Áreas',]
+        categories: ['Areas']
     },
     yAxis: {
         title: {
@@ -271,12 +280,16 @@
         }
     },
     series: [
-    {% for k,v in value.0.items %}
+
+        {% for k,v in value.0.items %}
+    
         {
             name: '{{k}}',
             data: [{{v}},]
         },
-    {% endfor %}]
+        {% endfor %}
+        
+    ]
 });
 
 Highcharts.chart('quien_vende{{key}}', {

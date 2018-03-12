@@ -12,32 +12,68 @@ import collections
 # Create your views here.
 @login_required
 def index(request,template='frontend/index.html'):
+	RONDA_CHOICES = ((1,'I'),(2,'II'), (3,'III'), 
+					(4,'IV'),(5,'V')
+				)
+
 	#afiliados
 	total_afiliados = Afiliado.objects.all().distinct().count()
 	mujeres = Afiliado.objects.filter(sexo = 'Femenino').distinct().count()
 	hombres = Afiliado.objects.filter(sexo = 'Masculino').distinct().count()
 
-	#anios encuesta
+	#departamentos
+	muni = Encuesta.objects.order_by('afiliado__municipio').distinct().values_list('afiliado__municipio__id', flat=True)
+	deptos = Municipio.objects.filter(id = muni).values_list('departamento__id','departamento__nombre').distinct()
+
 	years = []
-	for en in Encuesta.objects.order_by('anio').values_list('anio', flat=True):
+	for en in Encuesta.objects.order_by('ronda').values_list('ronda', flat=True):
 		years.append(en)
 	anios = list(sorted(set(years)))
 
+	lista_ronda = []
+	for r in RONDA_CHOICES:
+		if r[0] in anios:
+			list_anios = []
+			for a in Encuesta.objects.filter(ronda = r[0]).values_list('anio', flat=True):
+				list_anios.append(a)
+
+			lista = list(sorted(set(list_anios)))
+			lista_ronda.append((r[0],r[1] + ' '+str(lista[0])+'-'+str(lista[-1])+''))
+
+	print lista_ronda
+
+
+	#-------------------------
 	dic_anios = {}
 	for anio in anios:
 		#areas
-		dic_areas = {}
-		for obj in Areas.objects.all():
-			areas = AreasFinca.objects.filter(areas = obj,encuesta__anio = anio).aggregate(total = Sum('mz'))['total']
-			if areas == None:
-				areas = 0
+		if request.GET.get('departamento'):
+			dep = request.GET['departamento']
+			dic_areas = {}
+			for obj in Areas.objects.all():
+				areas = AreasFinca.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				if areas == None:
+					areas = 0
 
-			otras_areas = OtrasTierras.objects.filter(areas = obj,encuesta__anio = anio).aggregate(total = Sum('mz'))['total']
-			if otras_areas == None:
-				otras_areas = 0
+				otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				if otras_areas == None:
+					otras_areas = 0
 
-			total = areas + otras_areas
-			dic_areas[obj] = total
+				total = areas + otras_areas
+				dic_areas[obj] = total
+		else:
+			dic_areas = {}
+			for obj in Areas.objects.all():
+				areas = AreasFinca.objects.filter(areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				if areas == None:
+					areas = 0
+
+				otras_areas = OtrasTierras.objects.filter(areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				if otras_areas == None:
+					otras_areas = 0
+
+				total = areas + otras_areas
+				dic_areas[obj] = total
 
 		#a quien vende prod
 		encuestados = Encuesta.objects.filter(anio = anio).distinct().count()
@@ -491,7 +527,7 @@ def _queryset_filtrado(request):
 	params = {}
 
 	if request.session['anio']:
-		params['anio'] = request.session['anio']
+		params['ronda'] = request.session['anio']
 
 	# if request.session['departamento']:
 	#     params['afiliado__departamento__in'] = request.session['departamento']
@@ -525,6 +561,13 @@ def consulta(request,template="frontend/consulta.html"):
 		mensaje = None
 		form = EncuestaForm(request.POST)
 		if form.is_valid():
+			#obtener label choice form
+			for val in form.fields['anio'].choices:
+				if int(val[0]) == int(form.cleaned_data['anio']):
+					request.session['ronda'] = val[1]
+					break
+			#---------
+
 			request.session['anio'] = form.cleaned_data['anio']
 			# request.session['departamento'] = form.cleaned_data['departamento']
 			request.session['municipio'] = form.cleaned_data['municipio']
@@ -546,6 +589,7 @@ def consulta(request,template="frontend/consulta.html"):
 		mensaje = "Existen alguno errores"
 		try:
 			del request.session['anio']
+			del request.session['ronda']
 			# del request.session['departamento']
 			del request.session['municipio']
 			del request.session['communidad']
