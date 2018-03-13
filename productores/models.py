@@ -236,7 +236,10 @@ class InventarioAnimales(models.Model):
         verbose_name_plural = 'Inventario de animales'
 
 PRODUCCION_CHOICES = (('Producción de huevos por mes','Producción de huevos por mes'),
-                    ('Producción de leche (litros por día)','Producción de leche (litros por día)'))
+                    ('Producción de leche (litros por día)','Producción de leche (litros por día)'),
+                    ('Producción de miel (kg/año)','Producción de miel (kg/año)'),
+                    ('Producción de carne (kg/año)','Producción de carne (kg/año)'),
+                    ('Producción de pez (kg/año)','Producción de pez (kg/año)'))
 
 QUIEN_VENDE_CHOICES = (('Intermediarios','Intermediarios'),('Estado','Estado'),
                         ('Mercado local','Mercado local'),('Otros','Otros'),('No vende','No vende'))
@@ -249,7 +252,7 @@ class ProduccionHuevosLeche(models.Model):
     quien_vende = models.CharField(max_length=20,choices=QUIEN_VENDE_CHOICES)
 
     class Meta:
-        verbose_name_plural = 'Producción de huevos y leche'
+        verbose_name_plural = 'Producción de carne, huevos, leche, miel y otros'
 
 CULTIVO_CHOICES = (('Cultivo de primera','Cultivo de primera'),('Cultivo de postrera','Cultivo de postrera'),
                     ('Cultivo de apante','Cultivo de apante'),('Cultivos permanentes (Frutales, Cítricos, …)','Cultivos permanentes (Frutales, Cítricos, …)'),

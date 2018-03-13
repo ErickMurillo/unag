@@ -1,4 +1,6 @@
 {% extends "frontend/base.html" %}
+{% load humanize %}
+
 {% block content %}                    
 <div class="page-wrapper-row full-height">
     <div class="page-wrapper-middle">
@@ -62,7 +64,7 @@
                                                         <div class="font-grey-mint font-sm"> Hombres </div>
                                                         <div class="uppercase font-hg theme-font">
                                                             <span aria-hidden="true" class="icon-user"></span>
-                                                            {{hombres}}
+                                                            {{hombres_total}}
                                                             
                                                         </div>
                                                     </div>
@@ -70,7 +72,7 @@
                                                         <div class="font-grey-mint font-sm"> Mujeres </div>
                                                         <div class="uppercase font-hg font-purple">
                                                             <span aria-hidden="true" class="icon-user-female"></span>
-                                                            {{mujeres}}
+                                                            {{mujeres_total}}
                                                         </div>
                                                     </div>
                                                     <div class="map">
@@ -92,7 +94,8 @@
                                                       <select name="departamento" class="form-control">
                                                         <option value="all">Todos</option>
                                                         {% for depto in deptos %}
-                                                            <option value="{{depto.id}}" {% if dep == depto.id %}selected="selected"{% endif %}>{{depto}}</option>
+                                                            <option value="{{depto.id}}" 
+                                                            {% if depto.id == dep %}selected="selected"{% endif %}>{{depto}}</option>
                                                         {% endfor %}                                                       
                                                       </select>
                                                       <button type="submit" class="btn btn-success">Consultar</button>
@@ -104,7 +107,7 @@
                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 {% for key in dic_anios.keys %}
                                                   <li class="nav-item {% if forloop.first %}active{% endif %}">
-                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}" role="tab">{{key}}</a>
+                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{forloop.counter}}" role="tab">{{key}}</a>
                                                   </li>
                                                 {% endfor %}
 
@@ -114,7 +117,7 @@
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                 {% for key in dic_anios.keys  %}
-                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}" role="tabpanel">
+                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{forloop.counter}}" role="tabpanel">
                                                         <div class="grafico-ind" id="container{{forloop.counter}}" width='100%'></div>
                                                     </div>
                                                 {% endfor %}
@@ -148,8 +151,18 @@
                                             <div class="portlet-title">
                                                 <div class="caption caption-md">
                                                     <i class="icon-bar-chart font-dark hide"></i>
-                                                    <span class="caption-subject font-green-steel bold uppercase">Destino de producción</span>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Principales rubros</span>
                                                     <span class="caption-helper"></span>
+                                                    <form class="form-horizontal" action='.' method='GET'>
+                                                      <select name="departamento-rubros" class="form-control">
+                                                        <option value="all">Todos</option>
+                                                        {% for depto in deptos %}
+                                                            <option value="{{depto.id}}" 
+                                                            {% if depto.id == dep2 %}selected="selected"{% endif %}>{{depto}}</option>
+                                                        {% endfor %}                                                       
+                                                      </select>
+                                                      <button type="submit" class="btn btn-success">Consultar</button>
+                                                    </form>
                                                 </div>
                                             
                                             </div>
@@ -157,7 +170,7 @@
                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 {% for key in dic_anios.keys %}
                                                   <li class="nav-item {% if forloop.first %}active{% endif %}">
-                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{key}}-vende" role="tab">{{key}}</a>
+                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{forloop.counter}}rubros" role="tab">{{key}}</a>
                                                   </li>
                                                 {% endfor %}
                                                   
@@ -166,8 +179,8 @@
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                 {% for key in dic_anios.keys  %}
-                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{key}}-vende" role="tabpanel">
-                                                        <div class="grafico-ind" id="quien_vende{{key}}" width='100%'></div>
+                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{forloop.counter}}" role="tabpanel">
+                                                        <div class="grafico-ind" id="rubros{{key}}" width='100%'></div>
                                                     </div>
                                                 {% endfor %}
                                                 </div>
@@ -251,60 +264,29 @@
 </script>
 
 <script type="text/javascript">
-{% for key,value in dic_anios.items %}
-    Highcharts.chart('container{{forloop.counter}}', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['Areas']
-    },
-    yAxis: {
-        title: {
-            text: 'Mz'
-        }
-    },
-    credits: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-                format: '{point.y:.1f}'
-            }
-        }
-    },
-    series: [
-
-        {% for k,v in value.0.items %}
-    
-        {
-            name: '{{k}}',
-            data: [{{v}},]
-        },
-        {% endfor %}
-        
-    ]
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: ','
+    }
 });
+{% for key,value in dic_anios.items %}
 
-Highcharts.chart('quien_vende{{key}}', {
+Highcharts.chart('container{{forloop.counter}}', {
     chart: {
         type: 'column'
     },
     title: {
         text: ''
+    },
+    subtitle: {
+        text: 'Click en las columnas para ver el detalle del sexo (%).'
     },
     xAxis: {
         type: 'category'
     },
     yAxis: {
         title: {
-            text: 'Frecuencia'
+            text: 'Mz'
         }
 
     },
@@ -316,30 +298,93 @@ Highcharts.chart('quien_vende{{key}}', {
             borderWidth: 0,
             dataLabels: {
                 enabled: true,
-                format: '{point.y}'
+                format: '{point.y:,.2f}'
             }
         }
     },
 
     tooltip: {
         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} productores </b> del total<br/>'
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.2f} mz</b> del total<br/>'
     },
 
-    series: [{
-        name: 'A  quién vende',
-        colorByPoint: true,
-        data: [
-
-        {% for k,v in value.1.items %}
+    "series": [
+        {
+            "name": "Áreas",
+            "colorByPoint": true,
+            "data": [
+            {% for k,v in value.0.items %}
             {
-            name: '{{k}}',
-            y: {{v|default:"0"}},
-        },
+                    "name": "{{k}} ({{v.1|intcomma}})",
+                    "y": {{v.0}},
+                    "drilldown": "{{k}}"
+            },
+                
+            {% endfor %}
+            ]
+        }
+    ],
+    "drilldown": {
+        "series": [
+        {% for k,v in value.0.items %}
+            {
+                "name": "{{k}}",
+                "id": "{{k}}",
+                "data": [
+                    [
+                        "Hombres",
+                        {{v.2}}
+                    ],
+                    [
+                        "Mujeres",
+                        {{v.3}}
+                    ],
+                ]
+            },
         {% endfor %}
         ]
-    }],
+        
+    }
+});
 
+Highcharts.chart('rubros{{forloop.counter}}', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['Áreas']
+    },
+    yAxis: {
+        title: {
+            text: 'Producción QQ'
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:,.2f}'
+            }
+        }
+    },
+    series: [
+
+        {% for k,v in value.1.items %}
+    
+        {
+            name: '{{k}} ({{v.0|intcomma}} mz)',
+            data: [{{v.1|floatformat:"2"}},],
+        },
+        {% endfor %}
+        
+    ]
 });
 {% endfor %}
 

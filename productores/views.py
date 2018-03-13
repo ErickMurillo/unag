@@ -18,8 +18,8 @@ def index(request,template='frontend/index.html'):
 
 	#afiliados
 	total_afiliados = Afiliado.objects.all().distinct().count()
-	mujeres = Afiliado.objects.filter(sexo = 'Femenino').distinct().count()
-	hombres = Afiliado.objects.filter(sexo = 'Masculino').distinct().count()
+	mujeres_total = Afiliado.objects.filter(sexo = 'Femenino').distinct().count()
+	hombres_total = Afiliado.objects.filter(sexo = 'Masculino').distinct().count()
 
 	#departamentos
 	muni = Encuesta.objects.order_by('afiliado__municipio').distinct().values_list('afiliado__municipio__id', flat=True)
@@ -38,54 +38,161 @@ def index(request,template='frontend/index.html'):
 				list_anios.append(a)
 
 			lista = list(sorted(set(list_anios)))
-			lista_ronda.append((r[0],r[1] + ' '+str(lista[0])+'-'+str(lista[-1])+''))
-
-	print lista_ronda
-
+			lista_ronda.append((r[0],'Ronda ' + r[1] + ' ('+str(lista[0])+'-'+str(lista[-1])+')'))
 
 	#-------------------------
-	dic_anios = {}
-	for anio in anios:
+	dic_anios = collections.OrderedDict()
+	for anio in lista_ronda:
 		#areas
-		if request.GET.get('departamento'):
-			dep = request.GET['departamento']
+		if request.GET.get('departamento') and request.GET.get('departamento') != 'all':
+			dep = int(request.GET['departamento'])
 			dic_areas = {}
 			for obj in Areas.objects.all():
-				areas = AreasFinca.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				areas = AreasFinca.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
 				if areas == None:
 					areas = 0
 
-				otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				conteo_prod = AreasFinca.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				l = []
+				for x in conteo_prod:
+					l.append(x.id)
+
+				otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
 				if otras_areas == None:
 					otras_areas = 0
 
+				conteo_prod2 = OtrasTierras.objects.filter(encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				l2 = []
+				for x in conteo_prod2:
+					l2.append(x.id)
+
+				#hombres
+				hombres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Masculino',encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				hombres_list = []
+				for x in hombres_areas:
+					hombres_list.append(x.id)
+
+				hombres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Masculino',encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				hombres_list2 = []
+				for x in hombres_otras_areas:
+					hombres_list2.append(x.id)
+
+				result_list_hombres = hombres_list + hombres_list2
+				result_list_hombres = list(sorted(set(result_list_hombres)))
+				hombres = len(result_list_hombres)
+
+				#mujeres
+				mujeres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0],encuesta__afiliado__municipio__departamento = dep).distinct('id')
+				mujeres_list = []
+				for x in mujeres_areas:
+					mujeres_list.append(x.id)
+
+				mujeres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0],encuesta__afiliado__municipio__departamento = dep).distinct('id')
+				mujeres_list2 = []
+				for x in mujeres_otras_areas:
+					mujeres_list2.append(x.id)
+
+				result_list_mujeres = mujeres_list + mujeres_list2
+				result_list_mujeres = list(sorted(set(result_list_mujeres)))
+
+				#totales				
+				result = l + l2
+				result = list(sorted(set(result)))
+				conteo = len(result)
+				hombres = saca_porcentajes(len(result_list_hombres),conteo,False)
+				mujeres = saca_porcentajes(len(result_list_mujeres),conteo,False)
+
 				total = areas + otras_areas
-				dic_areas[obj] = total
+				dic_areas[obj] = (total,conteo,hombres,mujeres)
 		else:
 			dic_areas = {}
 			for obj in Areas.objects.all():
-				areas = AreasFinca.objects.filter(areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				areas = AreasFinca.objects.filter(areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
 				if areas == None:
 					areas = 0
 
-				otras_areas = OtrasTierras.objects.filter(areas = obj,encuesta__ronda = anio).aggregate(total = Sum('mz'))['total']
+				conteo_prod = AreasFinca.objects.filter(areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				l = []
+				for x in conteo_prod:
+					l.append(x.id)
+
+				otras_areas = OtrasTierras.objects.filter(areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
 				if otras_areas == None:
 					otras_areas = 0
 
+				conteo_prod2 = OtrasTierras.objects.filter(areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				l2 = []
+				for x in conteo_prod2:
+					l2.append(x.id)
+
+				#hombres
+				hombres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				hombres_list = []
+				for x in hombres_areas:
+					hombres_list.append(x.id)
+
+				hombres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				hombres_list2 = []
+				for x in hombres_otras_areas:
+					hombres_list2.append(x.id)
+
+				result_list_hombres = hombres_list + hombres_list2
+				result_list_hombres = list(sorted(set(result_list_hombres)))
+
+				#mujeres
+				mujeres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				mujeres_list = []
+				for x in mujeres_areas:
+					mujeres_list.append(x.id)
+
+				mujeres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
+				mujeres_list2 = []
+				for x in mujeres_otras_areas:
+					mujeres_list2.append(x.id)
+
+				result_list_mujeres = mujeres_list + mujeres_list2
+				result_list_mujeres = list(sorted(set(result_list_mujeres)))
+
+				#totales				
+				result = l + l2
+				result = list(sorted(set(result)))
+				conteo = len(result)
+				hombres = saca_porcentajes(len(result_list_hombres),conteo,False)
+				mujeres = saca_porcentajes(len(result_list_mujeres),conteo,False)
+
 				total = areas + otras_areas
-				dic_areas[obj] = total
+				dic_areas[obj] = (total,conteo,hombres,mujeres)
 
-		#a quien vende prod
-		encuestados = Encuesta.objects.filter(anio = anio).distinct().count()
-		quien_vende = {}
-		for obj in PRODUCCION_CHOICES2:
-			conteo = Agricultura.objects.filter(quien_vende = obj[0],encuesta__anio = anio).count()
-			if conteo == None:
-				conteo = 0
+		#rubros por departamento
+		if request.GET.get('departamento-rubros') and request.GET.get('departamento-rubros') != 'all':
+			dep2 = int(request.GET['departamento-rubros'])			
+			dict = {}
+			for obj in Cultivo.objects.all():
+				sumatoria = Agricultura.objects.filter(rubro = obj,encuesta__ronda = anio[0],
+											encuesta__afiliado__municipio__departamento = dep2).aggregate(
+										area = Sum('area_sembrada'),produccion = Sum('produccion_total'))
+				dict[obj] = (sumatoria['area'],sumatoria['produccion'])
 
-			quien_vende[obj[0]] = conteo
+			d = collections.Counter(dict)
+			d.most_common()
+			rubros = {}
+			for k, v in d.most_common(5):
+				rubros[k] = v[0],v[1]
+		else:
+			dict = {}
+			for obj in Cultivo.objects.all():
+				sumatoria = Agricultura.objects.filter(rubro = obj,encuesta__ronda = anio[0]).aggregate(
+										area = Sum('area_sembrada'),produccion = Sum('produccion_total'))
+				dict[obj] = (sumatoria['area'],sumatoria['produccion'])
 
-		dic_anios[anio] = dic_areas,quien_vende
+			d = collections.Counter(dict)
+			d.most_common()
+			rubros = {}
+			for k, v in d.most_common(5):
+				rubros[k] = v[0],v[1]
+
+
+		dic_anios[anio[0]] = dic_areas,rubros
 
 	#miembros por dpsto y municipio
 	list_deptos = []

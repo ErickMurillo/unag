@@ -29,7 +29,7 @@ def ronda():
                 list_anios.append(anios)
 
             lista = list(sorted(set(list_anios)))
-            lista_ronda.append((r[0],r[1] + ' '+str(lista[0])+'-'+str(lista[-1])+''))
+            lista_ronda.append((r[0],r[1] + ' ('+str(lista[0])+'-'+str(lista[-1])+')'))
      
     return lista_ronda
 
