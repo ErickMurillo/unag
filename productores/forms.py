@@ -70,3 +70,22 @@ class DatosFamiliaresForm(forms.ModelForm):
         widgets = {
             'meses': forms.SelectMultiple()
             }
+
+def departamentos():
+    foo = Encuesta.objects.order_by('afiliado__municipio__departamento').distinct().values_list('afiliado__municipio__departamento__id', flat=True)
+    return Departamento.objects.filter(id__in=foo)
+
+SI_NO_CHOICES = (('','------'),('Si','Si'), ('No','No'))
+ESTADO_CIVIL_CHOICES = (('','------'),('Soltero(a)','Soltero(a)'), ('Casado(a)','Casado(a)'), ('Acompañado(a)','Acompañado(a)'),
+                        ('Viudo(a)','Viudo(a)'), ('Divorciado(a)','Divorciado(a)'))
+
+class AfiliadoForm2(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(AfiliadoForm2, self).__init__(*args, **kwargs)
+        self.fields['departamento'] = forms.ModelMultipleChoiceField(queryset=departamentos(),required=False,label='Departamentos')
+        self.fields['municipio'] = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all(),required=False,label='Municipios')
+        self.fields['comunidad'] = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(),required=False,label='Comunidades')
+        self.fields['sexo'] = forms.ChoiceField(choices=SEXO_CHOICES,required=False,label='Sexo',widget=forms.RadioSelect)
+        self.fields['estado_civil'] = forms.ChoiceField(choices=ESTADO_CIVIL_CHOICES,label='Estado civil')
+        self.fields['escolaridad'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Escolaridad')
+        self.fields['internet'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Acceso a internet')

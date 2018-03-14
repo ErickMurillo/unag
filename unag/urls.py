@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^afiliados/produccion/$', afiliados_produccion, name='afiliados-produccion'),
     url(r'^afiliados/organizacion/$', afiliados_organizacion, name='afiliados-organizacion'),
     url(r'^consulta/$', consulta, name='consulta'),
+    url(r'^ajax/municipios/$', get_munis, name='get-munis'),
     url(r'^ajax/comunidades/$', get_comunies, name='get-comunies'),
     url(r'^datos-generales/$', datos_generales, name='datos-generales'),
     url(r'^datos-familiares/$', datos_familiares, name='datos-familiares'),
@@ -43,5 +44,6 @@ urlpatterns = [
     url(r'^organizacion/$', organizacion, name='organizacion'),
     url(r'^select2/', include('django_select2.urls')),
     url(r'^xls/$', save_as_xls, name='xls'),
+    url(r'^consulta-datos-afiliado/$', consulta_afiliado, name='consulta-datos-afiliado'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

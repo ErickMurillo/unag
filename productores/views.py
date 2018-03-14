@@ -67,43 +67,34 @@ def index(request,template='frontend/index.html'):
 					l2.append(x.id)
 
 				#hombres
-				hombres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Masculino',encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).distinct('id')
-				hombres_list = []
-				for x in hombres_areas:
-					hombres_list.append(x.id)
+				hombres_areas = AreasFinca.objects.filter(encuesta__afiliado__municipio__departamento = dep,encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if hombres_areas == None:
+					hombres_areas = 0
 
-				hombres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Masculino',encuesta__afiliado__municipio__departamento = dep,areas = obj,encuesta__ronda = anio[0]).distinct('id')
-				hombres_list2 = []
-				for x in hombres_otras_areas:
-					hombres_list2.append(x.id)
-
-				result_list_hombres = hombres_list + hombres_list2
-				result_list_hombres = list(sorted(set(result_list_hombres)))
-				hombres = len(result_list_hombres)
+				hombres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__municipio__departamento = dep,encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if hombres_otras_areas == None:
+					hombres_otras_areas = 0
 
 				#mujeres
-				mujeres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0],encuesta__afiliado__municipio__departamento = dep).distinct('id')
-				mujeres_list = []
-				for x in mujeres_areas:
-					mujeres_list.append(x.id)
+				mujeres_areas = AreasFinca.objects.filter(encuesta__afiliado__municipio__departamento = dep,encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if mujeres_areas == None:
+					mujeres_areas = 0
 
-				mujeres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0],encuesta__afiliado__municipio__departamento = dep).distinct('id')
-				mujeres_list2 = []
-				for x in mujeres_otras_areas:
-					mujeres_list2.append(x.id)
-
-				result_list_mujeres = mujeres_list + mujeres_list2
-				result_list_mujeres = list(sorted(set(result_list_mujeres)))
+				mujeres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__municipio__departamento = dep,encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if mujeres_otras_areas == None:
+					mujeres_otras_areas = 0
 
 				#totales				
 				result = l + l2
 				result = list(sorted(set(result)))
 				conteo = len(result)
-				hombres = saca_porcentajes(len(result_list_hombres),conteo,False)
-				mujeres = saca_porcentajes(len(result_list_mujeres),conteo,False)
-
+				
 				total = areas + otras_areas
-				dic_areas[obj] = (total,conteo,hombres,mujeres)
+				hombres = hombres_areas + hombres_otras_areas
+				porcentaje_h = saca_porcentajes(hombres,total,False)
+				mujeres = mujeres_areas + mujeres_otras_areas
+				porcentaje_m = saca_porcentajes(mujeres,total,False)
+				dic_areas[obj] = (total,conteo,hombres,porcentaje_h,mujeres,porcentaje_m)
 		else:
 			dic_areas = {}
 			for obj in Areas.objects.all():
@@ -126,42 +117,35 @@ def index(request,template='frontend/index.html'):
 					l2.append(x.id)
 
 				#hombres
-				hombres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
-				hombres_list = []
-				for x in hombres_areas:
-					hombres_list.append(x.id)
+				hombres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if hombres_areas == None:
+					hombres_areas = 0
 
-				hombres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
-				hombres_list2 = []
-				for x in hombres_otras_areas:
-					hombres_list2.append(x.id)
-
-				result_list_hombres = hombres_list + hombres_list2
-				result_list_hombres = list(sorted(set(result_list_hombres)))
+				hombres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Masculino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if hombres_otras_areas == None:
+					hombres_otras_areas = 0
 
 				#mujeres
-				mujeres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
-				mujeres_list = []
-				for x in mujeres_areas:
-					mujeres_list.append(x.id)
+				mujeres_areas = AreasFinca.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if mujeres_areas == None:
+					mujeres_areas = 0
 
-				mujeres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).distinct('id')
-				mujeres_list2 = []
-				for x in mujeres_otras_areas:
-					mujeres_list2.append(x.id)
-
-				result_list_mujeres = mujeres_list + mujeres_list2
-				result_list_mujeres = list(sorted(set(result_list_mujeres)))
+				mujeres_otras_areas = OtrasTierras.objects.filter(encuesta__afiliado__sexo = 'Femenino',areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
+				if mujeres_otras_areas == None:
+					mujeres_otras_areas = 0
 
 				#totales				
 				result = l + l2
 				result = list(sorted(set(result)))
 				conteo = len(result)
-				hombres = saca_porcentajes(len(result_list_hombres),conteo,False)
-				mujeres = saca_porcentajes(len(result_list_mujeres),conteo,False)
-
+				
 				total = areas + otras_areas
-				dic_areas[obj] = (total,conteo,hombres,mujeres)
+				hombres = hombres_areas + hombres_otras_areas
+				porcentaje_h = saca_porcentajes(hombres,total,False)
+				mujeres = mujeres_areas + mujeres_otras_areas
+				porcentaje_m = saca_porcentajes(mujeres,total,False)
+
+				dic_areas[obj] = (total,conteo,hombres,porcentaje_h,mujeres,porcentaje_m)
 
 		#rubros por departamento
 		if request.GET.get('departamento-rubros') and request.GET.get('departamento-rubros') != 'all':
@@ -1130,7 +1114,122 @@ def organizacion(request,template='frontend/organizacion.html'):
 
 	return render(request, template, locals())
 
+#consulta afiliado
+
+def _queryset_filtrado_datos_afiliado(request):
+	params = {}
+
+	if request.session['departamento']:
+	    params['afiliado__municipio__departamento__in'] = request.session['departamento']
+
+	if request.session['municipio']:
+		params['afiliado__municipio__in'] = request.session['municipio']
+
+	if request.session['comunidad']:
+		params['afiliado__comunidad__in'] = request.session['comunidad']
+
+	if request.session['sexo']:
+		params['afiliado__sexo'] = request.session['sexo']
+
+	if request.session['estado_civil']:
+		params['datosgenerales__estado_civil'] = request.session['estado_civil']
+
+	if request.session['escolaridad']:
+		params['escolaridad__escolaridad'] = request.session['escolaridad']
+
+	if request.session['internet']:
+		params['datosgenerales__acceso_internet'] = request.session['internet']
+
+	unvalid_keys = []
+	for key in params:
+		if not params[key]:
+			unvalid_keys.append(key)
+
+	for key in unvalid_keys:
+		del params[key]
+
+	return Encuesta.objects.filter(**params)
+
+@login_required
+def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html'):
+	if request.method == 'POST':
+		mensaje = None
+		form = AfiliadoForm2(request.POST)
+		if form.is_valid():
+			request.session['departamento'] = form.cleaned_data['departamento']
+			request.session['municipio'] = form.cleaned_data['municipio']
+			request.session['comunidad'] = form.cleaned_data['comunidad']
+			request.session['sexo'] = form.cleaned_data['sexo']
+			request.session['estado_civil'] = form.cleaned_data['estado_civil']
+			request.session['escolaridad'] = form.cleaned_data['escolaridad']
+			request.session['internet'] = form.cleaned_data['internet']
+
+			mensaje = "Todas las variables estan correctamente :)"
+			request.session['activo'] = True
+			centinela = 1
+
+			filtro = _queryset_filtrado_datos_afiliado(request)
+			conteo = filtro.count()
+			lista = []
+			for obj in filtro:
+				estado_civil = Encuesta.objects.filter(afiliado = obj.id).values_list('datosgenerales__estado_civil', flat=True).last()
+				escolaridad = Escolaridad.objects.filter(encuesta__afiliado = obj.id).values_list('escolaridad',flat=True).last()
+				if escolaridad == 'Si':
+					escolaridad = Escolaridad.objects.filter(encuesta__afiliado = obj.id).values_list('nivel_escolaridad',flat=True).last()
+
+				acceso_internet = Encuesta.objects.filter(afiliado = obj.id).values_list('datosgenerales__acceso_internet', flat=True).last()
+
+				lista.append((obj.afiliado.nombre,obj.afiliado.fecha_nacimiento,str(obj.afiliado.edad) + ' años',
+								obj.afiliado.cedula,obj.afiliado.get_sexo_display(),estado_civil,
+								obj.afiliado.anio_ingreso,escolaridad,obj.afiliado.lugar_nacimiento,
+								obj.afiliado.municipio.departamento.nombre,obj.afiliado.municipio.nombre,
+								obj.afiliado.comunidad.nombre,
+								str(obj.afiliado.numero_celular) + ' ' + str(obj.afiliado.get_tipo_celular_display()),
+								acceso_internet))
+		else:
+			centinela = 0
+
+	else:
+		form = AfiliadoForm2()
+		mensaje = "Existen alguno errores"
+		try:
+			del request.session['departamento']
+			del request.session['municipio']
+			del request.session['communidad']
+			del request.session['sexo']
+			del request.session['estado_civil']
+			del request.session['escolaridad']
+			del request.session['internet']
+		except:
+			pass
+
+	return render(request, template, locals())
+
 #ajax
+def get_munis(request):
+    ids = request.GET.get('ids', '')
+    dicc = {}
+    resultado = []
+    if ids:
+        lista = ids.split(',')
+        for id in lista:
+            try:
+                depto = Departamento.objects.get(id = id)
+                municipios = Municipio.objects.filter(departamento__id = depto.id).order_by('nombre')
+                lista1 = []
+                for municipio in municipios:
+                    muni = {}
+                    muni['id'] = municipio.id
+                    muni['nombre'] = municipio.nombre
+                    lista1.append(muni)
+                    dicc[depto.nombre] = lista1
+            except:
+                pass
+
+    resultado.append(dicc)
+
+    return HttpResponse(simplejson.dumps(resultado), content_type = 'application/json')
+
 def get_comunies(request):
 	ids = request.GET.get('ids', '')
 	dicc = {}
