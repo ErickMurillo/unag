@@ -1,0 +1,110 @@
+
+<ul class="list-inline list-filtro">
+	{% if request.session.sexo %}
+		<li>
+			<i class="fa fa-venus-mars"></i>
+			<b>Sexo:</b> {{request.session.sexo}}
+		</li>
+	{% else %}
+	<li>
+		<i class="fa fa-venus-mars"></i>
+		<b>Sexo:</b> Ambos
+	</li>
+	{% endif %}
+	{% if request.session.estado_civil %}
+      <li>
+          <i class="fa fa-heart"></i>
+          <b>Estado civil:</b> {{request.session.estado_civil}}
+      </li>
+  	{% endif %}
+  	{% if request.session.escolaridad %}
+	      <li>
+	          <i class="fa fa-graduation-cap"></i>
+	          <b>Escolaridad:</b> {{request.session.escolaridad}}
+	      </li>
+	  {% endif %}
+	   {% if request.session.internet %}
+	      <li>
+	          <i class="fa fa-internet-explorer"></i>
+	          <b>Acceso a internet:</b> {{request.session.internet}}
+	      </li>
+	  {% endif %}
+
+	  {% if request.session.cotiza %}
+	      <li>
+	          <i class="fa fa-dollar-sign"></i>
+	          <b>Cotiza:</b> {{request.session.cotiza}}
+	      </li>
+	  {% endif %}
+
+	  {% if request.session.cooperativa %}
+	      <li>
+	          <i class="fa fa-building"></i>
+	          <b>Miembro cooperativa:</b> {{request.session.cooperativa}}
+	      </li>
+	  {% endif %}
+
+	  {% if request.session.proyecto %}
+	      <li>
+	          <i class="fa fa-book"></i>
+	          <b>Beneficiado por otros proyectos:</b> {{request.session.proyecto}}
+	      </li>
+	  {% endif %}
+
+	  {% if request.session.credito %}
+	      <li>
+	          <i class="fa fa-dollar-sign"></i>
+	          <b>Recibe crédito:</b> {{request.session.credito}}
+	      </li>
+	  {% endif %}
+
+	  {% if request.session.problemas_productor %}
+	      <li>
+	          <i class="fa fa-exclamation-circle"></i>
+	          <b>Problemas más sentidos:</b> {% for x in request.session.problemas_productor %}{{x.nombre}}, {% endfor %}   
+	      </li>
+	  {% endif %}
+
+	  {% if request.session.cambio_climatico %}
+	      <li>
+	          <i class="fa fa-leaf"></i>
+	          <b>Acciones cambio climático:</b> {% for x in request.session.cambio_climatico %}{{x.nombre}}, {% endfor %}   
+	      </li>
+	  {% endif %}
+
+	  {% if request.session.motivos %}
+	      <li>
+	          <i class="fa fa-handshake"></i>
+	          <b>Motivos de Afiliación:</b> {% for x in request.session.motivos %}{{x.nombre}}, {% endfor %}   
+	      </li>
+	  {% endif %}
+	  {% if request.session.departamento %}
+		<li>
+			<i class="fa fa-map-marker"></i>
+			<b>Departamentos:</b> {% for x in request.session.departamento %}{{x.nombre}}, {% endfor %}	
+		</li>
+	{% endif %}
+	{% if request.session.municipio %}
+		<li>
+			<i class="fa fa-map-marker"></i>
+			<b>Municipios:</b> {% for x in request.session.municipio %}{{x.nombre}}, {% endfor %}	
+		</li>
+	{% endif %}
+	{% if request.session.comunidad %}
+		<li>
+			<i class="fa fa-map-marker"></i>
+			<b>Comunidades:</b> {% for x in request.session.comunidad %}{{x.nombre}}, {% endfor %}
+		</li>
+	{% endif %}
+	{% if request.session.edad_inicio and request.session.edad_fin %}
+		<li>
+			<i class="fa fa-arrows-h"></i>
+			<b>Rango de edad:</b> {{request.session.edad_inicio}} - {{request.session.edad_fin}}
+		</li>
+
+	{% endif %}
+		<li>
+			<i class="fa fa-filter"></i>
+			<b>Resultado:</b> {{conteo}}
+		</li>
+</ul>

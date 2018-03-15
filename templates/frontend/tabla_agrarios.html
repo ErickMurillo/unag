@@ -1,0 +1,158 @@
+{% extends "frontend/base.html" %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+    <div class="page-wrapper-middle">
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <!-- BEGIN PAGE HEAD-->
+                <div class="page-head">
+                    <div class="titulo-page">
+                        <div class="container">
+                            <!-- BEGIN PAGE TITLE -->
+                            <div class="page-title">
+                                <h1>Datos de los Agrarios
+                                    <!-- <small>dashboard & statistics</small> -->
+                                </h1>
+                                
+                            </div>
+                            <!-- END PAGE TITLE -->
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar hidden-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <div class="page-toolbar visible-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
+
+                        </div>
+                    </div>
+                    <div class="filtros">
+                        <div class="container">
+                                {% include "frontend/filtros_tablas.html" %}
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- END PAGE HEAD-->
+                <!-- BEGIN PAGE CONTENT BODY -->
+                <div class="page-content">
+                    <div class="container">
+                        <!-- BEGIN PAGE BREADCRUMBS -->
+                        <ul class="page-breadcrumb breadcrumb">
+                            <li>
+                                <a href="/">Inicio</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <a href="/consulta/">Consulta</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span>Datos agrarios</span>
+                            </li>
+                        </ul>
+                        <!-- END PAGE BREADCRUMBS -->
+                        <!-- BEGIN PAGE CONTENT INNER -->
+                        <div class="page-content-inner">
+                            <div class="mt-content-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <a href="" onclick="exportarXLS('export'); return false;">
+                                            Descargar
+                                        </a>
+                                        <div class="table-responsive" id="export">
+                                            <table class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%" id="tabla">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Cotiza</th>
+                                                        <th>Donde cotiza</th>
+                                                        <th>Desde cuando</th>
+                                                        <th>Cuanto</th>
+                                                        <th>Frecuencia</th>
+                                                        <th>Miembro de Cooperativa</th>
+                                                        <th>Cooperativa(s)</th>
+                                                        <th>Beneficiado por otros proyectos</th>
+                                                        <th>Proyectos</th>
+                                                        <th>Recibe crédito</th>
+                                                        <th>De quién</th>
+                                                        <th>Formas que recibe el credito</th>
+                                                        <th>Problemas más sentidos</th>
+                                                        <th>Acciones cambio climático</th>
+                                                        <th>Motivos de Afiliación a la UNAG</th>
+                                                    </tr>   
+                                                </thead>
+                                                <tbody>
+                                                    {% for obj in lista %}
+                                                        <tr>
+                                                            <td>{{obj.0}}</td>
+                                                            <td>{{obj.1|default:'---'}}</td>
+                                                            <td>{{obj.2|default:'---'}}</td>
+                                                            <td>{{obj.3|default:'---'}}</td>
+                                                            <td>{{obj.4|default:'---'}}</td>
+                                                            <td>{{obj.5|default:'---'}}</td>
+                                                            <td>{{obj.6|default:'---'}}</td>
+                                                            <td>{% for x in obj.7 %}
+                                                                {{x|default:'---'}}{% if not forloop.last %},{% endif %}
+                                                            {% endfor %}</td>
+                                                            <td>{{obj.8|default:'---'}}</td>
+                                                            <td>{% for x in obj.9 %}
+                                                                {{x|default:'---'}}{% if not forloop.last %},{% endif %}
+                                                            {% endfor %}</td>
+                                                            <td>{{obj.10|default:'---'}}</td>
+                                                            <td>{{obj.11|default:'---'}}</td>
+                                                            <td>{% for x in obj.12 %}
+                                                                {{x|default:'---'}}{% if not forloop.last %},{% endif %}
+                                                            {% endfor %}</td>
+                                                            <td>{% for x in obj.13 %}
+                                                                {{x|default:'---'}}{% if not forloop.last %},{% endif %}
+                                                            {% endfor %}</td>
+                                                            <td>{% for x in obj.14 %}
+                                                                {{x|default:'---'}}{% if not forloop.last %},{% endif %}
+                                                            {% endfor %}</td>
+                                                            <td>{% for x in obj.15 %}
+                                                                {{x|default:'---'}}{% if not forloop.last %},{% endif %}
+                                                            {% endfor %}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PAGE CONTENT INNER -->
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT BODY -->
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $( ".hor-menu ul li" ).removeClass( "active" );
+    $( ".ind-link li" ).removeClass( "active" );
+    $( ".ind-link li.familia" ).addClass( "active" );
+    $( ".theme-colors li" ).removeClass( "active" );
+    $( ".theme-colors li.familia" ).addClass( "active" );
+</script>
+{% endblock extra_js %}
+

@@ -1140,6 +1140,27 @@ def _queryset_filtrado_datos_afiliado(request):
 	if request.session['internet']:
 		params['datosgenerales__acceso_internet'] = request.session['internet']
 
+	if request.session['cotiza']:
+		params['cotizacion__respuesta'] = request.session['cotiza']
+
+	if request.session['cooperativa']:
+		params['miembrocooperativa__respuesta'] = request.session['cooperativa']
+
+	if request.session['proyecto']:
+		params['beneficiadoproyecto__respuesta'] = request.session['proyecto']
+
+	if request.session['credito']:
+		params['credito__respuesta'] = request.session['credito']
+
+	if request.session['problemas_productor']:
+		params['cotizacionorganizacion__problemas_productor__in'] = request.session['problemas_productor']
+
+	if request.session['cambio_climatico']:
+		params['cotizacionorganizacion__acciones_cambio_climatico__in'] = request.session['cambio_climatico']
+
+	if request.session['motivos']:
+		params['cotizacionorganizacion__afiliacion_unag__in'] = request.session['motivos']
+
 	unvalid_keys = []
 	for key in params:
 		if not params[key]:
@@ -1163,29 +1184,19 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			request.session['estado_civil'] = form.cleaned_data['estado_civil']
 			request.session['escolaridad'] = form.cleaned_data['escolaridad']
 			request.session['internet'] = form.cleaned_data['internet']
+			request.session['cotiza'] = form.cleaned_data['cotiza']
+			request.session['cooperativa'] = form.cleaned_data['cooperativa']
+			request.session['proyecto'] = form.cleaned_data['proyecto']
+			request.session['credito'] = form.cleaned_data['credito']
+			request.session['problemas_productor'] = form.cleaned_data['problemas_productor']
+			request.session['cambio_climatico'] = form.cleaned_data['cambio_climatico']
+			request.session['motivos'] = form.cleaned_data['motivos']
 
 			mensaje = "Todas las variables estan correctamente :)"
 			request.session['activo'] = True
 			centinela = 1
-
 			filtro = _queryset_filtrado_datos_afiliado(request)
 			conteo = filtro.count()
-			lista = []
-			for obj in filtro:
-				estado_civil = Encuesta.objects.filter(afiliado = obj.id).values_list('datosgenerales__estado_civil', flat=True).last()
-				escolaridad = Escolaridad.objects.filter(encuesta__afiliado = obj.id).values_list('escolaridad',flat=True).last()
-				if escolaridad == 'Si':
-					escolaridad = Escolaridad.objects.filter(encuesta__afiliado = obj.id).values_list('nivel_escolaridad',flat=True).last()
-
-				acceso_internet = Encuesta.objects.filter(afiliado = obj.id).values_list('datosgenerales__acceso_internet', flat=True).last()
-
-				lista.append((obj.afiliado.nombre,obj.afiliado.fecha_nacimiento,str(obj.afiliado.edad) + ' años',
-								obj.afiliado.cedula,obj.afiliado.get_sexo_display(),estado_civil,
-								obj.afiliado.anio_ingreso,escolaridad,obj.afiliado.lugar_nacimiento,
-								obj.afiliado.municipio.departamento.nombre,obj.afiliado.municipio.nombre,
-								obj.afiliado.comunidad.nombre,
-								str(obj.afiliado.numero_celular) + ' ' + str(obj.afiliado.get_tipo_celular_display()),
-								acceso_internet))
 		else:
 			centinela = 0
 
@@ -1200,11 +1211,72 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			del request.session['estado_civil']
 			del request.session['escolaridad']
 			del request.session['internet']
+			del request.session['cotiza']
+			del request.session['cooperativa']
+			del request.session['proyecto']
+			del request.session['credito']
+			del request.session['problemas_productor']
+			del request.session['cambio_climatico']
+			del request.session['motivos']
 		except:
 			pass
 
 	return render(request, template, locals())
 
+def tabla_afiliados(request,template='frontend/tabla_afiliados.html'):
+	filtro = _queryset_filtrado_datos_afiliado(request)
+	conteo = filtro.count()
+	lista = []
+	for obj in filtro:
+		estado_civil = DatosGenerales.objects.filter(encuesta__id = obj.id).values_list('estado_civil',flat=True).last()
+		escolaridad = Escolaridad.objects.filter(encuesta__id = obj.id).values_list('escolaridad',flat=True).last()
+		if escolaridad == 'Si':
+			escolaridad = Escolaridad.objects.filter(encuesta__id = obj.id).values_list('nivel_escolaridad',flat=True).last()
+
+		acceso_internet = Encuesta.objects.filter(id = obj.id).values_list('datosgenerales__acceso_internet', flat=True).last()
+
+		lista.append((obj.afiliado.nombre,obj.afiliado.fecha_nacimiento,str(obj.afiliado.edad) + ' años',
+						obj.afiliado.cedula,obj.afiliado.get_sexo_display(),estado_civil,
+						obj.afiliado.anio_ingreso,escolaridad,obj.afiliado.lugar_nacimiento,
+						obj.afiliado.municipio.departamento.nombre,obj.afiliado.municipio.nombre,
+						obj.afiliado.comunidad.nombre,
+						str(obj.afiliado.numero_celular) + ' ' + str(obj.afiliado.get_tipo_celular_display()),
+						acceso_internet))
+
+	return render(request, template, locals())
+
+def tabla_agrarios(request,template='frontend/tabla_agrarios.html'):
+	filtro = _queryset_filtrado_datos_afiliado(request)
+	conteo = filtro.count()
+	lista = []
+	for obj in filtro:
+		cotiza = Cotizacion.objects.filter(encuesta__id = obj.id).values_list('respuesta',flat=True).last()
+		donde_cotiza = RespuestaSiCotiza.objects.filter(encuesta__id = obj.id).values_list('donde_cotiza__nombre',flat=True).last()
+		desde_cuando = RespuestaSiCotiza.objects.filter(encuesta__id = obj.id).values_list('desde_cuando',flat=True).last()
+		cuanto_cotiza = RespuestaSiCotiza.objects.filter(encuesta__id = obj.id).values_list('cuanto_cotiza',flat=True).last()
+		frecuencia = RespuestaSiCotiza.objects.filter(encuesta__id = obj.id).values_list('frecuencia',flat=True).last()
+
+		miembro = MiembroCooperativa.objects.filter(encuesta__id = obj.id).values_list('respuesta',flat=True).last()
+		cooperativa = MiembroCooperativa.objects.filter(encuesta__id = obj.id).values_list('cooperativa__nombre',flat=True)
+
+		beneficiado = BeneficiadoProyecto.objects.filter(encuesta__id = obj.id).values_list('respuesta',flat=True).last()
+		proyectos = BeneficiadoProyecto.objects.filter(encuesta__id = obj.id).values_list('proyectos__nombre',flat=True)
+
+		credito = Credito.objects.filter(encuesta__id = obj.id).values_list('respuesta',flat=True).last()
+		recibe_credito = Credito.objects.filter(encuesta__id = obj.id).values_list('proyectos__nombre',flat=True).last()
+		formas_credito = Credito.objects.filter(encuesta__id = obj.id).values_list('formas_recibe_credito__nombre',flat=True)
+
+		problemas = CotizacionOrganizacion.objects.filter(encuesta__id = obj.id).values_list('problemas_productor__nombre',flat=True)
+		acciones = CotizacionOrganizacion.objects.filter(encuesta__id = obj.id).values_list('acciones_cambio_climatico__nombre',flat=True)
+		motivos = CotizacionOrganizacion.objects.filter(encuesta__id = obj.id).values_list('afiliacion_unag__nombre',flat=True)
+
+		lista.append((obj.afiliado,	
+						cotiza,donde_cotiza,desde_cuando,cuanto_cotiza,frecuencia,
+						miembro,cooperativa,beneficiado,proyectos,
+						credito,recibe_credito,formas_credito,
+						problemas,acciones,motivos))
+
+	return render(request, template, locals())
 #ajax
 def get_munis(request):
     ids = request.GET.get('ids', '')
