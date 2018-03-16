@@ -176,12 +176,26 @@ class AreasFinca(models.Model):
     class Meta:
         verbose_name_plural = 'Área de la Finca (Mzs)'
 
+class Acuicola(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    posse = models.CharField(max_length=20,choices=SI_NO_CHOICES,verbose_name='Posee')
+
+    class Meta:
+        verbose_name_plural = 'Posee áreas acuícolas'
+
+class Apicola(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    colmenas = models.IntegerField(verbose_name='Número de colmenas')
+
+    class Meta:
+        verbose_name_plural = 'Apícolas'
+
 class TierrasAlquiladas(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     posse = models.CharField(max_length=20,choices=SI_NO_CHOICES,verbose_name='Posee')
 
     class Meta:
-        verbose_name_plural = 'Posse tierras alquiladas'
+        verbose_name_plural = 'Posee tierras alquiladas'
 
 class OtrasTierras(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -190,6 +204,7 @@ class OtrasTierras(models.Model):
 
     class Meta:
         verbose_name_plural = 'Áreas alquiladas de la finca (Mzs)'
+
 
 class OrigenPropiedad(models.Model):
     encuesta = models.ForeignKey(Encuesta)

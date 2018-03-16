@@ -10,6 +10,8 @@ from django.db.models import Avg, Sum, F, Count,Q
 import collections
 
 # Create your views here.
+SI_NO_CHOICES = (('Si','Si'), ('No','No'))
+
 @login_required
 def index(request,template='frontend/index.html'):
 	RONDA_CHOICES = ((1,'I'),(2,'II'), (3,'III'), 
@@ -175,10 +177,9 @@ def index(request,template='frontend/index.html'):
 			for k, v in d.most_common(5):
 				rubros[k] = v[0],v[1]
 
+		dic_anios[anio[0],anio[1]] = dic_areas,rubros
 
-		dic_anios[anio[0]] = dic_areas,rubros
-
-	#miembros por dpsto y municipio
+	#miembros por depto y municipio
 	list_deptos = []
 	list_muni = []
 	for obj in Afiliado.objects.all():
@@ -620,8 +621,8 @@ def _queryset_filtrado(request):
 	if request.session['anio']:
 		params['ronda'] = request.session['anio']
 
-	# if request.session['departamento']:
-	#     params['afiliado__departamento__in'] = request.session['departamento']
+	if request.session['departamento']:
+	    params['afiliado__departamento__in'] = request.session['departamento']
 
 	if request.session['municipio']:
 		params['afiliado__municipio__in'] = request.session['municipio']
@@ -660,7 +661,7 @@ def consulta(request,template="frontend/consulta.html"):
 			#---------
 
 			request.session['anio'] = form.cleaned_data['anio']
-			# request.session['departamento'] = form.cleaned_data['departamento']
+			request.session['departamento'] = form.cleaned_data['departamento']
 			request.session['municipio'] = form.cleaned_data['municipio']
 			request.session['comunidad'] = form.cleaned_data['comunidad']
 			request.session['sexo'] = form.cleaned_data['sexo']
@@ -681,7 +682,7 @@ def consulta(request,template="frontend/consulta.html"):
 		try:
 			del request.session['anio']
 			del request.session['ronda']
-			# del request.session['departamento']
+			del request.session['departamento']
 			del request.session['municipio']
 			del request.session['communidad']
 			del request.session['sexo']
@@ -849,6 +850,18 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 	filtro = _queryset_filtrado(request)
 	encuestados = filtro.count()
 	conteo_encuesta = filtro.count()
+
+	dict = {}
+	for obj in Cultivo.objects.all():
+		sumatoria = filtro.filter(agricultura__rubro = obj).aggregate(
+								area = Sum('agricultura__area_sembrada'),produccion = Sum('agricultura__produccion_total'))
+		dict[obj] = (sumatoria['area'],sumatoria['produccion'])
+
+	d = collections.Counter(dict)
+	d.most_common()
+	rubros = {}
+	for k, v in d.most_common(5):
+		rubros[k] = v[0],v[1]
 
 	#inventario animales
 	animales = []

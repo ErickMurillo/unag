@@ -1,4 +1,5 @@
 {% extends "frontend/base.html" %}
+{% load humanize %}
 
 {% block content %}
 <div class="page-wrapper-row full-height">
@@ -67,6 +68,20 @@
 						<div class="page-content-inner">
 							<div class="mt-content-body">
 								<div class="row">
+									<div class="col-md-6 col-sm-12">
+										<div class="portlet light">
+										<div class="portlet-title">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-bar-chart font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Principales rubros</span>
+                                                    <span class="caption-helper"></span>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="grafico-ind" id="container" width='100%'></div>
+                                         </div>
+										
+									</div>
 									<div class="col-md-12 col-sm-12">
 										<div class="portlet box green">
 											<div class="portlet-title">
@@ -476,5 +491,45 @@
 	$( ".ind-link li.produccion" ).addClass( "active" );
 	$( ".theme-colors li" ).removeClass( "active" );
 	$( ".theme-colors li.produccion" ).addClass( "active" );
+
+	Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['Áreas',]
+    },
+    yAxis: {
+        title: {
+            text: 'Producción QQ'
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:,.2f}'
+            }
+        }
+    },
+    series: [
+
+        {% for k,v in rubros.items %}
+    
+        {
+            name: '{{k}} ({{v.0|intcomma}} mz)',
+            data: [{{v.1|floatformat:"2"}},],
+        },
+        {% endfor %}
+        
+    ],
+});
 </script>
 {% endblock extra_js %}

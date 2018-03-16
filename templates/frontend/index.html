@@ -107,7 +107,7 @@
                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 {% for key in dic_anios.keys %}
                                                   <li class="nav-item {% if forloop.first %}active{% endif %}">
-                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{forloop.counter}}" role="tab">{{key}}</a>
+                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#grafica{{key.0}}" role="tab">{{key.1}}</a>
                                                   </li>
                                                 {% endfor %}
 
@@ -117,8 +117,8 @@
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                 {% for key in dic_anios.keys  %}
-                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{forloop.counter}}" role="tabpanel">
-                                                        <div class="grafico-ind" id="container{{forloop.counter}}" width='100%'></div>
+                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="grafica{{key.0}}" role="tabpanel">
+                                                        <div class="grafico-ind" id="container{{key.0}}" width='100%'></div>
                                                     </div>
                                                 {% endfor %}
                                                 </div>
@@ -170,7 +170,7 @@
                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 {% for key in dic_anios.keys %}
                                                   <li class="nav-item {% if forloop.first %}active{% endif %}">
-                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#{{forloop.counter}}rubros" role="tab">{{key}}</a>
+                                                    <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab" href="#rubros{{key.0}}" role="tab">{{key.1}}</a>
                                                   </li>
                                                 {% endfor %}
                                                   
@@ -179,8 +179,8 @@
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                 {% for key in dic_anios.keys  %}
-                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="{{forloop.counter}}" role="tabpanel">
-                                                        <div class="grafico-ind" id="rubros{{key}}" width='100%'></div>
+                                                    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="rubros{{key.0}}" role="tabpanel">
+                                                        <div class="grafico-ind" id="container-2{{key.0}}" width='100%'></div>
                                                     </div>
                                                 {% endfor %}
                                                 </div>
@@ -271,7 +271,7 @@ Highcharts.setOptions({
 });
 {% for key,value in dic_anios.items %}
 
-Highcharts.chart('container{{forloop.counter}}', {
+Highcharts.chart('container{{key.0}}', {
     chart: {
         type: 'column'
     },
@@ -339,15 +339,15 @@ Highcharts.chart('container{{forloop.counter}}', {
                         "Mujeres ({{v.5}}%)",
                         {{v.4}}
                     ],
-                ]
+                ],
             },
         {% endfor %}
-        ]
+        ],
         
     }
 });
 
-Highcharts.chart('rubros{{forloop.counter}}', {
+Highcharts.chart('container-2{{key.0}}', {
     chart: {
         type: 'column'
     },
@@ -355,7 +355,7 @@ Highcharts.chart('rubros{{forloop.counter}}', {
         text: ''
     },
     xAxis: {
-        categories: ['Áreas']
+        categories: ['Áreas',]
     },
     yAxis: {
         title: {
@@ -384,7 +384,7 @@ Highcharts.chart('rubros{{forloop.counter}}', {
         },
         {% endfor %}
         
-    ]
+    ],
 });
 {% endfor %}
 

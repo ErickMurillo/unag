@@ -5,6 +5,13 @@
 {% endblock extra_head %}
 
 {% block content %}
+<style type="text/css">
+.dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+</style>
     <div class="page-wrapper-row full-height">
                 <div class="page-wrapper-middle">
                     <!-- BEGIN CONTAINER -->
@@ -77,6 +84,12 @@
                                                                                         <i class="fa fa-venus-mars"></i>
                                                                                         <b>Sexo:</b> Ambos
                                                                                     </li>
+                                                                                    {% endif %}
+                                                                                    {% if request.session.departamento %}
+                                                                                        <li>
+                                                                                            <i class="fa fa-map-marker"></i>
+                                                                                            <b>Municipios:</b> {% for x in request.session.departamento %}{{x.nombre}}, {% endfor %}   
+                                                                                        </li>
                                                                                     {% endif %}
                                                                                     {% if request.session.municipio %}
                                                                                         <li>
@@ -192,14 +205,23 @@
                                                                             </div>
                                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                                 <div class="form-group">
+                                                                                    <label class="col-md-4 control-label">Departamento</label>
+                                                                                    <div class="col-md-8">
+                                                                                        {{form.departamento}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+
+                                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                                                <div class="form-group">
                                                                                     <label class="col-md-4 control-label">Municipio</label>
                                                                                     <div class="col-md-8">
                                                                                         {{form.municipio}}
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
                                                                             
                                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                                 <div class="form-group">
@@ -209,6 +231,9 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            
+                                                                        </div>
+                                                                        <div class="row">
                                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                                 <div class="form-group">
                                                                                     <label class="col-md-4 control-label">Sexo</label>
@@ -220,9 +245,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                             
                                                                                 <div class="form-group">
                                                                                     <label class="col-md-2 control-label">Rango edad</label>
@@ -290,6 +313,31 @@ $(document).ready(function() {
     
     $( "#id_sexo li label" ).append( "<span></span>" );
     
+    $("#id_departamento").addClass("form-control").multiselect({
+            buttonWidth: '100%',
+            includeSelectAllOption: true,
+            selectAllText: "Seleccionar todos",
+            buttonText: function(options, select) {
+              if (options.length === 0) {
+                return "Sin selección ...";
+              }
+              else if (options.length > 3) {
+                return "Varias opciones seleccionadas!";
+              }
+              else {
+                var labels = [];
+                options.each(function() {
+                  if ($(this).attr('label') !== undefined) {
+                    labels.push($(this).attr('label'));
+                  }
+                  else {
+                    labels.push($(this).html());
+                  }
+                });
+                return labels.join(', ') + '';
+              }
+            }
+          });
 
     $("#id_municipio").addClass("form-control").multiselect({
       buttonWidth: '100%',
@@ -343,7 +391,35 @@ $(document).ready(function() {
       }
     });
 
+    $("#id_municipio").multiselect('disable');
     $("#id_comunidad").multiselect('disable');
+
+    var foo1 = [];
+  $(document).on('change','#id_departamento',function(){
+    $('#id_departamento :selected').each(function(i, selected){
+      foo1[i] = $(selected).val();
+      $('#id_municipio').multiselect('rebuild');
+    });
+    $.getJSON('/ajax/municipios/?ids='+foo1.join(","), function(data){
+      $('#id_municipio').html('');
+      $('#id_municipio').multiselect('enable');
+      $("#id_municipio").multiselect('refresh');
+      var comunidad = $('#id_municipio');
+      if(data){
+        $.each(data, function(i, item){
+
+          $.each(item, function(j, item2){
+            var group = $('<optgroup></optgroup>').attr('label', j);
+            $.each(item2, function(k, item3){
+              group.append($('<option></option>').val(item3.id).html(item3.nombre));
+            });
+            group.appendTo(comunidad);
+            $('#id_municipio').multiselect('rebuild');
+          });
+        });
+      }
+    });
+  });
 
     var foo = [];
     $(document).on('change','#id_municipio',function(){

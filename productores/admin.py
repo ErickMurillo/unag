@@ -47,6 +47,16 @@ class AreasFincaInline(admin.TabularInline):
     model = AreasFinca
     extra = 1
 
+class AcuicolaInline(admin.TabularInline):
+    model = Acuicola
+    max_num = 1
+    can_delete = False
+
+class ApicolaInline(admin.TabularInline):
+    model = Apicola
+    max_num = 1
+    can_delete = False
+
 class TierrasAlquiladasInline(admin.TabularInline):
     model = TierrasAlquiladas
     max_num = 1
@@ -173,7 +183,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,
                 PersonasDependenInline,FamiliaEmigraInline,
-                DatosFamiliaresInline,AreasFincaInline,FormaTenenciaInline,DocumentoPropiedadInline,
+                DatosFamiliaresInline,AreasFincaInline,AcuicolaInline,ApicolaInline,FormaTenenciaInline,DocumentoPropiedadInline,
                 TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
