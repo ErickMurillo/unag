@@ -622,7 +622,7 @@ def _queryset_filtrado(request):
 		params['ronda'] = request.session['anio']
 
 	if request.session['departamento']:
-	    params['afiliado__departamento__in'] = request.session['departamento']
+	    params['afiliado__municipio__departamento__in'] = request.session['departamento']
 
 	if request.session['municipio']:
 		params['afiliado__municipio__in'] = request.session['municipio']

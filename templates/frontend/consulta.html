@@ -88,7 +88,7 @@
                                                                                     {% if request.session.departamento %}
                                                                                         <li>
                                                                                             <i class="fa fa-map-marker"></i>
-                                                                                            <b>Municipios:</b> {% for x in request.session.departamento %}{{x.nombre}}, {% endfor %}   
+                                                                                            <b>Departamentos:</b> {% for x in request.session.departamento %}{{x.nombre}}, {% endfor %}   
                                                                                         </li>
                                                                                     {% endif %}
                                                                                     {% if request.session.municipio %}
