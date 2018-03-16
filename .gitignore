@@ -75,3 +75,4 @@ CACHE
 media/
 *.styl
 *.pyc
+.sass-cache/
