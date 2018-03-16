@@ -230,6 +230,9 @@
 .table{
 	margin-bottom: 0px;
 }
+.portlet>.portlet-body form{
+	margin-bottom: 10px;
+}
 @media (max-width: 991px){
 	.page-header .page-header-menu .hor-menu .navbar-nav{
 		margin-bottom: 5px !important;

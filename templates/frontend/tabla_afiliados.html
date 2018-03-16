@@ -20,20 +20,6 @@
                                 
                             </div>
                             <!-- END PAGE TITLE -->
-                            <!-- BEGIN PAGE TOOLBAR -->
-                            <div class="page-toolbar hidden-xs">
-                                <!-- BEGIN THEME PANEL -->
-                                
-                                <!-- END THEME PANEL -->
-
-                            </div>
-                            <div class="page-toolbar visible-xs">
-                                <!-- BEGIN THEME PANEL -->
-                                
-                                <!-- END THEME PANEL -->
-
-                            </div>
-                            <!-- END PAGE TOOLBAR -->
 
                         </div>
                     </div>
@@ -68,49 +54,58 @@
                             <div class="mt-content-body">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
-                                        <a href="" onclick="exportarXLS('export'); return false;">
-                                            Descargar
-                                        </a>
-                                        <div class="table-responsive" id="export">
-                                            <table class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%" id="tabla">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Nombre</th>
-                                                        <th>Fecha de nacimiento</th>
-                                                        <th>Cédula</th>
-                                                        <th>Sexo</th>
-                                                        <th>Estado civil</th>
-                                                        <th>Ingreso UNAG</th>
-                                                        <th>Escolaridad</th>
-                                                        <th>Lugar de Nacimiento</th>
-                                                        <th>Departamento</th>
-                                                        <th>Municipio</th>
-                                                        <th>Comunidad</th>
-                                                        <th>Teléfono</th>
-                                                        <th>Acceso a internet</th>
-                                                    </tr>   
-                                                </thead>
-                                                <tbody>
-                                                    {% for obj in lista %}
+                                        <div class="portlet box green">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-list"></i>Datos afiliafos
+                                                </div>
+                                                <div class="actions">
+                                                    <a class="btn btn-circle btn-icon-only btn-default" href="" onclick="exportarXLS('export'); return false;">
+                                                        <i class="icon-cloud-download"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body flip-scroll table-responsive" id="export">
+                                                <table class="table table-bordered table-striped table-condensed flip-conten" cellspacing="0" width="100%">
+                                                    <thead>
                                                         <tr>
-                                                            <td>{{obj.0}}</td>
-                                                            <td>{{obj.1}} ({{obj.2}})</td>
-                                                            <td>{{obj.3}}</td>
-                                                            <td>{{obj.4}}</td>
-                                                            <td>{{obj.5}}</td>
-                                                            <td>{{obj.6|default:'---'}}</td>
-                                                            <td>{{obj.7|default:'---'}}</td>
-                                                            <td>{{obj.8}}</td>
-                                                            <td>{{obj.9}}</td>
-                                                            <td>{{obj.10}}</td>
-                                                            <td>{{obj.11|default:'---'}}</td>
-                                                            <td>{{obj.12|default:'---'}}</td>
-                                                            <td>{{obj.13|default:'---'}}</td>
-                                                         
-                                                        </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                            </table>
+                                                            <th>Nombre</th>
+                                                            <th>Fecha de nacimiento</th>
+                                                            <th>Cédula</th>
+                                                            <th>Sexo</th>
+                                                            <th>Estado civil</th>
+                                                            <th>Ingreso UNAG</th>
+                                                            <th>Escolaridad</th>
+                                                            <th>Lugar de Nacimiento</th>
+                                                            <th>Departamento</th>
+                                                            <th>Municipio</th>
+                                                            <th>Comunidad</th>
+                                                            <th>Teléfono</th>
+                                                            <th>Acceso a internet</th>
+                                                        </tr>   
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for obj in lista %}
+                                                            <tr>
+                                                                <td>{{obj.0}}</td>
+                                                                <td>{{obj.1}} ({{obj.2}})</td>
+                                                                <td>{{obj.3}}</td>
+                                                                <td>{{obj.4}}</td>
+                                                                <td>{{obj.5}}</td>
+                                                                <td>{{obj.6|default:'---'}}</td>
+                                                                <td>{{obj.7|default:'---'}}</td>
+                                                                <td>{{obj.8}}</td>
+                                                                <td>{{obj.9}}</td>
+                                                                <td>{{obj.10}}</td>
+                                                                <td>{{obj.11|default:'---'}}</td>
+                                                                <td>{{obj.12|default:'---'}}</td>
+                                                                <td>{{obj.13|default:'---'}}</td>
+                                                             
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -132,10 +127,7 @@
 {% block extra_js %}
 <script type="text/javascript">
     $( ".hor-menu ul li" ).removeClass( "active" );
-    $( ".ind-link li" ).removeClass( "active" );
-    $( ".ind-link li.familia" ).addClass( "active" );
-    $( ".theme-colors li" ).removeClass( "active" );
-    $( ".theme-colors li.familia" ).addClass( "active" );
+    $( ".hor-menu ul li.consulta-afiliado" ).addClass( "active" );
 </script>
 {% endblock extra_js %}
 
