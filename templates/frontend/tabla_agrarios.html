@@ -14,7 +14,7 @@
                         <div class="container">
                             <!-- BEGIN PAGE TITLE -->
                             <div class="page-title">
-                                <h1>Datos de los Agrarios
+                                <h1>Datos Cotización y Organización
                                     <!-- <small>dashboard & statistics</small> -->
                                 </h1>
                                 
@@ -23,13 +23,13 @@
                             <!-- BEGIN PAGE TOOLBAR -->
                             <div class="page-toolbar hidden-xs">
                                 <!-- BEGIN THEME PANEL -->
-                                
+                                {% include "frontend/indicadores_tablas.html" %}
                                 <!-- END THEME PANEL -->
 
                             </div>
                             <div class="page-toolbar visible-xs">
                                 <!-- BEGIN THEME PANEL -->
-                                
+                                 {% include "frontend/indicadores_tablasxm.html" %}
                                 <!-- END THEME PANEL -->
 
                             </div>
@@ -55,11 +55,11 @@
                                 <i class="fa fa-circle"></i>
                             </li>
                             <li>
-                                <a href="/consulta/">Consulta</a>
+                                <a href="/consulta-datos-afiliado/">Consulta datos afiliados</a>
                                 <i class="fa fa-circle"></i>
                             </li>
                             <li>
-                                <span>Datos agrarios</span>
+                                <span>Tabla #2 (Cotización y Organización)</span>
                             </li>
                         </ul>
                         <!-- END PAGE BREADCRUMBS -->
@@ -80,7 +80,7 @@
                                                 </div>
                                             </div>
                                             <div class="portlet-body flip-scroll table-responsive" id="export">
-                                                <table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+                                                <table class="table table-fixed table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
                                                     <thead>
                                                         <tr>
                                                             <th>Nombre</th>

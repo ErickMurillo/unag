@@ -14,11 +14,25 @@
                         <div class="container">
                             <!-- BEGIN PAGE TITLE -->
                             <div class="page-title">
-                                <h1>Datos de los Afiliados
+                                <h1>Datos generales de los Afiliados
                                     <!-- <small>dashboard & statistics</small> -->
                                 </h1>
                                 
                             </div>
+                            <!-- BEGIN PAGE TOOLBAR -->
+                            <div class="page-toolbar hidden-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadores_tablas.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <div class="page-toolbar visible-xs">
+                                <!-- BEGIN THEME PANEL -->
+                                {% include "frontend/indicadores_tablasxm.html" %}
+                                <!-- END THEME PANEL -->
+
+                            </div>
+                            <!-- END PAGE TOOLBAR -->
                             <!-- END PAGE TITLE -->
 
                         </div>
@@ -41,11 +55,11 @@
                                 <i class="fa fa-circle"></i>
                             </li>
                             <li>
-                                <a href="/consulta/">Consulta</a>
+                                <a href="/consulta-datos-afiliado/">Consulta datos afiliados</a>
                                 <i class="fa fa-circle"></i>
                             </li>
                             <li>
-                                <span>Datos afiliafos</span>
+                                <span>Tabla #1 (Datos generales)</span>
                             </li>
                         </ul>
                         <!-- END PAGE BREADCRUMBS -->

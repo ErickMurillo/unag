@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^select2/', include('django_select2.urls')),
     url(r'^xls/$', save_as_xls, name='xls'),
     url(r'^consulta-datos-afiliado/$', consulta_afiliado, name='consulta-datos-afiliado'),
-    url(r'^tabla-datos-afiliado/$', tabla_afiliados, name='tabla-datos-afiliado'),
-    url(r'^tabla-datos-agrarios/$', tabla_agrarios, name='tabla-datos-agrarios'),
+    url(r'^tabla-datos-generales/$', tabla_afiliados, name='tabla-datos-afiliado'),
+    url(r'^tabla-datos-cotizacion-organizacion/$', tabla_agrarios, name='tabla-datos-cotizacion-organizacion'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
