@@ -181,7 +181,7 @@ class Acuicola(models.Model):
     posse = models.CharField(max_length=20,choices=SI_NO_CHOICES,verbose_name='Posee')
 
     class Meta:
-        verbose_name_plural = 'Posee áreas acuícolas'
+        verbose_name_plural = 'Piscicultura/Acuícolas'
 
 class Apicola(models.Model):
     encuesta = models.ForeignKey(Encuesta)

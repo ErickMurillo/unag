@@ -101,49 +101,56 @@
 
                                                                                     {% if request.session.cotiza %}
                                                                                         <li>
-                                                                                            <i class="fa fa-internet-explorer"></i>
+                                                                                            <i class="fa fa-dollar-sign"></i>
                                                                                             <b>Cotiza:</b> {{request.session.cotiza}}
                                                                                         </li>
                                                                                     {% endif %}
 
                                                                                     {% if request.session.cooperativa %}
                                                                                         <li>
-                                                                                            <i class="fa fa-internet-explorer"></i>
+                                                                                            <i class="fa fa-building"></i>
                                                                                             <b>Miembro cooperativa:</b> {{request.session.cooperativa}}
+                                                                                        </li>
+                                                                                    {% endif %}
+
+                                                                                      {% if request.session.cooperativas %}
+                                                                                        <li>
+                                                                                            <i class="fa fa-building"></i>
+                                                                                            <b>Cooperativas:</b> {% for x in request.session.cooperativas %}{{x.nombre}}, {% endfor %} 
                                                                                         </li>
                                                                                     {% endif %}
 
                                                                                     {% if request.session.proyecto %}
                                                                                         <li>
-                                                                                            <i class="fa fa-internet-explorer"></i>
+                                                                                            <i class="fa fa-book"></i>
                                                                                             <b>Beneficiado por otros proyectos:</b> {{request.session.proyecto}}
                                                                                         </li>
                                                                                     {% endif %}
 
                                                                                     {% if request.session.credito %}
                                                                                         <li>
-                                                                                            <i class="fa fa-internet-explorer"></i>
+                                                                                            <i class="fa fa-dollar-sign"></i>
                                                                                             <b>Recibe crédito:</b> {{request.session.credito}}
                                                                                         </li>
                                                                                     {% endif %}
 
                                                                                     {% if request.session.problemas_productor %}
                                                                                         <li>
-                                                                                            <i class="fa fa-map-marker"></i>
+                                                                                            <i class="fa fa-exclamation-circle"></i>
                                                                                             <b>Problemas más sentidos:</b> {% for x in request.session.problemas_productor %}{{x.nombre}}, {% endfor %}   
                                                                                         </li>
                                                                                     {% endif %}
 
                                                                                     {% if request.session.cambio_climatico %}
                                                                                         <li>
-                                                                                            <i class="fa fa-map-marker"></i>
+                                                                                            <i class="fa fa-leaf"></i>
                                                                                             <b>Acciones cambio climático:</b> {% for x in request.session.cambio_climatico %}{{x.nombre}}, {% endfor %}   
                                                                                         </li>
                                                                                     {% endif %}
 
                                                                                     {% if request.session.motivos %}
                                                                                         <li>
-                                                                                            <i class="fa fa-map-marker"></i>
+                                                                                            <i class="fa fa-handshake"></i>
                                                                                             <b>Motivos de Afiliación:</b> {% for x in request.session.motivos %}{{x.nombre}}, {% endfor %}   
                                                                                         </li>
                                                                                     {% endif %}
@@ -353,6 +360,20 @@
                                                                                 </div>
                                                                             
                                                                             </div>
+                                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                                                <div class="form-group">
+                                                                                    <label class="col-md-4 control-label">Cooperativas</label>
+                                                                                    <div class="col-md-8">
+                                                                                        <div class="mt-radio-inline">
+                                                                                            {{form.cooperativas}}
+                                                                                        </div>
+                                                                                
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                    </div>
+                                                                    <div class="row">
                                                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                             
                                                                                <div class="form-group">
@@ -366,8 +387,6 @@
                                                                                 </div>
                                                                             
                                                                             </div>
-                                                                    </div>
-                                                                    <div class="row">
                                                                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                             
                                                                                <div class="form-group">
@@ -381,7 +400,11 @@
                                                                                 </div>
                                                                             
                                                                             </div>
-                                                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                                       
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                             
                                                                                <div class="form-group">
                                                                                     <label class="col-md-4 control-label">Problemas más sentidos</label>
@@ -394,9 +417,6 @@
                                                                                 </div>
                                                                             
                                                                             </div>
-                                                                    </div>
-
-                                                                    <div class="row">
                                                                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                             
                                                                                <div class="form-group">
@@ -410,6 +430,9 @@
                                                                                 </div>
                                                                             
                                                                             </div>
+                                                                        
+                                                                    </div>
+                                                                    <div class="row">
                                                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                                             
                                                                                <div class="form-group">
@@ -570,6 +593,32 @@ $(document).ready(function() {
       }
     });
 
+    $("#id_cooperativas").addClass("form-control").multiselect({
+      buttonWidth: '100%',
+      includeSelectAllOption: true,
+      selectAllText: "Seleccionar todos",
+      buttonText: function(options, select) {
+        if (options.length === 0) {
+          return "Sin selección ...";
+        }
+        else if (options.length > 3) {
+          return "Varias opciones seleccionadas!";
+        }
+        else {
+          var labels = [];
+          options.each(function() {
+            if ($(this).attr('label') !== undefined) {
+              labels.push($(this).attr('label'));
+            }
+            else {
+              labels.push($(this).html());
+            }
+          });
+          return labels.join(', ') + '';
+        }
+      }
+    });
+
     $("#id_cambio_climatico").addClass("form-control").multiselect({
       buttonWidth: '100%',
       includeSelectAllOption: true,
@@ -622,9 +671,19 @@ $(document).ready(function() {
       }
     });
 
-
+    $("#id_cooperativas").multiselect('disable');
     $("#id_municipio").multiselect('disable');
     $("#id_comunidad").multiselect('disable');
+
+    $(document).on('change','#id_cooperativa',function(){
+        var x = $('#id_cooperativa').val();
+        if(x == 'Si'){
+            $("#id_cooperativas").multiselect('enable');
+        }else{
+           $("#id_cooperativas").multiselect('disable');
+           $("#id_cooperativas").multiselect('refresh'); 
+        }
+    });
 
      var foo1 = [];
     $(document).on('change','#id_departamento',function(){

@@ -108,6 +108,43 @@
                                             <div class="portlet-title tabbable-line">
                                                 <div class="caption">
                                                     <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Piscicultura/Acuícolas</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="pisci" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Colmenas</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <h5>Total {{total_colmenas|default:'0'}}</h5>
+                                                    <h5>Promedio por productor {{prom_colmenas|default:'0'}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
                                                     <span class="caption-subject font-green-steel bold uppercase">Propiedad legalizada</span>
                                                 </div>
                                             </div>
@@ -444,6 +481,46 @@
                 colorByPoint: true,
                 data: [
                 {% for k,v in doc_propiedad.items %}
+                {
+                    name: '{{k}} ({{v|default:"0"}})',
+                    y: {{v|default:"0"}}
+                },
+                {% endfor %}]
+            }]
+        });
+
+        Highcharts.chart('pisci', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Porcentajes',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pisci.items %}
                 {
                     name: '{{k}} ({{v|default:"0"}})',
                     y: {{v|default:"0"}}

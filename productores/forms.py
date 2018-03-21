@@ -91,6 +91,7 @@ class AfiliadoForm2(forms.Form):
         self.fields['internet'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Acceso a internet',required=False)
         self.fields['cotiza'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Cotiza',required=False)
         self.fields['cooperativa'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Miembro cooperativa',required=False)
+        self.fields['cooperativas'] = forms.ModelMultipleChoiceField(queryset=Cooperativa.objects.all(),required=False,label='Cooperativas')
         self.fields['proyecto'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Beneficiado por otros proyectos',required=False)
         self.fields['credito'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Crédito',required=False)
         self.fields['problemas_productor'] = forms.ModelMultipleChoiceField(queryset=ProblemasProductor.objects.all(),label='Problemas más sentidos',required=False)

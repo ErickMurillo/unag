@@ -44,6 +44,13 @@
 	      </li>
 	  {% endif %}
 
+	  {% if request.session.cooperativas %}
+	      <li>
+	          <i class="fa fa-building"></i>
+	          <b>Cooperativas:</b> {% for x in request.session.cooperativas %}{{x.nombre}}, {% endfor %}   
+	      </li>
+	  {% endif %}
+
 	  {% if request.session.proyecto %}
 	      <li>
 	          <i class="fa fa-book"></i>

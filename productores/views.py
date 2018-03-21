@@ -370,6 +370,8 @@ def afiliados_propiedad(request,template="frontend/afiliados_propiedad.html"):
 		agua = SistemaAgua.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('sistema__nombre',flat=True)
 		energia = EnergiaElectrica.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('respuesta',flat=True)
 		mano_obra = ManoObra.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('mano_obra',flat=True)
+		pisci = Acuicola.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('posse',flat=True)
+		colmenas = Apicola.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('colmenas',flat=True)
 
 		tabla_empleo = []
 		empleo = TablaEmpleo.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id)
@@ -389,7 +391,7 @@ def afiliados_propiedad(request,template="frontend/afiliados_propiedad.html"):
 
 		infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('tipo__nombre',flat=True)
 
-		years[anio] = (areas,otras,legalizada,documento,agua,energia,mano_obra,tabla_empleo,infraestructura)
+		years[anio] = (areas,otras,legalizada,documento,agua,energia,mano_obra,tabla_empleo,infraestructura,pisci,colmenas)
 
 	return render(request, template, locals())
 
@@ -843,6 +845,16 @@ def datos_propiedad(request,template='frontend/datos_propiedad.html'):
 		conteo = filtro.filter(infraestructura__tipo = obj.id).count()
 		infra[obj] = conteo
 
+	# piscicultura
+	pisci = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(acuicola__posse = obj[0]).count()
+		pisci[obj[1]] = conteo
+
+	#colmenas
+	total_colmenas = filtro.aggregate(total = Sum('apicola__colmenas'))['total']
+	prom_colmenas = filtro.aggregate(total = Avg('apicola__colmenas'))['total']
+
 	return render(request, template, locals())
 
 @login_required
@@ -1073,9 +1085,10 @@ def organizacion(request,template='frontend/organizacion.html'):
 
 	#cooperativas
 	list_cooperativas = {}
+	conteo_encu_coop = filtro.filter(miembrocooperativa__respuesta = 'Si',miembrocooperativa__cooperativa__isnull = False).count()
 	for obj in Cooperativa.objects.all():
 		conteo = filtro.filter(miembrocooperativa__cooperativa = obj).count()
-		list_cooperativas[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+		list_cooperativas[obj] = conteo,saca_porcentajes(conteo,conteo_encu_coop,False)
 
 	#beneficiados proyectos
 	beneficiados = {}
@@ -1084,9 +1097,10 @@ def organizacion(request,template='frontend/organizacion.html'):
 		beneficiados[obj[0]] = conteo
 
 	proyectos = {}
+	conteo_proy = filtro.filter(beneficiadoproyecto__respuesta = 'Si', beneficiadoproyecto__proyectos__isnull = False).count()
 	for obj in Proyecto.objects.all():
 		conteo = filtro.filter(beneficiadoproyecto__respuesta = 'Si', beneficiadoproyecto__proyectos = obj).count()
-		proyectos[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+		proyectos[obj] = conteo,saca_porcentajes(conteo,conteo_proy,False)
 
 	#credito
 	credito = {}
@@ -1159,6 +1173,9 @@ def _queryset_filtrado_datos_afiliado(request):
 	if request.session['cooperativa']:
 		params['miembrocooperativa__respuesta'] = request.session['cooperativa']
 
+	if request.session['cooperativas']:
+		params['miembrocooperativa__cooperativa__in'] = request.session['cooperativas']
+
 	if request.session['proyecto']:
 		params['beneficiadoproyecto__respuesta'] = request.session['proyecto']
 
@@ -1199,6 +1216,7 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			request.session['internet'] = form.cleaned_data['internet']
 			request.session['cotiza'] = form.cleaned_data['cotiza']
 			request.session['cooperativa'] = form.cleaned_data['cooperativa']
+			request.session['cooperativas'] = form.cleaned_data['cooperativas']
 			request.session['proyecto'] = form.cleaned_data['proyecto']
 			request.session['credito'] = form.cleaned_data['credito']
 			request.session['problemas_productor'] = form.cleaned_data['problemas_productor']
@@ -1226,6 +1244,7 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			del request.session['internet']
 			del request.session['cotiza']
 			del request.session['cooperativa']
+			del request.session['cooperativas']
 			del request.session['proyecto']
 			del request.session['credito']
 			del request.session['problemas_productor']
