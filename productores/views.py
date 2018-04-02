@@ -99,7 +99,7 @@ def index(request,template='frontend/index.html'):
 				dic_areas[obj] = (total,conteo,hombres,porcentaje_h,mujeres,porcentaje_m)
 		else:
 			dic_areas = {}
-			for obj in Areas.objects.all():
+			for obj in Areas.objects.exclude(nombre__in = ['Piscicultura/Acuícola','Apícola']):
 				areas = AreasFinca.objects.filter(areas = obj,encuesta__ronda = anio[0]).aggregate(total = Sum('mz'))['total']
 				if areas == None:
 					areas = 0
