@@ -289,9 +289,9 @@ class Agricultura(models.Model):
     consumo_animal = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo animal qq')
     venta = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Venta qq')
     quien_vende = models.CharField(max_length=50,choices=PRODUCCION_CHOICES2)
-    costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz')
-    ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz')
-    ganancia_perdida = models.FloatField(verbose_name='Ganancia o Perdida C$/Mz')
+    costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz',blank=True, null=True)
+    ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz',blank=True, null=True)
+    ganancia_perdida = models.FloatField(verbose_name='Ganancia o Perdida C$/Mz',blank=True, null=True)
     tipo = models.CharField(max_length=50,choices=CULTIVO_CHOICES)
 
     class Meta:
