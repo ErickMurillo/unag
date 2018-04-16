@@ -160,7 +160,7 @@ class EncuestaAdmin(admin.ModelAdmin):
     list_display = ['afiliado','fecha_encuesta']
     date_hierarchy = 'fecha_encuesta'
     search_fields = ['afiliado__nombre','agricultura__rubro__nombre']
-    list_filter = ('areasfinca__areas__nombre',)
+    list_filter = ('areasfinca__areas__nombre','ronda')
     form = EncuestaAfiliadoForm
 
     def get_queryset(self, request):
