@@ -132,7 +132,9 @@ FAMILIA_CHOICES = (
     ('Sobrina','Sobrina'),('Sobrino','Sobrino'),
     ('Suegra','Suegra'),('Suegro','Suegro'),
     ('Tía','Tía'),('Tío','Tío'),
-    ('Yerno','Yerno'),('Otro','Otro'),
+    ('Yerno','Yerno'),
+    ('Nieto','Nieto'),('Nieta','Nieta'),
+    ('Otro','Otro'),
 )
 
 class DatosFamiliares(models.Model):

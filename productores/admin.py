@@ -7,7 +7,7 @@ from .forms import *
 
 # Register your models here.
 class AfiliadoAdmin(admin.ModelAdmin):
-    search_fields = ['nombre','municipio','comunidad']
+    search_fields = ['nombre','municipio__nombre','comunidad__nombre']
     list_filter = ['sexo',]
     list_display = ['nombre','cedula','municipio','comunidad']
 
@@ -159,7 +159,13 @@ class CotizacionOrganizacionInline(admin.TabularInline):
 class EncuestaAdmin(admin.ModelAdmin):
     list_display = ['afiliado','fecha_encuesta']
     date_hierarchy = 'fecha_encuesta'
-    search_fields = ['afiliado__nombre','agricultura__rubro__nombre']
+    search_fields = ['afiliado__nombre','agricultura__rubro__nombre','documentopropiedad__documento__nombre',
+                    'sistemaagua__sistema__nombre','inventarioanimales__animal__nombre','tablaempleo__rubro__nombre',
+                    'infraestructura__tipo__nombre','respuestasicotiza__donde_cotiza__nombre',
+                    'miembrocooperativa__cooperativa__nombre','beneficiadoproyecto__proyectos__nombre',
+                    'credito__proyectos__nombre','credito__formas_recibe_credito__nombre',
+                    'cotizacionorganizacion__problemas_productor__nombre','cotizacionorganizacion__acciones_cambio_climatico__nombre',
+                    'cotizacionorganizacion__afiliacion_unag__nombre']
     list_filter = ('areasfinca__areas__nombre','ronda')
     form = EncuestaAfiliadoForm
 

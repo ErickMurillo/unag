@@ -365,6 +365,12 @@ def afiliados_propiedad(request,template="frontend/afiliados_propiedad.html"):
 							'otrastierras__mz',flat=True)
 			otras[obj] = otras_areas
 
+		total_finca = Encuesta.objects.filter(anio = anio,afiliado = afiliado.id).values_list(
+					'areasfinca__mz',flat=True)
+		total_otras_areas = Encuesta.objects.filter(tierrasalquiladas__posse = 'Si',anio = anio,
+							afiliado = afiliado.id).values_list(
+							'otrastierras__mz',flat=True)
+
 		legalizada = FormaTenencia.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('legalizada',flat=True)
 		documento = DocumentoPropiedad.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('documento__nombre',flat=True)
 		agua = SistemaAgua.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('sistema__nombre',flat=True)
@@ -391,7 +397,8 @@ def afiliados_propiedad(request,template="frontend/afiliados_propiedad.html"):
 
 		infraestructura = Infraestructura.objects.filter(encuesta__anio = anio,encuesta__afiliado = afiliado.id).values_list('tipo__nombre',flat=True)
 
-		years[anio] = (areas,otras,legalizada,documento,agua,energia,mano_obra,tabla_empleo,infraestructura,pisci,colmenas)
+		years[anio] = (areas,otras,legalizada,documento,agua,energia,mano_obra,tabla_empleo,infraestructura,pisci,colmenas,
+			total_finca,total_otras_areas)
 
 	return render(request, template, locals())
 
