@@ -254,7 +254,7 @@ class InventarioAnimales(models.Model):
 
 PRODUCCION_CHOICES = (('Producción de huevos por mes','Producción de huevos por mes'),
                     ('Producción de leche (litros por día)','Producción de leche (litros por día)'),
-                    ('Producción de miel (kg/año)','Producción de miel (kg/año)'),
+                    ('Producción de miel (lt/año)','Producción de miel (lt/año)'),
                     ('Producción de carne (kg/año)','Producción de carne (kg/año)'),
                     ('Producción de pez (kg/año)','Producción de pez (kg/año)'))
 
