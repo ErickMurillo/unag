@@ -166,7 +166,7 @@ class EncuestaAdmin(admin.ModelAdmin):
                     'credito__proyectos__nombre','credito__formas_recibe_credito__nombre',
                     'cotizacionorganizacion__problemas_productor__nombre','cotizacionorganizacion__acciones_cambio_climatico__nombre',
                     'cotizacionorganizacion__afiliacion_unag__nombre']
-    list_filter = ('areasfinca__areas__nombre','ronda')
+    list_filter = ('areasfinca__areas__nombre','ronda','agricultura__rubro__nombre','documentopropiedad__documento__nombre','inventarioanimales__animal__nombre')
     form = EncuestaAfiliadoForm
 
     def get_queryset(self, request):
