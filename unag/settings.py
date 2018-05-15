@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'import_export',
     'django_select2',
     'django_crontab',
+    'django_admin_listfilter_dropdown',
 ]
 
 MIDDLEWARE = [
