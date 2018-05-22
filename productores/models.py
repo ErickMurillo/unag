@@ -329,7 +329,7 @@ class TablaEmpleo(models.Model):
 
 class Infraestructura(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    tipo = models.ForeignKey(Infraestructuras)
+    tipo = models.ForeignKey(Infraestructuras,verbose_name='Tipo de infraestructura')
     # possee = models.CharField(max_length=2,choices=SI_NO_CHOICES)
 
 class Cotizacion(models.Model):
