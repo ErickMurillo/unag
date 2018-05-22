@@ -172,7 +172,14 @@ class EncuestaAdmin(admin.ModelAdmin):
     				('areasfinca__areas', RelatedDropdownFilter),
     				('agricultura__rubro',RelatedDropdownFilter),
     				('documentopropiedad__documento',RelatedDropdownFilter),
-    				('inventarioanimales__animal',RelatedDropdownFilter))
+    				('inventarioanimales__animal',RelatedDropdownFilter),
+                    ('miembrocooperativa__cooperativa',RelatedDropdownFilter),
+                    ('beneficiadoproyecto__proyectos',RelatedDropdownFilter),
+                    ('credito__proyectos',RelatedDropdownFilter),
+                    ('credito__formas_recibe_credito',RelatedDropdownFilter),
+                    ('cotizacionorganizacion__acciones_cambio_climatico',RelatedDropdownFilter),
+                    ('cotizacionorganizacion__problemas_productor',RelatedDropdownFilter),
+                    ('cotizacionorganizacion__afiliacion_unag',RelatedDropdownFilter))
     form = EncuestaAfiliadoForm
 
     def get_queryset(self, request):
