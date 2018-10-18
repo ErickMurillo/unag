@@ -48,9 +48,9 @@ class Afiliado(models.Model):
         self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
         super(Afiliado, self).save(*args, **kwargs)
 
-RONDA_CHOICES = ((1,'I'),)#(2,'II'), (3,'III'),
-                    #(4,'IV'),(5,'V')
-                #)
+RONDA_CHOICES = ((1,'I'),(2,'II'), (3,'III'),
+                    (4,'IV'),(5,'V')
+                )
 
 class Encuesta(models.Model):
     afiliado = models.ForeignKey(Afiliado)
