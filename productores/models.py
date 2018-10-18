@@ -48,9 +48,9 @@ class Afiliado(models.Model):
         self.edad = today.year - self.fecha_nacimiento.year - ((today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
         super(Afiliado, self).save(*args, **kwargs)
 
-RONDA_CHOICES = ((1,'I'),(2,'II'), (3,'III'), 
-                    (4,'IV'),(5,'V')
-                )
+RONDA_CHOICES = ((1,'I'),)#(2,'II'), (3,'III'),
+                    #(4,'IV'),(5,'V')
+                #)
 
 class Encuesta(models.Model):
     afiliado = models.ForeignKey(Afiliado)
@@ -108,7 +108,7 @@ class PersonasDependen(models.Model):
     class Meta:
         verbose_name_plural = 'Personas que dependen del afiliado'
 
-EMIGRAN_CHOICES = (('Local','Local'),('Nacional','Nacional'),('Centroamérica','Centroamérica'), 
+EMIGRAN_CHOICES = (('Local','Local'),('Nacional','Nacional'),('Centroamérica','Centroamérica'),
                     ('Internacional','Internacional'))
 
 TIEMPO_CHOICES = (('< 1 mes','< 1 mes'),('1-3 meses','1-3 meses'),('4-6 meses','4-6 meses'),
