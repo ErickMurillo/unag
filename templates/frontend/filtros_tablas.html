@@ -23,6 +23,14 @@
 	          <b>Escolaridad:</b> {{request.session.escolaridad}}
 	      </li>
 	  {% endif %}
+
+	{% if request.session.nivel_escolaridad %}
+	      <li>
+	          <i class="fa fa-graduation-cap"></i>
+	          <b>Nivel de Escolaridad:</b> {{request.session.nivel_escolaridad}}
+	      </li>
+	  {% endif %}
+
 	   {% if request.session.internet %}
 	      <li>
 	          <i class="fa fa-internet-explorer"></i>

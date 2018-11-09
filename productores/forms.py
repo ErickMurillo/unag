@@ -78,6 +78,8 @@ class DatosFamiliaresForm(forms.ModelForm):
 SI_NO_CHOICES = (('','------'),('Si','Si'), ('No','No'))
 ESTADO_CIVIL_CHOICES = (('','------'),('Soltero(a)','Soltero(a)'), ('Casado(a)','Casado(a)'), ('Acompañado(a)','Acompañado(a)'),
                         ('Viudo(a)','Viudo(a)'), ('Divorciado(a)','Divorciado(a)'))
+ESCOLARIDAD_CHOICES = (('','------'),('Preescolar','Preescolar'),('Primaria','Primaria'),
+                        ('Secundaria','Secundaria'), ('Universitario','Universitario'))
 
 class AfiliadoForm2(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -88,6 +90,7 @@ class AfiliadoForm2(forms.Form):
         self.fields['sexo'] = forms.ChoiceField(choices=SEXO_CHOICES,required=False,label='Sexo',widget=forms.RadioSelect)
         self.fields['estado_civil'] = forms.ChoiceField(choices=ESTADO_CIVIL_CHOICES,label='Estado civil',required=False)
         self.fields['escolaridad'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Escolaridad',required=False)
+        self.fields['nivel_escolaridad'] = forms.ChoiceField(choices=ESCOLARIDAD_CHOICES,label='Nivel de Escolaridad',required=False)
         self.fields['internet'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Acceso a internet',required=False)
         self.fields['cotiza'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Cotiza',required=False)
         self.fields['cooperativa'] = forms.ChoiceField(choices=SI_NO_CHOICES,label='Miembro cooperativa',required=False)
@@ -97,3 +100,5 @@ class AfiliadoForm2(forms.Form):
         self.fields['problemas_productor'] = forms.ModelMultipleChoiceField(queryset=ProblemasProductor.objects.all(),label='Problemas más sentidos',required=False)
         self.fields['cambio_climatico'] = forms.ModelMultipleChoiceField(queryset=CambioClimatico.objects.all(),label='Cambio climático',required=False)
         self.fields['motivos'] = forms.ModelMultipleChoiceField(queryset=AfiliacionUnag.objects.all(),label='Motivos de Afiliación a la UNAG',required=False)
+        self.fields['edad_inicio'] = forms.IntegerField(required=False,label='Edad inicio')
+        self.fields['edad_fin'] = forms.IntegerField(required=False,label='Edad fin')

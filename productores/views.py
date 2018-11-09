@@ -1171,6 +1171,9 @@ def _queryset_filtrado_datos_afiliado(request):
 	if request.session['escolaridad']:
 		params['escolaridad__escolaridad'] = request.session['escolaridad']
 
+	if request.session['nivel_escolaridad']:
+		params['escolaridad__nivel_escolaridad'] = request.session['nivel_escolaridad']
+
 	if request.session['internet']:
 		params['datosgenerales__acceso_internet'] = request.session['internet']
 
@@ -1198,6 +1201,9 @@ def _queryset_filtrado_datos_afiliado(request):
 	if request.session['motivos']:
 		params['cotizacionorganizacion__afiliacion_unag__in'] = request.session['motivos']
 
+	if request.session['edad_inicio'] and request.session['edad_fin']:
+		params['afiliado__edad__range'] = (request.session['edad_inicio'],request.session['edad_fin'])
+
 	unvalid_keys = []
 	for key in params:
 		if not params[key]:
@@ -1220,6 +1226,7 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			request.session['sexo'] = form.cleaned_data['sexo']
 			request.session['estado_civil'] = form.cleaned_data['estado_civil']
 			request.session['escolaridad'] = form.cleaned_data['escolaridad']
+			request.session['nivel_escolaridad'] = form.cleaned_data['nivel_escolaridad']
 			request.session['internet'] = form.cleaned_data['internet']
 			request.session['cotiza'] = form.cleaned_data['cotiza']
 			request.session['cooperativa'] = form.cleaned_data['cooperativa']
@@ -1229,6 +1236,8 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			request.session['problemas_productor'] = form.cleaned_data['problemas_productor']
 			request.session['cambio_climatico'] = form.cleaned_data['cambio_climatico']
 			request.session['motivos'] = form.cleaned_data['motivos']
+			request.session['edad_inicio'] = form.cleaned_data['edad_inicio']
+			request.session['edad_fin'] = form.cleaned_data['edad_fin']
 
 			mensaje = "Todas las variables estan correctamente :)"
 			request.session['activo'] = True
@@ -1248,6 +1257,7 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			del request.session['sexo']
 			del request.session['estado_civil']
 			del request.session['escolaridad']
+			del request.session['nivel_escolaridad']
 			del request.session['internet']
 			del request.session['cotiza']
 			del request.session['cooperativa']
@@ -1257,6 +1267,8 @@ def consulta_afiliado(request,template='frontend/consulta_datos_afiliados.html')
 			del request.session['problemas_productor']
 			del request.session['cambio_climatico']
 			del request.session['motivos']
+			del request.session['edad_inicio']
+			del request.session['edad_fin']
 		except:
 			pass
 

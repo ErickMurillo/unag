@@ -141,6 +141,11 @@ class MiembroCooperativaInline(admin.TabularInline):
     max_num = 1
     can_delete = False
 
+class MiembroBancoSemillaInline(admin.TabularInline):
+    model = MiembroBancoSemilla
+    max_num = 1
+    can_delete = False
+
 class BeneficiadoProyectoInline(admin.TabularInline):
     model = BeneficiadoProyecto
     max_num = 1
@@ -210,7 +215,7 @@ class EncuestaAdmin(admin.ModelAdmin):
                 TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
-                MiembroCooperativaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]
+                MiembroCooperativaInline,MiembroBancoSemillaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]
 
     class Media:
         css = {

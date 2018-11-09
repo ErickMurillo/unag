@@ -147,5 +147,22 @@
     }
       });
 
+     valor8 = $('#id_miembrobancosemilla_set-0-respuesta').val();
+    if (valor8 == 'Si') {
+      $('.field-banco_semillas').show();
+     } else {
+      $('.field-banco_semillas').hide();
+    }
+
+     $('.field-respuesta #id_miembrobancosemilla_set-0-respuesta').change(function(){
+
+      valor8 = $('.field-respuesta #id_miembrobancosemilla_set-0-respuesta').val();
+      if (valor8 == 'Si') {
+        $('.field-banco_semillas').show();
+       } else {
+        $('.field-banco_semillas').hide();
+      }
+      });
+
 	});
 })(jQuery || django.jQuery);

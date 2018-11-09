@@ -56,11 +56,20 @@ class Animales(models.Model):
         verbose_name_plural = 'Animales'
         ordering = ('nombre',)
 
+CHOICE_MEDIDA = (
+                (1, 'Quintal'),
+                (2, 'Kilogramos'),
+                (3, 'Libras'),
+                (4, 'Docena'),
+                (5, 'Unidad'),
+                )
+
 class Cultivo(models.Model):
     nombre = models.CharField(max_length=60)
+    unidad_medida = models.IntegerField(choices=CHOICE_MEDIDA,null=True,blank=True)
 
     def __unicode__(self):
-        return self.nombre
+        return '%s - %s' % (self.nombre,self.get_unidad_medida_display())
 
     class Meta:
         verbose_name_plural = 'Cultivos'
@@ -95,6 +104,17 @@ class Cooperativa(models.Model):
 
     class Meta:
         verbose_name_plural = 'Cooperativas'
+        ordering = ('nombre',)
+
+class BancoSemilla(models.Model):
+    nombre = models.CharField(max_length=60)
+    ubicacion = models.ForeignKey(Departamento)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = 'Bancos de Semillas'
         ordering = ('nombre',)
 
 class Proyecto(models.Model):

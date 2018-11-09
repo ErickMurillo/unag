@@ -285,11 +285,11 @@ class Agricultura(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     rubro = models.ForeignKey(Cultivo)
     area_sembrada = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Área sembrada(Mz)')
-    produccion_total = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Producción Total qq')
-    semillas = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Semilla qq')
-    consumo_humano = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo humano qq')
-    consumo_animal = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo animal qq')
-    venta = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Venta qq')
+    produccion_total = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Producción Total')
+    semillas = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Semilla')
+    consumo_humano = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo humano')
+    consumo_animal = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo animal')
+    venta = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Venta')
     quien_vende = models.CharField(max_length=50,choices=PRODUCCION_CHOICES2)
     costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz',blank=True, null=True)
     ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz',blank=True, null=True)
@@ -361,6 +361,14 @@ class MiembroCooperativa(models.Model):
 
     class Meta:
         verbose_name_plural = '¿Es miembro de Cooperativa?'
+
+class MiembroBancoSemilla(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
+    banco_semillas = models.ManyToManyField(BancoSemilla,blank=True)
+
+    class Meta:
+        verbose_name_plural = '¿Es miembro de Bancos de Semillas?'
 
 class BeneficiadoProyecto(models.Model):
     encuesta = models.ForeignKey(Encuesta)
