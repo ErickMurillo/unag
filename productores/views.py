@@ -23,6 +23,11 @@ def index(request,template='frontend/index.html'):
 	mujeres_total = Afiliado.objects.filter(sexo = 'Femenino').distinct().count()
 	hombres_total = Afiliado.objects.filter(sexo = 'Masculino').distinct().count()
 
+	#familiares
+	ninos = DatosFamiliares.objects.filter(edad__lte = 12).count()
+	jovenes = DatosFamiliares.objects.filter(edad__gte = 13,edad__lte = 18).count()
+	adultos = DatosFamiliares.objects.filter(edad__gte = 19).count()
+
 	#departamentos
 	muni = Encuesta.objects.order_by('afiliado__municipio').distinct().values_list('afiliado__municipio__id', flat=True)
 	deptos = Municipio.objects.filter(id = muni).values_list('departamento__id','departamento__nombre').distinct()
