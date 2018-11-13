@@ -1,0 +1,264 @@
+{% if centinela == 1 %}
+<div class="col-md-8 col-md-offset-2">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet box blue ">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-settings"></i>
+                <span class="caption-subject sbold uppercase">Consulta</span>
+            </div>
+            
+        </div>
+        <div class="portlet-body form">
+
+            <form class="form-horizontal" role="form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <ul class="list-line list-filtro">             
+                                {% if request.session.sexo %}
+                                    <li>
+                                        <i class="fa fa-venus-mars"></i>
+                                        <b>Sexo:</b> {{request.session.sexo}}
+                                    </li>
+                                {% else %}
+                                <li>
+                                    <i class="fa fa-venus-mars"></i>
+                                    <b>Sexo:</b> Ambos
+                                </li>
+                                {% endif %}
+                                {% if request.session.escolaridad %}
+                                    <li>
+                                        <i class="fa fa-graduation-cap"></i>
+                                        <b>Escolaridad:</b> {{request.session.escolaridad}}
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.parentesco %}
+                                    <li>
+                                        <i class="fa fa-graduation-cap"></i>
+                                        <b>Parentesco:</b> {% for x in request.session.parentesco %}{{x}}, {% endfor %}
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.departamento %}
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <b>Departamentos:</b> {% for x in request.session.departamento %}{{x.nombre}}, {% endfor %}   
+                                    </li>
+                                {% endif %}
+                                {% if request.session.municipio %}
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <b>Municipios:</b> {% for x in request.session.municipio %}{{x.nombre}}, {% endfor %}   
+                                    </li>
+                                {% endif %}
+                                {% if request.session.comunidad %}
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <b>Comunidades:</b> {% for x in request.session.comunidad %}{{x.nombre}}, {% endfor %}
+                                    </li>
+                                {% endif %}
+                                
+                                {% if request.session.edad_inicio and request.session.edad_fin %}
+                                    <li>
+                                        <i class="fa fa-arrows-h"></i>
+                                        <b>Rango de edad:</b> {{request.session.edad_inicio}} - {{request.session.edad_fin}}
+                                    </li>
+
+                                {% endif %}
+                                    
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <ul class="list-line list-filtro">
+                                <li>
+                                    <i class="fa fa-filter"></i>
+                                    <b>Resultado:</b> {{conteo}}
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+            </form>
+        </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+
+</div>
+                                   
+<div class="col-md-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet box blue ">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-list"></i>Familiares
+            </div>
+            <div class="actions">
+                <a class="btn btn-circle btn-icon-only btn-default" href="" onclick="exportarXLS('export'); return false;">
+                    <i class="icon-cloud-download"></i>
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <div class="portlet-body flip-scroll table-responsive" id="export">
+                <table class="table table-bordered table-striped table-condensed flip-conten" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Ronda</th>
+                            <th>Departamento</th>
+                            <th>Municipio</th>
+                            <th>Comunidad</th>
+                            <th>Nombres y Apellidos</th>
+                            <th>Sexo</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Escolaridad</th>
+                            <th>Parentesco</th>
+                        </tr>   
+                    </thead>
+                    <tbody>
+                        {% for obj in lista %}
+                            <tr>
+                                <td>{{obj.0}}</td>
+                                <td>{{obj.1}}</td>
+                                <td>{{obj.2}}</td>
+                                <td>{{obj.3}}</td>
+                                <td>{{obj.4}}</td>
+                                <td>{{obj.5}}</td>
+                                <td>{{obj.6}} ({{obj.7}})</td>
+                                <td>{{obj.8}}</td>
+                                <td>{{obj.9}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            
+        </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+
+</div>
+
+{% else %}
+<div class="col-md-8 col-md-offset-2">
+    <div class="portlet box blue ">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-settings"></i>
+                <span class="caption-subject sbold uppercase">Formulario Consulta</span>
+            </div>
+            
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" action="." method="post" role="form">{% csrf_token %}
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Departamento</label>
+                                <div class="col-md-8">
+                                    {{form.departamento}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Municipio</label>
+                                <div class="col-md-8">
+                                    {{form.municipio}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Comunidad / Comarca</label>
+                                <div class="col-md-8">
+                                    {{form.comunidad}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Sexo</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.sexo}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                 <label class="col-md-4 control-label">Rango edad</label>
+                                <div class="col-md-8">
+                                    <div class="form-inline xs-margin">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">
+                                                Inicio
+                                            </span>
+                                            {{form.edad_inicio}}
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">
+                                                Fin
+                                            </span>
+                                            {{form.edad_fin}}
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Escolaridad</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.escolaridad}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Parentesco</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.parentesco}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                </div>
+                
+                    
+                </div>
+                <div class="form-actions right1">
+                    <button type="button" class="btn default">Cancelar</button>
+                    <input type="submit" name="consulta" value="Consultar" class="btn green">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+

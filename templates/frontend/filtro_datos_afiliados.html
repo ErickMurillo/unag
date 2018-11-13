@@ -1,0 +1,457 @@
+{% if centinela == 1 %}
+<div class="col-md-8 col-md-offset-2">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet box blue ">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-settings"></i>
+                <span class="caption-subject sbold uppercase">Consulta</span>
+            </div>
+            
+        </div>
+        <div class="portlet-body form">
+
+            <form class="form-horizontal" role="form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <ul class="list-line list-filtro">             
+                                {% if request.session.sexo %}
+                                    <li>
+                                        <i class="fa fa-venus-mars"></i>
+                                        <b>Sexo:</b> {{request.session.sexo}}
+                                    </li>
+                                {% else %}
+                                <li>
+                                    <i class="fa fa-venus-mars"></i>
+                                    <b>Sexo:</b> Ambos
+                                </li>
+                                {% endif %}
+                                {% if request.session.estado_civil %}
+                                    <li>
+                                        <i class="fa fa-heart"></i>
+                                        <b>Estado civil:</b> {{request.session.estado_civil}}
+                                    </li>
+                                {% endif %}
+                                {% if request.session.escolaridad %}
+                                    <li>
+                                        <i class="fa fa-graduation-cap"></i>
+                                        <b>Escolaridad:</b> {{request.session.escolaridad}}
+                                    </li>
+                                {% endif %}
+                                {% if request.session.nivel_escolaridad %}
+                                    <li>
+                                        <i class="fa fa-graduation-cap"></i>
+                                        <b>Nivel de Escolaridad:</b> {{request.session.nivel_escolaridad}}
+                                    </li>
+                                {% endif %}
+                                 {% if request.session.internet %}
+                                    <li>
+                                        <i class="fa fa-internet-explorer"></i>
+                                        <b>Acceso a internet:</b> {{request.session.internet}}
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.cotiza %}
+                                    <li>
+                                        <i class="fa fa-dollar-sign"></i>
+                                        <b>Cotiza:</b> {{request.session.cotiza}}
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.cooperativa %}
+                                    <li>
+                                        <i class="fa fa-building"></i>
+                                        <b>Miembro cooperativa:</b> {{request.session.cooperativa}}
+                                    </li>
+                                {% endif %}
+
+                                  {% if request.session.cooperativas %}
+                                    <li>
+                                        <i class="fa fa-building"></i>
+                                        <b>Cooperativas:</b> {% for x in request.session.cooperativas %}{{x.nombre}}, {% endfor %} 
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.proyecto %}
+                                    <li>
+                                        <i class="fa fa-book"></i>
+                                        <b>Beneficiado por otros proyectos:</b> {{request.session.proyecto}}
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.credito %}
+                                    <li>
+                                        <i class="fa fa-dollar-sign"></i>
+                                        <b>Recibe crédito:</b> {{request.session.credito}}
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.problemas_productor %}
+                                    <li>
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        <b>Problemas más sentidos:</b> {% for x in request.session.problemas_productor %}{{x.nombre}}, {% endfor %}   
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.cambio_climatico %}
+                                    <li>
+                                        <i class="fa fa-leaf"></i>
+                                        <b>Acciones cambio climático:</b> {% for x in request.session.cambio_climatico %}{{x.nombre}}, {% endfor %}   
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.motivos %}
+                                    <li>
+                                        <i class="fa fa-handshake"></i>
+                                        <b>Motivos de Afiliación:</b> {% for x in request.session.motivos %}{{x.nombre}}, {% endfor %}   
+                                    </li>
+                                {% endif %}
+
+                                {% if request.session.departamento %}
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <b>Departamentos:</b> {% for x in request.session.departamento %}{{x.nombre}}, {% endfor %}   
+                                    </li>
+                                {% endif %}
+                                {% if request.session.municipio %}
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <b>Municipios:</b> {% for x in request.session.municipio %}{{x.nombre}}, {% endfor %}   
+                                    </li>
+                                {% endif %}
+                                {% if request.session.comunidad %}
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        <b>Comunidades:</b> {% for x in request.session.comunidad %}{{x.nombre}}, {% endfor %}
+                                    </li>
+                                {% endif %}
+                                
+                                {% if request.session.edad_inicio and request.session.edad_fin %}
+                                    <li>
+                                        <i class="fa fa-arrows-h"></i>
+                                        <b>Rango de edad:</b> {{request.session.edad_inicio}} - {{request.session.edad_fin}}
+                                    </li>
+
+                                {% endif %}
+                                    
+                                
+                                
+                            
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <ul class="list-line list-filtro">
+                                <li>
+                                    <i class="fa fa-filter"></i>
+                                    <b>Resultado:</b> {{conteo}}
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+            </form>
+        </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+
+</div>
+                                   
+<div class="col-md-8 col-md-offset-2">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet box blue ">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-settings"></i>
+                <span class="caption-subject sbold uppercase">Tablas</span>
+            </div>
+                                                                                     
+        </div>
+        <div class="portlet-body form">
+
+            <form class="form-horizontal" role="form">
+                <div class="form-body">
+
+                        <div class="indicadores row">
+                            <div class="col-xs-6 col-md-2 col-md-offset-1">
+                                <a href="/tabla-datos-generales" class="btn green-meadow">Datos generales</a>
+                            </div>
+                            <div class="col-xs-6 col-md-2">
+                                <a href="/tabla-datos-cotizacion-organizacion/" class="btn green-meadow">Datos Cotización y Organización</a>
+                            </div>
+                            
+                        </div>                                      
+                    
+                    
+                </div>
+            
+            </form>
+            
+            
+        </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+
+</div>
+
+{% else %}
+<div class="col-md-8 col-md-offset-2">
+    <div class="portlet box blue ">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-settings"></i>
+                <span class="caption-subject sbold uppercase">Formulario Consulta</span>
+            </div>
+            
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" action="." method="post" role="form">{% csrf_token %}
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Departamento</label>
+                                <div class="col-md-8">
+                                    {{form.departamento}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Municipio</label>
+                                <div class="col-md-8">
+                                    {{form.municipio}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Comunidad / Comarca</label>
+                                <div class="col-md-8">
+                                    {{form.comunidad}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Sexo</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.sexo}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Estado civil</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.estado_civil}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                 <label class="col-md-4 control-label">Rango edad</label>
+                                <div class="col-md-8">
+                                    <div class="form-inline xs-margin">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">
+                                                Inicio
+                                            </span>
+                                            {{form.edad_inicio}}
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon1">
+                                                Fin
+                                            </span>
+                                            {{form.edad_fin}}
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Escolaridad</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.escolaridad}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                       <div class="form-group">
+                                <label class="col-md-4 control-label">Nivel de Escolaridad</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.nivel_escolaridad}}
+                                    </div>
+                            
+                                </div>
+                            </div> 
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Internet</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.internet}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Cotiza</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.cotiza}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                </div>
+
+                <div class="row">
+                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Miembro cooperativa</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.cooperativa}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Cooperativas</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.cooperativas}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Beneficiado por otros proyectos</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.proyecto}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Crédito</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.credito}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                   
+                </div>
+
+                <div class="row">
+                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Problemas más sentidos</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.problemas_productor}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Cambio climático</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.cambio_climatico}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        
+                           <div class="form-group">
+                                <label class="col-md-4 control-label">Motivos de Afiliación</label>
+                                <div class="col-md-8">
+                                    <div class="mt-radio-inline">
+                                        {{form.motivos}}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        
+                        </div>
+                </div>
+                    
+                </div>
+                <div class="form-actions right1">
+                    <button type="button" class="btn default">Cancelar</button>
+                    <input type="submit" name="consulta" value="Consultar" class="btn green">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+

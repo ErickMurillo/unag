@@ -349,6 +349,40 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Pertenece a Bancos de Semillas</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="banco-semilla" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Bancos de Semillas</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="bancos" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- END PAGE CONTENT INNER -->
@@ -977,6 +1011,96 @@ Highcharts.chart('motivos', {
         data: [
 
         {% for k,v in motivos.items %}
+            {
+            name: '{{k}} ({{v.0|default:"0"}})',
+            y: {{v.1|default:"0"}},
+        },
+        {% endfor %}
+        ]
+    }],
+
+});
+
+Highcharts.chart('banco-semilla', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in banco_semillas.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+Highcharts.chart('bancos', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Frecuencia'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total<br/>'
+    },
+
+    series: [{
+        name: 'Motivos',
+        colorByPoint: true,
+        data: [
+
+        {% for k,v in bancos.items %}
             {
             name: '{{k}} ({{v.0|default:"0"}})',
             y: {{v.1|default:"0"}},

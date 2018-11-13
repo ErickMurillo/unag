@@ -159,28 +159,31 @@ def index(request,template='frontend/index.html'):
 			dep2 = int(request.GET['departamento-rubros'])			
 			dict = {}
 			for obj in Cultivo.objects.all():
-				sumatoria = Agricultura.objects.filter(rubro = obj,encuesta__ronda = anio[0],
-											encuesta__afiliado__municipio__departamento = dep2).aggregate(
+				query = Agricultura.objects.filter(rubro = obj,encuesta__ronda = anio[0],
+											encuesta__afiliado__municipio__departamento = dep2)
+				sumatoria = query.aggregate(
 										area = Sum('area_sembrada'),produccion = Sum('produccion_total'))
-				dict[obj] = (sumatoria['area'],sumatoria['produccion'])
+				dict[obj] = (sumatoria['area'],sumatoria['produccion'],query.count())
 
 			d = collections.Counter(dict)
 			d.most_common()
 			rubros = {}
 			for k, v in d.most_common(5):
-				rubros[k] = v[0],v[1]
+				rubros[k] = v[0],v[1],v[2]
 		else:
 			dict = {}
 			for obj in Cultivo.objects.all():
-				sumatoria = Agricultura.objects.filter(rubro = obj,encuesta__ronda = anio[0]).aggregate(
+				query = Agricultura.objects.filter(rubro = obj,encuesta__ronda = anio[0])
+				sumatoria = query.aggregate(
 										area = Sum('area_sembrada'),produccion = Sum('produccion_total'))
-				dict[obj] = (sumatoria['area'],sumatoria['produccion'])
+	
+				dict[obj] = (sumatoria['area'],sumatoria['produccion'],query.count())
 
 			d = collections.Counter(dict)
 			d.most_common()
 			rubros = {}
 			for k, v in d.most_common(5):
-				rubros[k] = v[0],v[1]
+				rubros[k] = v[0],v[1],v[2]
 
 		dic_anios[anio[0],anio[1]] = dic_areas,rubros
 
@@ -726,12 +729,6 @@ def datos_generales(request,template='frontend/datos_generales.html'):
 		conteo = filtro.filter(escolaridad__nivel_escolaridad = obj[0],escolaridad__escolaridad = 'Si',afiliado__sexo = 'Masculino').count()
 		escolaridad_hombre[obj[0]] = conteo
 
-	#miembros que dependen del jefe
-	personas_dependen = {}
-	for obj in PERSONAS_CHOICES:
-		conteo = filtro.filter(personasdependen__opcion = obj[0]).aggregate(sum = Sum('personasdependen__cantidad'))['sum']
-		personas_dependen[obj[0]] = conteo
-
 	#acceso internet
 	internet = {}
 	for obj in SI_NO_CHOICES:
@@ -772,6 +769,12 @@ def datos_familiares(request,template='frontend/datos_familiares.html'):
 	for obj in MESES_CHOICES:
 		conteo = filtro.filter(datosfamiliares__meses__contains = obj[0]).count()
 		meses[obj[0]] = conteo
+
+	#miembros que dependen del jefe
+	personas_dependen = {}
+	for obj in PERSONAS_CHOICES:
+		conteo = filtro.filter(personasdependen__opcion = obj[0]).aggregate(sum = Sum('personasdependen__cantidad'))['sum']
+		personas_dependen[obj[0]] = conteo
 
 	return render(request, template, locals())
 
@@ -877,15 +880,16 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 	dict = {}
 	for obj in Cultivo.objects.all():
-		sumatoria = filtro.filter(agricultura__rubro = obj).aggregate(
+		query = filtro.filter(agricultura__rubro = obj)
+		sumatoria = query.aggregate(
 								area = Sum('agricultura__area_sembrada'),produccion = Sum('agricultura__produccion_total'))
-		dict[obj] = (sumatoria['area'],sumatoria['produccion'])
+		dict[obj] = (sumatoria['area'],sumatoria['produccion'],query.count())
 
 	d = collections.Counter(dict)
 	d.most_common()
 	rubros = {}
 	for k, v in d.most_common(5):
-		rubros[k] = v[0],v[1]
+		rubros[k] = v[0],v[1],v[2]
 
 	#inventario animales
 	animales = []
@@ -1100,7 +1104,8 @@ def organizacion(request,template='frontend/organizacion.html'):
 	conteo_encu_coop = filtro.filter(miembrocooperativa__respuesta = 'Si',miembrocooperativa__cooperativa__isnull = False).count()
 	for obj in Cooperativa.objects.all():
 		conteo = filtro.filter(miembrocooperativa__cooperativa = obj).count()
-		list_cooperativas[obj] = conteo,saca_porcentajes(conteo,conteo_encu_coop,False)
+		if conteo != 0:
+			list_cooperativas[obj] = conteo,saca_porcentajes(conteo,conteo_encu_coop,False)
 
 	#beneficiados proyectos
 	beneficiados = {}
@@ -1112,7 +1117,8 @@ def organizacion(request,template='frontend/organizacion.html'):
 	conteo_proy = filtro.filter(beneficiadoproyecto__respuesta = 'Si', beneficiadoproyecto__proyectos__isnull = False).count()
 	for obj in Proyecto.objects.all():
 		conteo = filtro.filter(beneficiadoproyecto__respuesta = 'Si', beneficiadoproyecto__proyectos = obj).count()
-		proyectos[obj] = conteo,saca_porcentajes(conteo,conteo_proy,False)
+		if conteo != 0:
+			proyectos[obj] = conteo,saca_porcentajes(conteo,conteo_proy,False)
 
 	#credito
 	credito = {}
@@ -1136,20 +1142,123 @@ def organizacion(request,template='frontend/organizacion.html'):
 	problemas = {}
 	for obj in ProblemasProductor.objects.all():
 		conteo = filtro.filter(cotizacionorganizacion__problemas_productor = obj).count()
-		problemas[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+		if conteo != 0:
+			problemas[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
 
 	#acciones
 	acciones = {}
 	for obj in CambioClimatico.objects.all():
 		conteo = filtro.filter(cotizacionorganizacion__acciones_cambio_climatico = obj).count()
-		acciones[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+		if conteo != 0:
+			acciones[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
 
 	#motivos
 	motivos = {}
 	for obj in AfiliacionUnag.objects.all():
 		conteo = filtro.filter(cotizacionorganizacion__afiliacion_unag = obj).count()
-		motivos[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+		if conteo != 0:
+			motivos[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
 
+	#banco_semillas
+	banco_semillas = {}
+	for obj in SI_NO_CHOICES:
+		conteo = filtro.filter(miembrobancosemilla__respuesta = obj[0]).count()
+		banco_semillas[obj[0]] = conteo
+
+	#bancos
+	bancos = {}
+	for obj in BancoSemilla.objects.all():
+		conteo = filtro.filter(miembrobancosemilla__banco_semillas = obj).count()
+		if conteo != 0:
+			bancos[obj] = conteo,saca_porcentajes(conteo,encuestados,False)
+
+
+	return render(request, template, locals())
+
+#consulta datos de los familiares de los afiliados
+def _queryset_datos_familiares_afiliado(request):
+	params = {}
+
+	if request.session['departamento']:
+	    params['afiliado__municipio__departamento__in'] = request.session['departamento']
+
+	if request.session['municipio']:
+		params['afiliado__municipio__in'] = request.session['municipio']
+
+	if request.session['comunidad']:
+		params['afiliado__comunidad__in'] = request.session['comunidad']
+
+	if request.session['sexo']:
+		params['datosfamiliares__sexo'] = request.session['sexo']
+
+	if request.session['escolaridad']:
+		params['datosfamiliares__escolaridad'] = request.session['escolaridad']
+
+	if request.session['parentesco']:
+		params['datosfamiliares__parentesco__in'] = request.session['parentesco']
+
+	if request.session['edad_inicio'] and request.session['edad_fin']:
+		params['datosfamiliares__edad__range'] = (request.session['edad_inicio'],request.session['edad_fin'])
+
+	unvalid_keys = []
+	for key in params:
+		if not params[key]:
+			unvalid_keys.append(key)
+
+	for key in unvalid_keys:
+		del params[key]
+
+	return Encuesta.objects.filter(**params)
+
+@login_required
+def consulta_afiliado_familiares(request,template='frontend/consulta_datos_afiliados.html'):
+	if request.method == 'POST':
+		mensaje = None
+		form = AfiliadoFamiliaresForm(request.POST)
+		if form.is_valid():
+			request.session['departamento'] = form.cleaned_data['departamento']
+			request.session['municipio'] = form.cleaned_data['municipio']
+			request.session['comunidad'] = form.cleaned_data['comunidad']
+			request.session['sexo'] = form.cleaned_data['sexo']
+			request.session['escolaridad'] = form.cleaned_data['escolaridad']
+			request.session['parentesco'] = form.cleaned_data['parentesco']
+			request.session['edad_inicio'] = form.cleaned_data['edad_inicio']
+			request.session['edad_fin'] = form.cleaned_data['edad_fin']
+
+			mensaje = "Todas las variables estan correctamente :)"
+			request.session['activo'] = True
+			centinela = 1
+			filtro = _queryset_datos_familiares_afiliado(request)
+			conteo = filtro.count()
+
+			#tabla resultado
+			lista = []
+			for obj in filtro:
+				familia = DatosFamiliares.objects.filter(encuesta__id = obj.id).values_list('nombres','sexo','fecha_nacimiento','edad','escolaridad','parentesco')
+				for x in familia:
+					lista.append((obj.ronda,
+								obj.afiliado.municipio.departamento,
+								obj.afiliado.municipio.nombre,
+								obj.afiliado.comunidad,
+								x[0],x[1],x[2],str(x[3]) + ' años',x[4],x[5]))
+
+		else:
+			centinela = 0
+
+	else:
+		form = AfiliadoFamiliaresForm()
+		mensaje = "Existen alguno errores"
+		try:
+			del request.session['departamento']
+			del request.session['municipio']
+			del request.session['communidad']
+			del request.session['sexo']
+			del request.session['escolaridad']
+			del request.session['parentesco']
+			del request.session['edad_inicio']
+			del request.session['edad_fin']
+		except:
+			pass
 
 	return render(request, template, locals())
 

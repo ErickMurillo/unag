@@ -94,25 +94,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="portlet light ">
-                                            <div class="portlet-title tabbable-line">
-                                                <div class="caption">
-                                                    <i class="icon-globe font-dark hide"></i>
-                                                    <span class="caption-subject font-green-steel bold uppercase">Miembros que dependen del afiliado</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="portlet-body">
-                                                <div class="map">
-                                                    <div class="grafico-ind" id="dependen" width='100%'></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
+                                    
                                     <div class="col-md-6 col-sm-12">
                                         <div class="portlet light ">
                                             <div class="portlet-title tabbable-line">
@@ -129,6 +111,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="portlet light ">
                                             <div class="portlet-title tabbable-line">
@@ -235,46 +220,6 @@ Highcharts.chart('escolaridad-hombre', {
         colorByPoint: true,
         data: [
         {% for k,v in escolaridad_hombre.items %}
-        {
-            name: '{{k}} ({{v|default:"0"}})',
-            y: {{v|default:"0"}}
-        },
-        {% endfor %}]
-    }]
-});
-
-Highcharts.chart('dependen', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: ''
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            },
-            showInLegend: true
-        }
-    },
-    series: [{
-        name: 'Porcentajes',
-        colorByPoint: true,
-        data: [
-        {% for k,v in personas_dependen.items %}
         {
             name: '{{k}} ({{v|default:"0"}})',
             y: {{v|default:"0"}}

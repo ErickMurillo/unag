@@ -104,7 +104,7 @@ class AgriculturaInline(admin.TabularInline):
     extra = 1
     fieldsets = (
         (None, {
-            'fields': ('rubro', 'tipo', 'area_sembrada', 'produccion_total','semillas','consumo_humano','consumo_animal','venta','quien_vende','costo_produccion','ingresos_produccion','ganancia_perdida')
+            'fields': ('rubro', 'tipo', 'area_sembrada', 'produccion_total','semillas','consumo_humano','consumo_animal','venta','quien_vende')
         }),
     )
 
