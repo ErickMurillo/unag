@@ -122,7 +122,7 @@ MESES_CHOICES = (('Enero','Enero'),('Febrero','Febrero'),('Marzo','Marzo'),('Abr
 FAMILIA_CHOICES = (
     ('Abuela','Abuela'),('Abuelo','Abuelo'),
     ('Bisabuela','Bisabuela'),('Bisabuelo','Bisabuelo'),
-    ('Cuñada','Cuñada'),('Cuñado','Cuñado'),
+    ('Cuniada','Cuñada'),('Cuniado','Cuñado'),
     ('Esposa','Esposa'),('Esposo','Esposo'),
     ('Hermana','Hermana'),('Hermano','Hermano'),
     ('Hija','Hija'),('Hijo','Hijo'),
@@ -131,7 +131,7 @@ FAMILIA_CHOICES = (
     ('Prima','Prima'),('Primo','Primo'),
     ('Sobrina','Sobrina'),('Sobrino','Sobrino'),
     ('Suegra','Suegra'),('Suegro','Suegro'),
-    ('Tía','Tía'),('Tío','Tío'),
+    ('Tia','Tía'),('Tio','Tío'),
     ('Yerno','Yerno'),
     ('Nieto','Nieto'),('Nieta','Nieta'),
     ('Otro','Otro'),
@@ -291,9 +291,9 @@ class Agricultura(models.Model):
     consumo_animal = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Consumo animal')
     venta = models.FloatField(validators = [MinValueValidator(0.0)],verbose_name='Venta')
     quien_vende = models.CharField(max_length=50,choices=PRODUCCION_CHOICES2)
-    #costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz',blank=True, null=True)
-    #ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz',blank=True, null=True)
-    #ganancia_perdida = models.FloatField(verbose_name='Ganancia o Perdida C$/Mz',blank=True, null=True)
+    costo_produccion = models.FloatField(verbose_name='Costo de producción (Inversión) C$/Mz',blank=True, null=True)
+    ingresos_produccion = models.FloatField(verbose_name='Ingresos de la producción C$/Mz',blank=True, null=True)
+    ganancia_perdida = models.FloatField(verbose_name='Ganancia o Perdida C$/Mz',blank=True, null=True)
     tipo = models.CharField(max_length=50,choices=CULTIVO_CHOICES)
 
     class Meta:

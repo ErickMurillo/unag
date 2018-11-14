@@ -37,7 +37,8 @@
                                 {% if request.session.parentesco %}
                                     <li>
                                         <i class="fa fa-graduation-cap"></i>
-                                        <b>Parentesco:</b> {% for x in request.session.parentesco %}{{x}}, {% endfor %}
+                                        <b>Parentesco:</b> {% for x in request.session.parentesco %}
+                                        {% if x == 'Tia' %}Tía{% elif x == 'Tio'%}Tío{% elif x == 'Cuniada'%}Cuñada{% elif x == 'Cuniado'%}Cuñado{% else %}{{x}}{% endif %}, {% endfor %}
                                     </li>
                                 {% endif %}
 
@@ -129,7 +130,7 @@
                                 <td>{{obj.5}}</td>
                                 <td>{{obj.6}} ({{obj.7}})</td>
                                 <td>{{obj.8}}</td>
-                                <td>{{obj.9}}</td>
+                                <td>{% if obj.9 == 'Tia' %}Tía{% elif obj.9 == 'Tio' %}Tío{% elif obj.9 == 'Cuniada' %}Cuñada{% elif obj.9 == 'Cuniado' %}Cuñado{% else %}{{obj.9}}{% endif %}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

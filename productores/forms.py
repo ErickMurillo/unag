@@ -106,7 +106,7 @@ class AfiliadoForm2(forms.Form):
 FAMILIA_CHOICES = (
     ('Abuela','Abuela'),('Abuelo','Abuelo'),
     ('Bisabuela','Bisabuela'),('Bisabuelo','Bisabuelo'),
-    ('Cuñada','Cuñada'),('Cuñado','Cuñado'),
+    ('Cuniada','Cuñada'),('Cuniado','Cuñado'),
     ('Esposa','Esposa'),('Esposo','Esposo'),
     ('Hermana','Hermana'),('Hermano','Hermano'),
     ('Hija','Hija'),('Hijo','Hijo'),
@@ -115,7 +115,7 @@ FAMILIA_CHOICES = (
     ('Prima','Prima'),('Primo','Primo'),
     ('Sobrina','Sobrina'),('Sobrino','Sobrino'),
     ('Suegra','Suegra'),('Suegro','Suegro'),
-    ('Tía','Tía'),('Tío','Tío'),
+    ('Tia','Tía'),('Tio','Tío'),
     ('Yerno','Yerno'),
     ('Nieto','Nieto'),('Nieta','Nieta'),
     ('Otro','Otro'),
