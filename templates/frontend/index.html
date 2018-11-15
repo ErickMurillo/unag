@@ -52,11 +52,6 @@
                                             </div>
                                             <div class="portlet-body">
                                                 <div class="row">
-                                                    Niños: {{ninos}}
-                                                    Jovenes: {{jovenes}}
-                                                    Adultos: {{adultos}}
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-md-4 col-sm-4 col-xs-4">
                                                         <div class="font-grey-mint font-sm"> Total</div>
                                                         <div class="uppercase font-hg font-red-flamingo">
@@ -82,6 +77,38 @@
                                                     </div>
                                                     <div class="map">
                                                         <div id="map-canvas" style="width:100%; height:445px"></div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="caption caption-md">
+                                                        <i class="icon-bar-chart font-dark hide"></i>
+                                                        <span class="caption-subject font-green-steel bold uppercase">Familiares</span>
+                                                        <span class="caption-helper"></span>
+                                                        
+                                                    </div>
+                                                    <br>
+
+                                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                                        <div class="font-grey-mint font-sm"> Niños</div>
+                                                        <div class="uppercase font-hg font-red-flamingo">
+                                                        <span aria-hidden="true" class="fa fa-child"></span>
+                                                        {{ninos}}
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                                        <div class="font-grey-mint font-sm"> Jovenes </div>
+                                                        <div class="uppercase font-hg theme-font">
+                                                            <span aria-hidden="true" class="fa fa-users"></span>
+                                                            {{jovenes}}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                                        <div class="font-grey-mint font-sm"> Adultos </div>
+                                                        <div class="uppercase font-hg font-purple">
+                                                            <span aria-hidden="true" class="fa fa-users"></span>
+                                                            {{adultos}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
