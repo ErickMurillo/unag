@@ -1180,25 +1180,25 @@ def _queryset_datos_familiares_afiliado(request):
 	params = {}
 
 	if request.session['departamento']:
-	    params['afiliado__municipio__departamento__in'] = request.session['departamento']
+	    params['encuesta__afiliado__municipio__departamento__in'] = request.session['departamento']
 
 	if request.session['municipio']:
-		params['afiliado__municipio__in'] = request.session['municipio']
+		params['encuesta__afiliado__municipio__in'] = request.session['municipio']
 
 	if request.session['comunidad']:
-		params['afiliado__comunidad__in'] = request.session['comunidad']
+		params['encuesta__afiliado__comunidad__in'] = request.session['comunidad']
 
 	if request.session['sexo']:
-		params['datosfamiliares__sexo'] = request.session['sexo']
+		params['sexo'] = request.session['sexo']
 
 	if request.session['escolaridad']:
-		params['datosfamiliares__escolaridad'] = request.session['escolaridad']
+		params['escolaridad'] = request.session['escolaridad']
 
 	if request.session['parentesco']:
-		params['datosfamiliares__parentesco__in'] = request.session['parentesco']
+		params['parentesco__in'] = request.session['parentesco']
 
 	if request.session['edad_inicio'] and request.session['edad_fin']:
-		params['datosfamiliares__edad__range'] = (request.session['edad_inicio'],request.session['edad_fin'])
+		params['edad__range'] = (request.session['edad_inicio'],request.session['edad_fin'])
 
 	unvalid_keys = []
 	for key in params:
@@ -1208,7 +1208,7 @@ def _queryset_datos_familiares_afiliado(request):
 	for key in unvalid_keys:
 		del params[key]
 
-	return Encuesta.objects.filter(**params)
+	return DatosFamiliares.objects.filter(**params)
 
 @login_required
 def consulta_afiliado_familiares(request,template='frontend/consulta_datos_afiliados.html'):
@@ -1234,14 +1234,12 @@ def consulta_afiliado_familiares(request,template='frontend/consulta_datos_afili
 			#tabla resultado
 			lista = []
 			for obj in filtro:
-				familia = DatosFamiliares.objects.filter(encuesta__id = obj.id).values_list('nombres','sexo','fecha_nacimiento','edad','escolaridad','parentesco')
-				for x in familia:
-					lista.append((obj.ronda,
-								obj.afiliado.municipio.departamento,
-								obj.afiliado.municipio.nombre,
-								obj.afiliado.comunidad,
-								x[0],x[1],x[2],str(x[3]) + ' años',x[4],x[5]))
-
+				lista.append((obj.encuesta.ronda,
+							obj.encuesta.afiliado.municipio.departamento,
+							obj.encuesta.afiliado.municipio.nombre,
+							obj.encuesta.afiliado.comunidad,
+							obj.nombres,obj.sexo,obj.fecha_nacimiento,str(obj.edad) + ' años',obj.escolaridad,obj.parentesco))
+				
 		else:
 			centinela = 0
 
