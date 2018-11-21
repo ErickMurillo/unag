@@ -132,11 +132,11 @@
 																	<tr>
 																		<th>Cultivo</th>
 																		<th>Área sembrada (Mz)</th>
-																		<th>Producción Total qq</th>
-																		<th>Semilla qq</th>
-																		<th>Consumo humano qq</th>
-																		<th>Consumo animal qq</th>
-																		<th>Venta qq</th>
+																		<th>Producción Total </th>
+																		<th>Semilla </th>
+																		<th>Consumo humano </th>
+																		<th>Consumo animal </th>
+																		<th>Venta </th>
 																		<th>A quién vende</th>
 																		<!--<th>Costo promedio de producción (Inversión) C$/Mz</th>
 																		<th>Ingresos promedios de la producción C$/Mz</th>
@@ -185,11 +185,11 @@
 																	<tr>
 																		<th>Cultivo</th>
 																		<th>Área sembrada (Mz)</th>
-																		<th>Producción Total qq</th>
-																		<th>Semilla qq</th>
-																		<th>Consumo humano qq</th>
-																		<th>Consumo animal qq</th>
-																		<th>Venta qq</th>
+																		<th>Producción Total </th>
+																		<th>Semilla </th>
+																		<th>Consumo humano </th>
+																		<th>Consumo animal </th>
+																		<th>Venta </th>
 																		<th>A quién vende</th>
 																		<!--<th>Costo promedio de producción (Inversión) C$/Mz</th>
 																		<th>Ingresos promedios de la producción C$/Mz</th>
@@ -237,11 +237,11 @@
 																	<tr>
 																		<th>Cultivo</th>
 																		<th>Área sembrada (Mz)</th>
-																		<th>Producción Total qq</th>
-																		<th>Semilla qq</th>
-																		<th>Consumo humano qq</th>
-																		<th>Consumo animal qq</th>
-																		<th>Venta qq</th>
+																		<th>Producción Total </th>
+																		<th>Semilla </th>
+																		<th>Consumo humano </th>
+																		<th>Consumo animal </th>
+																		<th>Venta </th>
 																		<th>A quién vende</th>
 																		<!--<th>Costo promedio de producción (Inversión) C$/Mz</th>
 																		<th>Ingresos promedios de la producción C$/Mz</th>
@@ -289,11 +289,11 @@
 																	<tr>
 																		<th>Cultivo</th>
 																		<th>Área sembrada (Mz)</th>
-																		<th>Producción Total qq</th>
-																		<th>Semilla qq</th>
-																		<th>Consumo humano qq</th>
-																		<th>Consumo animal qq</th>
-																		<th>Venta qq</th>
+																		<th>Producción Total </th>
+																		<th>Semilla </th>
+																		<th>Consumo humano </th>
+																		<th>Consumo animal </th>
+																		<th>Venta </th>
 																		<th>A quién vende</th>
 																		<!--<th>Costo promedio de producción (Inversión) C$/Mz</th>
 																		<th>Ingresos promedios de la producción C$/Mz</th>
@@ -341,11 +341,11 @@
 																	<tr>
 																		<th>Cultivo</th>
 																		<th>Área sembrada (Mz)</th>
-																		<th>Producción Total qq</th>
-																		<th>Semilla qq</th>
-																		<th>Consumo humano qq</th>
-																		<th>Consumo animal qq</th>
-																		<th>Venta qq</th>
+																		<th>Producción Total </th>
+																		<th>Semilla </th>
+																		<th>Consumo humano </th>
+																		<th>Consumo animal </th>
+																		<th>Venta </th>
 																		<th>A quién vende</th>
 																		<!--<th>Costo promedio de producción (Inversión) C$/Mz</th>
 																		<th>Ingresos promedios de la producción C$/Mz</th>
@@ -504,7 +504,7 @@
     },
     yAxis: {
         title: {
-            text: 'Producción QQ'
+            text: 'Producción '
         }
     },
     credits: {
@@ -524,7 +524,7 @@
         {% for k,v in rubros.items %}
     
         {
-            name: '{{k}} ({{v.0|intcomma}} mz) ({{v.2}})',
+            name: '{{k}} ({{v.0|intcomma}} mz) ({{v.2}} porductores)',
             data: [{{v.1|floatformat:"2"}},],
         },
         {% endfor %}

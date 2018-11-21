@@ -163,7 +163,8 @@ def index(request,template='frontend/index.html'):
 											encuesta__afiliado__municipio__departamento = dep2)
 				sumatoria = query.aggregate(
 										area = Sum('area_sembrada'),produccion = Sum('produccion_total'))
-				dict[obj] = (sumatoria['area'],sumatoria['produccion'],query.count())
+				conteo_prod = Encuesta.objects.filter(id__in = query.values_list('encuesta',flat=True)).count()
+				dict[obj] = (sumatoria['area'],sumatoria['produccion'],conteo_prod)
 
 			d = collections.Counter(dict)
 			d.most_common()
@@ -176,8 +177,9 @@ def index(request,template='frontend/index.html'):
 				query = Agricultura.objects.filter(rubro = obj,encuesta__ronda = anio[0])
 				sumatoria = query.aggregate(
 										area = Sum('area_sembrada'),produccion = Sum('produccion_total'))
-	
-				dict[obj] = (sumatoria['area'],sumatoria['produccion'],query.count())
+				
+				conteo_prod = Encuesta.objects.filter(id__in = query.values_list('encuesta',flat=True)).count()
+				dict[obj] = (sumatoria['area'],sumatoria['produccion'],conteo_prod)
 
 			d = collections.Counter(dict)
 			d.most_common()
@@ -454,7 +456,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 							ganancia_perdida = Avg('agricultura__ganancia_perdida')) 
 
 				if cultivo['area_sembrada'] != None:
-					primera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+					primera.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
@@ -478,7 +480,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 
 				if cultivo['area_sembrada'] != None:
-					postrera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+					postrera.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
@@ -501,7 +503,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 				
 				if cultivo['area_sembrada'] != None:
-					apante.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+					apante.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
@@ -524,7 +526,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 				
 				if cultivo['area_sembrada'] != None:
-					permanentes.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+					permanentes.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
@@ -547,7 +549,7 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 							ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 				
 				if cultivo['area_sembrada'] != None:
-					otros.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+					otros.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 									cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 									cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 									cultivo['ganancia_perdida']))
@@ -881,9 +883,10 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 	dict = {}
 	for obj in Cultivo.objects.all():
 		query = filtro.filter(agricultura__rubro = obj)
+		conteo_prod = Encuesta.objects.filter(id__in = query.values_list('id',flat=True)).count()
 		sumatoria = query.aggregate(
 								area = Sum('agricultura__area_sembrada'),produccion = Sum('agricultura__produccion_total'))
-		dict[obj] = (sumatoria['area'],sumatoria['produccion'],query.count())
+		dict[obj] = (sumatoria['area'],sumatoria['produccion'],conteo_prod)
 
 	d = collections.Counter(dict)
 	d.most_common()
@@ -936,7 +939,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 						ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 
 			if cultivo['area_sembrada'] != None:
-				primera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+				primera.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 								cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 								cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 								cultivo['ganancia_perdida']))
@@ -959,7 +962,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 						ingresos_produccion = Avg('agricultura__ingresos_produccion'),
 						ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 			if cultivo['area_sembrada'] != None:
-				postrera.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+				postrera.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
@@ -981,7 +984,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 						ingresos_produccion = Avg('agricultura__ingresos_produccion'),
 						ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 			if cultivo['area_sembrada'] != None:
-				apante.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+				apante.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
@@ -1003,7 +1006,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 						ingresos_produccion = Avg('agricultura__ingresos_produccion'),
 						ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 			if cultivo['area_sembrada'] != None:
-				permanentes.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+				permanentes.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
@@ -1025,7 +1028,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 						ingresos_produccion = Avg('agricultura__ingresos_produccion'),
 						ganancia_perdida = Avg('agricultura__ganancia_perdida'))
 			if cultivo['area_sembrada'] != None:
-				otros.append((obj.nombre,cultivo['area_sembrada'],cultivo['produccion_total'],
+				otros.append((obj,cultivo['area_sembrada'],cultivo['produccion_total'],
 							cultivo['semillas'],cultivo['consumo_humano'],cultivo['consumo_animal'],
 							cultivo['venta'],x[0],cultivo['costo_produccion'],cultivo['ingresos_produccion'],
 							cultivo['ganancia_perdida']))
