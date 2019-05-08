@@ -43,6 +43,11 @@ class FamiliaEmigraInline(admin.TabularInline):
     max_num = 1
     can_delete = False
 
+class DireccionFincaInline(admin.TabularInline):
+    model = DireccionFinca
+    max_num = 1
+    can_delete = False
+
 class AreasFincaInline(admin.TabularInline):
     model = AreasFinca
     extra = 1
@@ -88,6 +93,11 @@ class SistemaAguaInline(admin.TabularInline):
 
 class EnergiaElectricaInline(admin.TabularInline):
     model = EnergiaElectrica
+    max_num = 1
+    can_delete = False
+
+class OtrosTiposEnergiaInline(admin.TabularInline):
+    model = OtrosTiposEnergia
     max_num = 1
     can_delete = False
 
@@ -211,8 +221,8 @@ class EncuestaAdmin(admin.ModelAdmin):
 
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,
                 PersonasDependenInline,FamiliaEmigraInline,
-                DatosFamiliaresInline,AreasFincaInline,AcuicolaInline,ApicolaInline,FormaTenenciaInline,DocumentoPropiedadInline,
-                TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,InventarioAnimalesInline,
+                DatosFamiliaresInline,DireccionFincaInline,AreasFincaInline,AcuicolaInline,ApicolaInline,FormaTenenciaInline,DocumentoPropiedadInline,
+                TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,OtrosTiposEnergiaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
                 MiembroCooperativaInline,MiembroBancoSemillaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]

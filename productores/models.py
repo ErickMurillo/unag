@@ -92,7 +92,8 @@ class Escolaridad(models.Model):
 
 class Profesion(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    profecion = models.CharField(max_length=200,verbose_name='Profesión')
+    profecion = models.CharField(max_length=200,verbose_name='Profesión/Ocupación')
+    promotor = models.CharField(max_length=2,verbose_name='Promotor/a',choices=SI_NO_CHOICES,null=True,blank=True)
 
     class Meta:
         verbose_name_plural = 'Profesión'
@@ -169,6 +170,13 @@ class FamiliaEmigra(models.Model):
     class Meta:
         verbose_name_plural = 'Cuántos miembros de la familia emigran'
 
+class DireccionFinca(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    direccion = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name_plural = 'Dirección de la finca'
+
 class AreasFinca(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     areas = models.ForeignKey(Areas)
@@ -207,7 +215,6 @@ class OtrasTierras(models.Model):
     class Meta:
         verbose_name_plural = 'Áreas alquiladas de la finca (Mzs)'
 
-
 class OrigenPropiedad(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     opcion = models.ForeignKey(Origen)
@@ -243,6 +250,12 @@ class EnergiaElectrica(models.Model):
     class Meta:
         verbose_name_plural = '¿Tiene acceso a Energía Eléctrica?'
 
+class OtrosTiposEnergia(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    seleccion = models.ForeignKey(TipoEnergia)
+    class Meta:
+        verbose_name_plural = 'Otro Tipo de energía'
+
 class InventarioAnimales(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     animal = models.ForeignKey(Animales)
@@ -252,11 +265,29 @@ class InventarioAnimales(models.Model):
     class Meta:
         verbose_name_plural = 'Inventario de animales'
 
-PRODUCCION_CHOICES = (('Producción de huevos por mes','Producción de huevos por mes'),
-                    ('Producción de leche (litros por día)','Producción de leche (litros por día)'),
-                    ('Producción de miel (lt/año)','Producción de miel (lt/año)'),
-                    ('Producción de carne (kg/año)','Producción de carne (kg/año)'),
-                    ('Producción de pez (kg/año)','Producción de pez (kg/año)'))
+PRODUCCION_CHOICES = (('Producción de leche (litros por día)','Leche (litros por día)'),
+                        ('Queso (qq/mes)','Queso (qq/mes)'),
+                        ('Producción de carne (kg/año)','Carne de res (kg, lbs/año)'),
+                        ('Cuajada libras por día','Cuajada libras por día'),
+                        ('Leche agria (litros/día)','Leche agria (litros/día)'),
+                        ('Yogurt (litros/día)','Yogurt (litros/día)'),
+                        ('Quesillos libras/día','Quesillos libras/día'),
+                        ('Crema Libras por día','Crema Libras por día'),
+
+                        ('Producción de huevos por mes','Huevos (und/mes)'),
+                        ('Carne Avícola (lbs/mes)','Carne Avícola (lbs/mes)'),
+
+                        ('Carne de cerdo (lbs/año)','Carne de cerdo (lbs/año)'),
+
+                        ('Carne de pelibuey lbs/año','Carne de pelibuey lbs/año'),
+                        ('Leche de cabra (litros/día)','Leche de cabra (litros/día)'),
+                        ('Queso Caprino (qq/mes)','Queso Caprino (qq/mes)'),
+                    
+                        ('Producción de miel (lt/año)','Miel (lt/año)'),
+                    
+                        ('Producción de pez (kg/año)','Pez (kg/año)'),
+                    
+                    )
 
 QUIEN_VENDE_CHOICES = (('Intermediarios','Intermediarios'),('Estado','Estado'),
                         ('Mercado local','Mercado local'),('Otros','Otros'),('No vende','No vende'))
@@ -381,7 +412,7 @@ class BeneficiadoProyecto(models.Model):
 class Credito(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     respuesta = models.CharField(max_length=2,choices=SI_NO_CHOICES)
-    proyectos = models.ForeignKey(RecibeCredito,blank=True,null=True,verbose_name='De quien recibe el credito')
+    proyectos = models.ManyToManyField(RecibeCredito,blank=True,verbose_name='De quien recibe el credito')
     formas_recibe_credito = models.ManyToManyField(FormasCredito,blank=True)
 
     class Meta:

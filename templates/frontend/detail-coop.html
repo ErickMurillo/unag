@@ -1,0 +1,224 @@
+{% extends "frontend/base.html" %}
+
+{% block content %}
+<div class="page-wrapper-row full-height">
+	<div class="page-wrapper-middle">
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<!-- BEGIN CONTENT BODY -->
+				<!-- BEGIN PAGE HEAD-->
+				<div class="page-head">
+                    <div class="titulo-page">
+                    	<div class="container">
+                    		<!-- BEGIN PAGE TITLE -->
+                    		<div class="page-title">
+                    			<h1>Cooperativa: {{object}}</h1>
+                                
+                    		</div>
+
+                    	</div>
+                    </div>
+                    
+                </div>
+				<!-- END PAGE HEAD-->
+				<!-- BEGIN PAGE CONTENT BODY -->
+				<div class="page-content">
+					<div class="container">
+						<!-- BEGIN PAGE CONTENT INNER -->
+						<div class="page-content-inner">
+							<div class="mt-content-body">
+								<div class="row">
+									<div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Conformación</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="graf-1" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+										<div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Datos de producción agrícola</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="map">
+                                                    <div class="grafico-ind" id="graf-2" width='100%'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 col-sm-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <i class="icon-globe font-dark hide"></i>
+                                                    <span class="caption-subject font-green-steel bold uppercase">Datos de producción pecuaria</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="portlet-body">
+                                                <div class="table-responsive">																			
+												<table id='table-coop' class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>Producción</th>
+															<th>Cantidad</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for k,v in produccion.items %}
+														<tr>
+															<td>{{k}}</td>
+															<td>{{v}}</td>
+														</tr>
+														{% endfor %}
+
+													</tbody>
+												</table>
+											</div>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
+
+							</div>
+						</div>
+						<!-- END PAGE CONTENT INNER -->
+					</div>
+				</div>
+				<!-- END PAGE CONTENT BODY -->
+				<!-- END CONTENT BODY -->
+			</div>
+			<!-- END CONTENT -->
+		</div>
+		<!-- END CONTAINER -->
+	</div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script>
+
+$( ".hor-menu ul li" ).removeClass( "active" );
+$( ".ind-link li" ).removeClass( "active" );
+$( ".hor-menu ul li.cooperativa" ).addClass( "active" );
+Highcharts.chart('graf-1', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b> {point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Porcentajes',
+        colorByPoint: true,
+        data: [
+        {% for k,v in conformacion.items %}
+        {
+            name: '{{k}} ({{v|default:"0"}})',
+            y: {{v|default:"0"}}
+        },
+        {% endfor %}]
+    }]
+});
+
+
+Highcharts.chart('graf-2', {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: 'Click en los Municpios para ver áreas sembradas por rubro'
+    },
+
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}: {point.y} mz'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name} mz</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} mz</b><br/>'
+    },
+    series: [{
+        name: 'Áreas',
+        colorByPoint: true,
+        data: [
+        {% for k,v in rubros_dict.items %}
+        {
+            name: '{{k}}',
+            y: {{v.0}},
+            drilldown: '{{k}}'
+        },
+        {% endfor %}
+        ]
+    }],
+    drilldown: {
+        series: [
+        {% for k,v in rubros_dict.items %}
+        {
+            name: '{{k}}',
+            id: '{{k}}',
+            data: [
+            {% for x,y in v.1.items %}
+            ['{{x}}', {{y}}],
+            {% endfor %}
+            ]
+        },
+        {% endfor %}
+        ]
+    }
+});
+
+
+</script>
+{% endblock extra_js %}

@@ -1,24 +1,24 @@
 (function($){
 	$(document).ready(function() 
 	{
-	valor = $('.field-legalizada select').val();
-    if (valor == 'Si') {
-      $('#documentopropiedad_set-group').show();
-    } else if (valor == 'No') {
-      $('#documentopropiedad_set-group').hide();
-    } else {
-      $('#documentopropiedad_set-group').hide();
-    }
+	// valor = $('.field-legalizada select').val();
+ //    if (valor == 'Si') {
+ //      $('#documentopropiedad_set-group').show();
+ //    } else if (valor == 'No') {
+ //      $('#documentopropiedad_set-group').hide();
+ //    } else {
+ //      $('#documentopropiedad_set-group').hide();
+ //    }
 
-    $('.field-legalizada select').change(function(){
+ //    $('.field-legalizada select').change(function(){
 
-      valor = $('.field-legalizada select').val();
-      if (valor == 'Si') {
-	      $('#documentopropiedad_set-group').show();
-	    } else {
-	      $('#documentopropiedad_set-group').hide();
-	    }
-      });
+ //      valor = $('.field-legalizada select').val();
+ //      if (valor == 'Si') {
+	//       $('#documentopropiedad_set-group').show();
+	//     } else {
+	//       $('#documentopropiedad_set-group').hide();
+	//     }
+ //      });
 
     valor1 = $('.field-mano_obra select').val();
     if (valor1 == 'Si') {

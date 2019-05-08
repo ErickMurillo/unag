@@ -573,8 +573,8 @@ def afiliados_produccion(request,template="frontend/afiliados_produccion.html"):
 										cantidad = Sum('produccionhuevosleche__cantidad'),
 										cuanto_vende = Sum('produccionhuevosleche__cuanto_vende'))
 
-				list_prod.append((x[0],conteos['cantidad'],conteos['cuanto_vende']))
-			produccion[obj[0]] = list_prod
+				list_prod.append((x[1],conteos['cantidad'],conteos['cuanto_vende']))
+			produccion[obj[1]] = list_prod
 
 		years[anio] = (primera,postrera,apante,permanentes,otros,animales,produccion)
 
@@ -912,8 +912,8 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 									cantidad = Sum('produccionhuevosleche__cantidad'),
 									cuanto_vende = Sum('produccionhuevosleche__cuanto_vende'))
 
-			list_prod.append((x[0],conteos['cantidad'],conteos['cuanto_vende']))
-		produccion[obj[0]] = list_prod
+			list_prod.append((x[1],conteos['cantidad'],conteos['cuanto_vende']))
+		produccion[obj[1]] = list_prod
 
 	#quien vende prod
 	quien_vende = {}
@@ -1177,6 +1177,50 @@ def organizacion(request,template='frontend/organizacion.html'):
 
 
 	return render(request, template, locals())
+
+def cooperativas(request, template = 'frontend/cooperativas.html'):
+	cooperativas = Cooperativa.objects.order_by('nombre','ubicacion')
+	depto = Cooperativa.objects.values_list('ubicacion','ubicacion__nombre').order_by('ubicacion').distinct('ubicacion__nombre')
+	
+	dict = {}
+	for x in depto:
+		conteo = Cooperativa.objects.filter(ubicacion = depto[0]).count()
+		dict[x[1]] = conteo
+
+
+	return render(request, template, locals())
+
+def detail_cooperativa(request, id, template = 'frontend/detail-coop.html'):
+	object = Cooperativa.objects.get(id = id)
+
+	conformacion = {}
+	for obj in PERSONAS_CHOICES:
+		conteo = Encuesta.objects.filter(miembrocooperativa__cooperativa = object.id,personasdependen__opcion = obj[0]).aggregate(sum = Sum('personasdependen__cantidad'))['sum']
+		conformacion[obj[0]] = conteo
+
+	rubros_dict = {}
+	
+	municipio = Encuesta.objects.filter(miembrocooperativa__cooperativa = object.id).values_list('afiliado__municipio','afiliado__municipio__nombre').distinct('afiliado__municipio')
+	for mun in municipio:
+		dict = {}
+		rubros = Encuesta.objects.filter(afiliado__municipio = mun[0],miembrocooperativa__cooperativa = object.id).values_list('agricultura__rubro','agricultura__rubro__nombre').distinct('agricultura__rubro')
+		suma_areas = 0
+		for x in rubros:
+			areas = Encuesta.objects.filter(afiliado__municipio = mun[0],miembrocooperativa__cooperativa = object.id,agricultura__rubro = x[0]).aggregate(total = Sum('agricultura__area_sembrada'))['total']
+			suma_areas += areas
+			dict[x[1]] = areas
+		rubros_dict[mun[1]] = suma_areas,dict
+
+
+	produccion = {}
+	for obj in PRODUCCION_CHOICES:
+		conteos = Encuesta.objects.filter(miembrocooperativa__cooperativa = object.id,produccionhuevosleche__tipo_produccion = obj[0]).aggregate(
+								cantidad = Sum('produccionhuevosleche__cantidad'))['cantidad']
+		if conteos:
+			produccion[obj[1]] = conteos
+
+	return render(request, template, locals())
+
 
 #consulta datos de los familiares de los afiliados
 def _queryset_datos_familiares_afiliado(request):

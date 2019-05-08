@@ -176,3 +176,13 @@ class AfiliacionUnag(models.Model):
     class Meta:
         verbose_name_plural = 'Motivos de Afiliación'
         ordering = ('nombre',)
+
+class TipoEnergia(models.Model):
+    nombre = models.CharField(max_length=60)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = 'Tipos de energía'
+        ordering = ('nombre',)

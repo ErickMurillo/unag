@@ -48,5 +48,7 @@ urlpatterns = [
     url(r'^consulta-datos-afiliado-familiares/$', consulta_afiliado_familiares, name='consulta-datos-afiliado-familiares'),
     url(r'^tabla-datos-generales/$', tabla_afiliados, name='tabla-datos-afiliado'),
     url(r'^tabla-datos-cotizacion-organizacion/$', tabla_agrarios, name='tabla-datos-cotizacion-organizacion'),
+    url(r'^cooperativas/$', cooperativas, name='cooperativas'),
+    url(r'^cooperativas/(?P<id>[\w-]+)/$', detail_cooperativa, name='detail-cooperativa'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
