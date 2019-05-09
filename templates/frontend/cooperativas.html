@@ -105,7 +105,7 @@
 															{% for k,v in agricola.items %}
 															<tr>
 																<td>{{k.nombre}}</td>
-																<td>{{k.unidad_medida|default:'---'}}</td>
+																<td>{{k.get_unidad_medida_display|default:'---'}}</td>
 																<td>{{v}}</td>
 															</tr>
 															{% endfor %}
