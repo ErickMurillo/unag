@@ -186,3 +186,14 @@ class TipoEnergia(models.Model):
     class Meta:
         verbose_name_plural = 'Tipos de energía'
         ordering = ('nombre',)
+
+class ProductosProcesados(models.Model):
+    nombre = models.CharField(max_length=60)
+    unidad_medida = models.IntegerField(choices=CHOICE_MEDIDA)
+
+    def __unicode__(self):
+        return '%s - %s' % (self.nombre,self.get_unidad_medida_display())
+
+    class Meta:
+        verbose_name_plural = 'Productos procesados'
+        ordering = ('nombre',)

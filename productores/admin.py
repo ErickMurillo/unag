@@ -118,6 +118,10 @@ class AgriculturaInline(admin.TabularInline):
         }),
     )
 
+class ProcesamientoInline(admin.TabularInline):
+    model = Procesamiento
+    extra = 1
+
 class ManoObraInline(admin.TabularInline):
     model = ManoObra
     max_num = 1
@@ -223,7 +227,7 @@ class EncuestaAdmin(admin.ModelAdmin):
                 PersonasDependenInline,FamiliaEmigraInline,
                 DatosFamiliaresInline,DireccionFincaInline,AreasFincaInline,AcuicolaInline,ApicolaInline,FormaTenenciaInline,DocumentoPropiedadInline,
                 TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,OtrosTiposEnergiaInline,InventarioAnimalesInline,
-                ProduccionHuevosLecheInline,AgriculturaInline,ManoObraInline,
+                ProduccionHuevosLecheInline,AgriculturaInline,ProcesamientoInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
                 MiembroCooperativaInline,MiembroBancoSemillaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]
 

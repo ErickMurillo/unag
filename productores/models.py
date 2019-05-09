@@ -337,6 +337,15 @@ class VendeProduccion(models.Model):
     class Meta:
         verbose_name_plural = '¿A quién vende su producción?'
 
+class Procesamiento(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    producto = models.ForeignKey(ProductosProcesados)
+    cantiddad = models.FloatField(verbose_name='Cantidad al mes')
+    quien_vende = models.CharField(max_length=50,choices=PRODUCCION_CHOICES2)
+
+    class Meta:
+        verbose_name_plural = 'Realiza procesamiento o agregación de valor a rubros agropecuarios en la finca'
+
 
 class ManoObra(models.Model):
     encuesta = models.ForeignKey(Encuesta)
