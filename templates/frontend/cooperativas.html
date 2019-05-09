@@ -36,7 +36,7 @@
 								<div class="row">
 									<div class="col-md-6 col-sm-12">
 										<div class="portlet light ">
-											<div class="table-responsive">																			
+											<div class="table-responsive">																	
 												<table id='table-coop' class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%">
 													<thead>
 														<tr>
@@ -79,8 +79,75 @@
 	                                    </div>
 									</div>
 								</div>
-									
 
+								<div class="row">
+									<div class="col-md-6 col-sm-12">
+                                    	<div class="portlet light ">
+											<div class="portlet-title tabbable-line">
+		                                        <div class="caption">
+		                                            <i class="icon-globe font-dark hide"></i>
+		                                            <span class="caption-subject font-green-steel bold uppercase">Producción agrícola</span>
+		                                        </div>
+		                                    </div>
+
+
+		                                    <div class="portlet-body">
+		                                    	<div class="table-responsive">							
+													<table id='table-agro' class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%">
+														<thead>
+															<tr>
+																<th>Rubro</th>
+																<th>Unidad Medida</th>
+																<th>Producción</th>
+															</tr>
+														</thead>
+														<tbody>
+															{% for k,v in agricola.items %}
+															<tr>
+																<td>{{k.nombre}}</td>
+																<td>{{k.unidad_medida|default:'---'}}</td>
+																<td>{{v}}</td>
+															</tr>
+															{% endfor %}
+
+														</tbody>
+													</table>
+												</div>
+		                                    </div>
+	                                    </div>
+									</div>
+									<div class="col-md-6 col-sm-12">
+                                    	<div class="portlet light ">
+											<div class="portlet-title tabbable-line">
+		                                        <div class="caption">
+		                                            <i class="icon-globe font-dark hide"></i>
+		                                            <span class="caption-subject font-green-steel bold uppercase">Producción pecuaria</span>
+		                                        </div>
+		                                    </div>
+		                                    <div class="portlet-body">
+		                                    	<div class="table-responsive">							
+													<table id='table-pec' class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%">
+														<thead>
+															<tr>
+																<th>Rubro</th>
+																<th>Producción</th>
+															</tr>
+														</thead>
+														<tbody>
+															{% for k,v in pecuaria.items %}
+															<tr>
+																<td>{{k}}</td>
+																<td>{{v}}</td>
+															</tr>
+															{% endfor %}
+
+														</tbody>
+													</table>
+												</div>
+		                                    </div>
+	                                    </div>
+									</div>
+								</div>	
 							</div>
 						</div>
 						<!-- END PAGE CONTENT INNER -->

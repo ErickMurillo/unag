@@ -75,6 +75,23 @@
                                                     <i class="icon-bar-chart font-dark hide"></i>
                                                     <span class="caption-subject font-green-steel bold uppercase">Principales rubros</span>
                                                     <span class="caption-helper"></span>
+
+                                                    <form action="." method="POST">{% csrf_token %}
+                                                    	<br>
+														<div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label">Filtrar por rubro:</label>
+                                                                <div class="col-md-6">
+                                                                    {{form.rubro}}
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                	<button type="submit" class="btn btn-success"> <i class="fa fa-filter"></i> Consultar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                    
                                                 </div>
                                             
                                             </div>

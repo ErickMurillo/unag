@@ -881,18 +881,44 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 	conteo_encuesta = filtro.count()
 
 	dict = {}
-	for obj in Cultivo.objects.all():
-		query = filtro.filter(agricultura__rubro = obj)
-		conteo_prod = Encuesta.objects.filter(id__in = query.values_list('id',flat=True)).count()
-		sumatoria = query.aggregate(
-								area = Sum('agricultura__area_sembrada'),produccion = Sum('agricultura__produccion_total'))
-		dict[obj] = (sumatoria['area'],sumatoria['produccion'],conteo_prod)
+	if request.method == 'POST':
+		form = SubfiltroProduccion(request.POST)
+		if form.is_valid():
+			rubro = form.cleaned_data['rubro']
 
-	d = collections.Counter(dict)
-	d.most_common()
-	rubros = {}
-	for k, v in d.most_common(5):
-		rubros[k] = v[0],v[1],v[2]
+			params = {}
+			if rubro:
+				params['agricultura__rubro'] = rubro
+
+
+			rubros = {}
+			for obj in Cultivo.objects.filter(**params):
+				query = filtro.filter(agricultura__rubro = obj)
+				conteo_prod = Encuesta.objects.filter(id__in = query.values_list('id',flat=True)).count()
+				sumatoria = query.aggregate(
+										area = Sum('agricultura__area_sembrada'),produccion = Sum('agricultura__produccion_total'))
+				dict[obj] = (sumatoria['area'],sumatoria['produccion'],conteo_prod)
+
+			d = collections.Counter(dict)
+			d.most_common()
+			rubros = {}
+			for k, v in d.most_common(5):
+				rubros[k] = v[0],v[1],v[2]
+
+	else:
+		form = SubfiltroProduccion()
+		for obj in Cultivo.objects.all():
+			query = filtro.filter(agricultura__rubro = obj)
+			conteo_prod = Encuesta.objects.filter(id__in = query.values_list('id',flat=True)).count()
+			sumatoria = query.aggregate(
+									area = Sum('agricultura__area_sembrada'),produccion = Sum('agricultura__produccion_total'))
+			dict[obj] = (sumatoria['area'],sumatoria['produccion'],conteo_prod)
+
+		d = collections.Counter(dict)
+		d.most_common()
+		rubros = {}
+		for k, v in d.most_common(5):
+			rubros[k] = v[0],v[1],v[2]
 
 	#inventario animales
 	animales = []
@@ -1187,6 +1213,19 @@ def cooperativas(request, template = 'frontend/cooperativas.html'):
 		conteo = Cooperativa.objects.filter(ubicacion = depto[0]).count()
 		dict[x[1]] = conteo
 
+	agricola = {}
+	for obj in Cultivo.objects.all():
+		cultivo = Encuesta.objects.filter(miembrocooperativa__cooperativa__isnull = False,agricultura__rubro = obj).aggregate(
+					total = Sum('agricultura__produccion_total'))['total']
+		if cultivo:
+			agricola[obj] = cultivo
+
+	pecuaria = {}
+	for obj in PRODUCCION_CHOICES:
+		conteos = Encuesta.objects.filter(miembrocooperativa__cooperativa__isnull = False,produccionhuevosleche__tipo_produccion = obj[0]).aggregate(
+								cantidad = Sum('produccionhuevosleche__cantidad'))['cantidad']
+		if conteos:
+			pecuaria[obj[1]] = conteos
 
 	return render(request, template, locals())
 

@@ -132,3 +132,11 @@ class AfiliadoFamiliaresForm(forms.Form):
         self.fields['parentesco'] = forms.MultipleChoiceField(choices=FAMILIA_CHOICES,label='Parentesco',required=False)
         self.fields['edad_inicio'] = forms.IntegerField(required=False,label='Edad inicio')
         self.fields['edad_fin'] = forms.IntegerField(required=False,label='Edad fin')
+
+
+class SubfiltroProduccion(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(SubfiltroProduccion, self).__init__(*args, **kwargs)
+        self.fields['rubro'] = forms.ModelChoiceField(required=False,queryset=Cultivo.objects.all(),widget=forms.Select(attrs={
+            'class': 'form-control',
+            }))
