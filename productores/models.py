@@ -266,13 +266,13 @@ class InventarioAnimales(models.Model):
         verbose_name_plural = 'Inventario de animales'
 
 PRODUCCION_CHOICES = (('Producción de leche (litros por día)','Leche (litros por día)'),
-                        ('Queso (qq/mes)','Queso (qq/mes)'),
+                        # ('Queso (qq/mes)','Queso (qq/mes)'),
                         ('Producción de carne (kg/año)','Carne de res (kg, lbs/año)'),
-                        ('Cuajada libras por día','Cuajada libras por día'),
-                        ('Leche agria (litros/día)','Leche agria (litros/día)'),
-                        ('Yogurt (litros/día)','Yogurt (litros/día)'),
-                        ('Quesillos libras/día','Quesillos libras/día'),
-                        ('Crema Libras por día','Crema Libras por día'),
+                        # ('Cuajada libras por día','Cuajada libras por día'),
+                        # ('Leche agria (litros/día)','Leche agria (litros/día)'),
+                        # ('Yogurt (litros/día)','Yogurt (litros/día)'),
+                        # ('Quesillos libras/día','Quesillos libras/día'),
+                        # ('Crema Libras por día','Crema Libras por día'),
 
                         ('Producción de huevos por mes','Huevos (und/mes)'),
                         ('Carne Avícola (lbs/mes)','Carne Avícola (lbs/mes)'),
@@ -281,7 +281,7 @@ PRODUCCION_CHOICES = (('Producción de leche (litros por día)','Leche (litros p
 
                         ('Carne de pelibuey lbs/año','Carne de pelibuey lbs/año'),
                         ('Leche de cabra (litros/día)','Leche de cabra (litros/día)'),
-                        ('Queso Caprino (qq/mes)','Queso Caprino (qq/mes)'),
+                        # ('Queso Caprino (qq/mes)','Queso Caprino (qq/mes)'),
                     
                         ('Producción de miel (lt/año)','Miel (lt/año)'),
                     
