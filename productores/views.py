@@ -1218,7 +1218,7 @@ def cooperativas(request, template = 'frontend/cooperativas.html'):
 		cultivo = Encuesta.objects.filter(miembrocooperativa__cooperativa__isnull = False,agricultura__rubro = obj).aggregate(
 					total = Sum('agricultura__produccion_total'))['total']
 		if cultivo:
-			agricola[obj] = cultivo
+			agricola[obj[1]] = cultivo
 
 	pecuaria = {}
 	for obj in PRODUCCION_CHOICES:
