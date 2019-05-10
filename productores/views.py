@@ -1206,12 +1206,14 @@ def organizacion(request,template='frontend/organizacion.html'):
 
 def cooperativas(request, template = 'frontend/cooperativas.html'):
 	cooperativas = Cooperativa.objects.order_by('nombre','ubicacion')
-	depto = Cooperativa.objects.values_list('ubicacion','ubicacion__nombre').order_by('ubicacion').distinct('ubicacion__nombre')
-	
+	print cooperativas.count()
+	depto = Departamento.objects.all()
+
 	dict = {}
 	for x in depto:
-		conteo = Cooperativa.objects.filter(ubicacion = depto[0]).count()
-		dict[x[1]] = conteo
+		conteo = Cooperativa.objects.filter(ubicacion = x).count()
+		if conteo:
+			dict[x] = conteo
 
 	agricola = {}
 	for obj in Cultivo.objects.all():
