@@ -888,10 +888,8 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 			params = {}
 			if rubro:
-				params['agricultura__rubro'] = rubro
+				params['id'] = rubro.id
 
-
-			rubros = {}
 			for obj in Cultivo.objects.filter(**params):
 				query = filtro.filter(agricultura__rubro = obj)
 				conteo_prod = Encuesta.objects.filter(id__in = query.values_list('id',flat=True)).count()
