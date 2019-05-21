@@ -1237,20 +1237,49 @@ def detail_cooperativa(request, id, template = 'frontend/detail-coop.html'):
 		conteo = Encuesta.objects.filter(miembrocooperativa__cooperativa = object.id,personasdependen__opcion = obj[0]).aggregate(sum = Sum('personasdependen__cantidad'))['sum']
 		conformacion[obj[0]] = conteo
 
-	rubros_dict = {}
-	
+	rubros_dict = {}	
 	municipio = Encuesta.objects.filter(miembrocooperativa__cooperativa = object.id).values_list('afiliado__municipio','afiliado__municipio__nombre').distinct('afiliado__municipio')
 	for mun in municipio:
 		dict = {}
-		rubros = Encuesta.objects.filter(afiliado__municipio = mun[0],miembrocooperativa__cooperativa = object.id).values_list('agricultura__rubro','agricultura__rubro__nombre').distinct('agricultura__rubro')
+		dict2 = {}
+		rubros = Encuesta.objects.filter(afiliado__municipio = mun[0],miembrocooperativa__cooperativa = object.id).values_list('agricultura__rubro','agricultura__rubro__nombre','agricultura__rubro__unidad_medida').distinct('agricultura__rubro')
 		suma_areas = 0
 		for x in rubros:
 			areas = Encuesta.objects.filter(afiliado__municipio = mun[0],miembrocooperativa__cooperativa = object.id,agricultura__rubro = x[0]).aggregate(total = Sum('agricultura__area_sembrada'))['total']
-			suma_areas += areas
+			try:
+				suma_areas += areas
+			except:
+				pass
+
+			produccion_rubro = Encuesta.objects.filter(afiliado__municipio = mun[0],miembrocooperativa__cooperativa = object.id,agricultura__rubro = x[0]).aggregate(total = Sum('agricultura__produccion_total'))['total']
+			try:
+				suma_prod += produccion_rubro
+			except:
+				pass
+
 			dict[x[1]] = areas
+
 		rubros_dict[mun[1]] = suma_areas,dict
 
+	#graf prod
+	rubros_prod = {}
+	rubros = Encuesta.objects.filter(miembrocooperativa__cooperativa = object.id).values_list('agricultura__rubro','agricultura__rubro__nombre','agricultura__rubro__unidad_medida').distinct('agricultura__rubro')
+	for ru in rubros:
+		dict2 = {}
+		suma_prod = 0
+		municipio = Encuesta.objects.filter(agricultura__rubro = ru,miembrocooperativa__cooperativa = object.id).values_list('afiliado__municipio','afiliado__municipio__nombre').distinct('afiliado__municipio')
+		for x in municipio:
+			
+			produccion_rubro = Encuesta.objects.filter(afiliado__municipio = x[0],miembrocooperativa__cooperativa = object.id,agricultura__rubro = ru[0]).aggregate(total = Sum('agricultura__produccion_total'))['total']
+			try:
+				suma_prod += produccion_rubro
+			except:
+				pass
 
+			dict2[x[1]] = produccion_rubro
+		rubros_prod[ru[1],ru[2]] = suma_prod,dict2
+
+	#####
 	produccion = {}
 	for obj in PRODUCCION_CHOICES:
 		conteos = Encuesta.objects.filter(miembrocooperativa__cooperativa = object.id,produccionhuevosleche__tipo_produccion = obj[0]).aggregate(

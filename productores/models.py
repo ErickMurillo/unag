@@ -236,12 +236,19 @@ class DocumentoPropiedad(models.Model):
     class Meta:
         verbose_name_plural = 'Documento de propiedad que posee'
 
+class FuentesAguaFinca(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    fuentes = models.ManyToManyField(Sistema)
+
+    class Meta:
+        verbose_name_plural = 'Fuentes de agua en la finca'
+
 class SistemaAgua(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     sistema = models.ManyToManyField(Sistema)
 
     class Meta:
-        verbose_name_plural = 'Sistema de Agua Utilizado para la finca y consumo'
+        verbose_name_plural = 'Sistema de Agua Utilizado para el consumo en el hogar'
 
 class EnergiaElectrica(models.Model):
     encuesta = models.ForeignKey(Encuesta)
@@ -267,7 +274,7 @@ class InventarioAnimales(models.Model):
 
 PRODUCCION_CHOICES = (('Producción de leche (litros por día)','Leche (litros por día)'),
                         # ('Queso (qq/mes)','Queso (qq/mes)'),
-                        ('Producción de carne (kg/año)','Carne de res (kg, lbs/año)'),
+                        ('Producción de carne (kg/año)','Carne de res (lbs/año)'),
                         # ('Cuajada libras por día','Cuajada libras por día'),
                         # ('Leche agria (litros/día)','Leche agria (litros/día)'),
                         # ('Yogurt (litros/día)','Yogurt (litros/día)'),

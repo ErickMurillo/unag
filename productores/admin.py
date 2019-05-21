@@ -86,6 +86,11 @@ class DocumentoPropiedadInline(admin.TabularInline):
     max_num = 1
     can_delete = False
 
+class FuentesAguaFincaInline(admin.TabularInline):
+    model = FuentesAguaFinca
+    max_num = 1
+    can_delete = False
+
 class SistemaAguaInline(admin.TabularInline):
     model = SistemaAgua
     max_num = 1
@@ -226,7 +231,7 @@ class EncuestaAdmin(admin.ModelAdmin):
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,
                 PersonasDependenInline,FamiliaEmigraInline,
                 DatosFamiliaresInline,DireccionFincaInline,AreasFincaInline,AcuicolaInline,ApicolaInline,FormaTenenciaInline,DocumentoPropiedadInline,
-                TierrasAlquiladasInline,OtrasTierrasInline,SistemaAguaInline,EnergiaElectricaInline,OtrosTiposEnergiaInline,InventarioAnimalesInline,
+                TierrasAlquiladasInline,OtrasTierrasInline,FuentesAguaFincaInline,SistemaAguaInline,EnergiaElectricaInline,OtrosTiposEnergiaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,ProcesamientoInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
                 MiembroCooperativaInline,MiembroBancoSemillaInline,BeneficiadoProyectoInline,CreditoInline,CotizacionOrganizacionInline]
