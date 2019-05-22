@@ -44,7 +44,7 @@ class FamiliaEmigraInline(admin.TabularInline):
     can_delete = False
 
 class DireccionFincaInline(admin.TabularInline):
-    model = DireccionFinca
+    model = DireccionFinca2
     max_num = 1
     can_delete = False
 

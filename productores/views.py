@@ -1204,7 +1204,6 @@ def organizacion(request,template='frontend/organizacion.html'):
 
 def cooperativas(request, template = 'frontend/cooperativas.html'):
 	cooperativas = Cooperativa.objects.order_by('nombre','ubicacion')
-	print cooperativas.count()
 	depto = Departamento.objects.all()
 
 	dict = {}
