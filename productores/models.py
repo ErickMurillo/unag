@@ -170,6 +170,11 @@ class FamiliaEmigra(models.Model):
     class Meta:
         verbose_name_plural = 'Cuántos miembros de la familia emigran'
 
+class DireccionFinca(models.Model):
+    encuesta = models.ForeignKey(Encuesta)
+    direccion = models.CharField(max_length=300,null=True,blank=True)
+
+
 class DireccionFinca2(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     direccion = models.CharField(max_length=300,null=True,blank=True)
