@@ -172,7 +172,7 @@ class FamiliaEmigra(models.Model):
 
 class DireccionFinca2(models.Model):
     encuesta = models.ForeignKey(Encuesta)
-    direccion = models.CharField(max_length=200)
+    direccion = models.CharField(max_length=300,null=True,blank=True)
 
     class Meta:
         verbose_name_plural = 'Dirección de la finca'
