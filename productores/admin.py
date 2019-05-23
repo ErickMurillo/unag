@@ -43,7 +43,7 @@ class FamiliaEmigraInline(admin.TabularInline):
     max_num = 1
     can_delete = False
 
-class DireccionFincaInline(admin.TabularInline):
+class DireccionFinca2Inline(admin.TabularInline):
     model = DireccionFinca2
     max_num = 1
     can_delete = False
@@ -230,7 +230,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 
     inlines = [DatosGeneralesInline,EscolaridadInline,ProfesionInline,
                 PersonasDependenInline,FamiliaEmigraInline,
-                DatosFamiliaresInline,DireccionFincaInline,AreasFincaInline,AcuicolaInline,ApicolaInline,FormaTenenciaInline,DocumentoPropiedadInline,
+                DatosFamiliaresInline,DireccionFinca2Inline,AreasFincaInline,AcuicolaInline,ApicolaInline,FormaTenenciaInline,DocumentoPropiedadInline,
                 TierrasAlquiladasInline,OtrasTierrasInline,FuentesAguaFincaInline,SistemaAguaInline,EnergiaElectricaInline,OtrosTiposEnergiaInline,InventarioAnimalesInline,
                 ProduccionHuevosLecheInline,AgriculturaInline,ProcesamientoInline,ManoObraInline,
                 TablaEmpleoInline,InfraestructuraInline,CotizacionInline,RespuestaSiCotizaInline,
