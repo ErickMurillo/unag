@@ -353,6 +353,7 @@ class Procesamiento(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     producto = models.ForeignKey(ProductosProcesados)
     cantiddad = models.FloatField(verbose_name='Cantidad al mes')
+    cuanto_vende = models.FloatField()
     quien_vende = models.CharField(max_length=50,choices=PRODUCCION_CHOICES2)
 
     class Meta:

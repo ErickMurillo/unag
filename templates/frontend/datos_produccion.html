@@ -2,6 +2,13 @@
 {% load humanize %}
 
 {% block content %}
+<style>
+.my-custom-scrollbar {
+	position: relative;
+	height: 500px;
+	overflow: auto;
+	}
+</style>
 <div class="page-wrapper-row full-height">
 	<div class="page-wrapper-middle">
 		<!-- BEGIN CONTAINER -->
@@ -413,7 +420,7 @@
 
 												</div>
 											</div>
-											<div class="portlet-body flip-scroll" id="export">
+											<div class="portlet-body flip-scroll my-custom-scrollbar" id="export">
 												<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
 													<thead>
 														<tr>
@@ -456,7 +463,7 @@
 
 												</div>
 											</div>
-											<div class="portlet-body table-responsive" id="export2">
+											<div class="portlet-body table-responsive my-custom-scrollbar" id="export2">
 												<table class="table table-bordered table-striped table-condensed" cellspacing="0" width="100%">
 
 													<thead>
@@ -490,6 +497,58 @@
 										</div>
 
 									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 col-sm-12">
+										<div class="portlet box green">
+											<div class="portlet-title">
+												<div class="caption">
+													<i class="fa fa-list"></i>Procesamiento O agregación de valor a Rubros Agropecuarios
+												</div>
+												<!-- <div class="tools">
+													<a href="javascript:;" class="collapse"> </a>
+													<a href="#portlet-config" data-toggle="modal" class="config"> </a>
+													<a href="javascript:;" class="reload"> </a>
+													<a href="javascript:;" class="remove"> </a>
+												</div> -->
+												<div class="actions">
+													<a class="btn btn-circle btn-icon-only btn-default" href="" onclick="exportarXLS('export3'); return false;">
+														<i class="icon-cloud-download"></i>
+													</a>
+
+												</div>
+											</div>
+											
+											<div class="portlet-body flip-scroll my-custom-scrollbar" id="export3">
+												<table class="table table-bordered table-striped table-condensed flip-content" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>Producto</th>
+															<th>Cantidad</th>
+															<th>Cuanto venden</th>
+															<th>A quien vende</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															{% for k,v in procesamiento.items %}
+															<tr>
+																<td class="v-aling" rowspan="7">{{k}}</td>
+																{% for x in v %}
+																<tr>
+																	<td>{{x.1|default:"0"}}</td>
+																	<td>{{x.2|default:"0"}}</td>
+																	<td>{{x.0}}</td>
+																</tr>
+																{% endfor %}
+															</tr>
+															{% endfor %}
+														</tr>                 
+
+													</tbody>
+												</table>
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>

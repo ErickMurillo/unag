@@ -945,6 +945,18 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 		conteo = filtro.filter(vendeproduccion__respuesta__contains = obj[0]).count()
 		quien_vende[obj[0]] = conteo,saca_porcentajes(conteo,encuestados,False)
 
+	#procesamiento
+	procesamiento = {}
+	for obj in ProductosProcesados.objects.all():
+		list_proc = []
+		for x in PRODUCCION_CHOICES2:
+			conteos = filtro.filter(procesamiento__producto = obj,procesamiento__quien_vende = x[0]).aggregate(
+									cantidad = Sum('procesamiento__cantiddad'),
+									cuanto_vende = Sum('procesamiento__cuanto_vende'))
+
+			list_proc.append((x[1],conteos['cantidad'],conteos['cuanto_vende']))
+		procesamiento[obj] = list_proc
+
 	#agricultura
 	#primera
 	primera = []
