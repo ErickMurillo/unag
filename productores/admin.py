@@ -186,12 +186,13 @@ class EncuestaAdmin(admin.ModelAdmin):
     list_display = ['afiliado','fecha_encuesta']
     date_hierarchy = 'fecha_encuesta'
     search_fields = ['afiliado__nombre',
-                    'sistemaagua__sistema__nombre','tablaempleo__rubro__nombre',
-                    'infraestructura__tipo__nombre','respuestasicotiza__donde_cotiza__nombre',
-                    'miembrocooperativa__cooperativa__nombre','beneficiadoproyecto__proyectos__nombre',
-                    'credito__proyectos__nombre','credito__formas_recibe_credito__nombre',
-                    'cotizacionorganizacion__problemas_productor__nombre','cotizacionorganizacion__acciones_cambio_climatico__nombre',
-                    'cotizacionorganizacion__afiliacion_unag__nombre']
+                    # 'sistemaagua__sistema__nombre','tablaempleo__rubro__nombre',
+                    # 'infraestructura__tipo__nombre','respuestasicotiza__donde_cotiza__nombre',
+                    # 'miembrocooperativa__cooperativa__nombre','beneficiadoproyecto__proyectos__nombre',
+                    # 'credito__proyectos__nombre','credito__formas_recibe_credito__nombre',
+                    # 'cotizacionorganizacion__problemas_productor__nombre','cotizacionorganizacion__acciones_cambio_climatico__nombre',
+                    # 'cotizacionorganizacion__afiliacion_unag__nombre'
+                    ]
     list_filter = ('ronda',
     				('areasfinca__areas', RelatedDropdownFilter),
     				('agricultura__rubro',RelatedDropdownFilter),
