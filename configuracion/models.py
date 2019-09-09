@@ -62,6 +62,10 @@ CHOICE_MEDIDA = (
                 (3, 'Libras'),
                 (4, 'Docena'),
                 (5, 'Unidad'),
+                (6,'Cien Unidades'),
+                (7,'Saco'),
+                (8,'Cajilla Plástica'),
+                (9,'Bidón'),
                 )
 
 class Cultivo(models.Model):
