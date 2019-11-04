@@ -137,6 +137,4 @@ class AfiliadoFamiliaresForm(forms.Form):
 class SubfiltroProduccion(forms.Form):
     def __init__(self, *args, **kwargs):
         super(SubfiltroProduccion, self).__init__(*args, **kwargs)
-        self.fields['rubro'] = forms.ModelChoiceField(required=False,queryset=Cultivo.objects.all(),widget=forms.Select(attrs={
-            'class': 'form-control',
-            }))
+        self.fields['rubro'] = forms.ModelMultipleChoiceField(required=False,queryset=Cultivo.objects.order_by('nombre'))

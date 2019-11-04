@@ -880,7 +880,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 	encuestados = filtro.count()
 	conteo_encuesta = filtro.count()
 
-	dict = {}
+	dict = collections.OrderedDict()
 	if request.method == 'POST':
 		form = SubfiltroProduccion(request.POST)
 		if form.is_valid():
@@ -888,7 +888,7 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 			params = {}
 			if rubro:
-				params['id'] = rubro.id
+				params['id__in'] = rubro
 
 			for obj in Cultivo.objects.filter(**params):
 				query = filtro.filter(agricultura__rubro = obj)
@@ -899,8 +899,8 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 			d = collections.Counter(dict)
 			d.most_common()
-			rubros = {}
-			for k, v in d.most_common(5):
+			rubros = collections.OrderedDict()
+			for k,v in d.most_common(20):
 				rubros[k] = v[0],v[1],v[2]
 
 	else:
@@ -914,8 +914,8 @@ def datos_produccion(request,template='frontend/datos_produccion.html'):
 
 		d = collections.Counter(dict)
 		d.most_common()
-		rubros = {}
-		for k, v in d.most_common(5):
+		rubros = collections.OrderedDict()
+		for k,v in d.most_common(20):
 			rubros[k] = v[0],v[1],v[2]
 
 	#inventario animales
