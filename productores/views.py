@@ -1529,7 +1529,8 @@ def tabla_afiliados(request,template='frontend/tabla_afiliados.html'):
 						obj.afiliado.anio_ingreso,escolaridad,obj.afiliado.lugar_nacimiento,
 						obj.afiliado.municipio.departamento.nombre,obj.afiliado.municipio.nombre,
 						obj.afiliado.comunidad.nombre,
-						str(obj.afiliado.numero_celular) + ' ' + str(obj.afiliado.get_tipo_celular_display()),
+						obj.afiliado.numero_celular,
+						str(obj.afiliado.get_tipo_celular_display()),
 						acceso_internet))
 
 	return render(request, template, locals())
