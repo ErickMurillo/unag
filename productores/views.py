@@ -1306,7 +1306,7 @@ def _queryset_datos_familiares_afiliado(request):
 	params = {}
 
 	if request.session['departamento']:
-	    params['encuesta__afiliado__municipio__departamento__in'] = request.session['departamento']
+	    params['encuesta__afiliado__municipio__departamento'] = request.session['departamento']
 
 	if request.session['municipio']:
 		params['encuesta__afiliado__municipio__in'] = request.session['municipio']
