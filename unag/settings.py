@@ -44,7 +44,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -126,3 +128,18 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 CRONJOBS = [
     ('*/262800 * * * *', 'productores.cron.my_scheduled_job')
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'unix:/tmp/memcached.sock',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'server_max_value_length': 1024 * 1024 * 2,
+        }
+    }
+}
+
+CACHE_MIDDLEWARE_ALIA = 'unag-cache'
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
