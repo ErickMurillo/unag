@@ -84,7 +84,7 @@ ESCOLARIDAD_CHOICES = (('','------'),('Preescolar','Preescolar'),('Primaria','Pr
 class AfiliadoForm2(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AfiliadoForm2, self).__init__(*args, **kwargs)
-        self.fields['departamento'] = forms.ModelMultipleChoiceField(queryset=departamentos(),required=False,label='Departamentos')
+        self.fields['departamento'] = forms.ModelChoiceField(queryset=departamentos(),required=False,label='Departamentos')
         self.fields['municipio'] = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all(),required=False,label='Municipios')
         self.fields['comunidad'] = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(),required=False,label='Comunidades')
         self.fields['sexo'] = forms.ChoiceField(choices=SEXO_CHOICES,required=False,label='Sexo',widget=forms.RadioSelect)

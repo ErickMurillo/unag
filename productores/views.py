@@ -1392,7 +1392,7 @@ def _queryset_filtrado_datos_afiliado(request):
 	params = {}
 
 	if request.session['departamento']:
-	    params['afiliado__municipio__departamento__in'] = request.session['departamento']
+	    params['afiliado__municipio__departamento'] = request.session['departamento']
 
 	if request.session['municipio']:
 		params['afiliado__municipio__in'] = request.session['municipio']

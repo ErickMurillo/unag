@@ -111,7 +111,7 @@
                                 {% if request.session.departamento %}
                                     <li>
                                         <i class="fa fa-map-marker"></i>
-                                        <b>Departamentos:</b> {% for x in request.session.departamento %}{{x.nombre}}, {% endfor %}   
+                                        <b>Departamentos:</b> {{request.session.departamento }}
                                     </li>
                                 {% endif %}
                                 {% if request.session.municipio %}
